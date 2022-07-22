@@ -5,7 +5,7 @@ namespace Game.ID
 {
     public enum RoomType
     {
-        Normal, Treasure, NextLevel, Shop, Boss
+        Start, Normal, Treasure, NextLevel, Shop, Boss
     };
 
     public enum MoveDirection

@@ -23,6 +23,7 @@ public class DrawLevel : MonoBehaviour
             var room = level.rooms[pos];
             var newSquare = Instantiate(square, new Vector3(pos.x * renderer.bounds.size.x, pos.y * renderer.bounds.size.y, 0), Quaternion.identity);
             newSquare.GetComponent<SpriteRenderer>().color = GetColorByType(room.type);
+            newSquare.name = pos.ToString();
         }
     }
 
@@ -35,7 +36,9 @@ public class DrawLevel : MonoBehaviour
             case RoomType.Shop:
                 return Color.magenta;
             case RoomType.NextLevel:
-                return Color.blue;
+                return Color.red;
+            case RoomType.Start:
+                return Color.gray;
             default:
                 return Color.white;
         }

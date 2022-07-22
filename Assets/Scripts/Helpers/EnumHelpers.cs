@@ -10,6 +10,11 @@ namespace Game.Helpers
             Array values = Enum.GetValues(typeof(T));
             return (T)values.GetValue(UnityEngine.Random.Range(0, values.Length));
         }
+
+        public static Array Values<T>()
+        {
+            return Enum.GetValues(typeof(T));
+        }
     }
 }
 
