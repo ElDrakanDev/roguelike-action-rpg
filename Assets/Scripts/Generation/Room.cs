@@ -4,12 +4,15 @@ using UnityEngine;
 public class Room
 {
     public readonly RoomType type;
-    public readonly Vector2Int pos;
     public GameObject gameObject;
 
-    public Room(RoomType _type, Vector2Int _pos)
+    public Room(RoomType _type)
     {
         type = _type;
-        pos = _pos;
+    }
+
+    public bool IsSpecial()
+    {
+        return type != RoomType.Normal;
     }
 }
