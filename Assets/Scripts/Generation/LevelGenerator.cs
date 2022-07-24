@@ -31,10 +31,12 @@ public class LevelGenerator
         _availableRooms = _availableRooms.OrderBy((room) => UnityEngine.Random.Range(-1, 2)).ToList();
 
         CreateStartRoom();
-        foreach(Room room in _availableRooms)
+        for(int i = _availableRooms.Count - 1; i >= 0; i--)
         {
+            Room room = _availableRooms[i];
             Move();
             CreateRoom(room);
+            _availableRooms.Remove(room);
         }
         CreateFinalRoom();
         return newLevel;
@@ -78,9 +80,8 @@ public class LevelGenerator
             foreach (MoveDirection direction in directions)
             {
                 var newPosition = position + Directions.directionVectors[direction];
-                if (!CanSpawnBossRoomAt(newPosition)) continue;
 
-                if(!_level.rooms.ContainsKey(newPosition))
+                if (CanSpawnBossRoomAt(newPosition))
                 {
                     var room = new Room(RoomType.NextLevel);
                     _level.rooms.Add(newPosition, room);
@@ -89,12 +90,30 @@ public class LevelGenerator
             }
         }
 
-        Debug.LogWarning($"No se pudo encontrar una posicion válida para crear la sala del jefe.");
+        Debug.LogWarning($"No se pudo encontrar una posicion válida para crear la sala del jefe. Se creará ignorando las condiciones.");
+
+        foreach (var position in positions)
+        {
+            foreach (MoveDirection direction in directions)
+            {
+                var newPosition = position + Directions.directionVectors[direction];
+
+                if (!_level.rooms.ContainsKey(newPosition))
+                {
+                    var room = new Room(RoomType.NextLevel);
+                    _level.rooms.Add(newPosition, room);
+                    return;
+                }
+            }
+        }
     }
 
     bool CanSpawnBossRoomAt(Vector2Int position)
     {
+        if (_level.rooms.ContainsKey(position)) return false;
+
         var directions = EnumHelpers.Values<MoveDirection>();
+
         foreach (MoveDirection direction in directions)
         {
             var checkPosition = position + Directions.directionVectors[direction];

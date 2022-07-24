@@ -5,9 +5,4 @@ using UnityEngine;
 public class Level
 {
     public readonly Dictionary<Vector2Int, Room> rooms = new Dictionary<Vector2Int, Room>();
-
-    public Level()
-    {
-
-    }
 }
