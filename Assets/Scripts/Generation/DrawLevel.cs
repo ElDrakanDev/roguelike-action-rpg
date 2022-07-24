@@ -6,15 +6,17 @@ using Game.ID;
 public class DrawLevel : MonoBehaviour
 {
     Level level;
-    public int minRooms;
-    public int minMoves;
+    [SerializeField] int normalRooms = 10;
+    [SerializeField] int shopRooms = 10;
+    [SerializeField] int treasureRooms = 10;
+
     public int seed;
     public GameObject square;
     private void Start()
     {
         Random.InitState(seed);
-        LevelGenerator generator = new LevelGenerator(minRooms, minMoves);
-        level = generator.Generate();
+        LevelGenerator generator = new LevelGenerator();
+        level = generator.Generate(normalRooms, shopRooms, treasureRooms);
 
         var renderer = square.GetComponent<SpriteRenderer>();
 
@@ -23,7 +25,7 @@ public class DrawLevel : MonoBehaviour
             var room = level.rooms[pos];
             var newSquare = Instantiate(square, new Vector3(pos.x * renderer.bounds.size.x, pos.y * renderer.bounds.size.y, 0), Quaternion.identity);
             newSquare.GetComponent<SpriteRenderer>().color = GetColorByType(room.type);
-            newSquare.name = pos.ToString();
+            newSquare.name = room.type + pos.ToString();
         }
     }
 

@@ -15,4 +15,9 @@ public class Room
     {
         return type != RoomType.Normal;
     }
+
+    public bool IsFixed()
+    {
+        return type == RoomType.Start || type == RoomType.Boss || type == RoomType.NextLevel;
+    }
 }

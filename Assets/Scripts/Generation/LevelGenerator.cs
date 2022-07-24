@@ -16,68 +16,57 @@ class RandomCompare : IComparer
 
 public class LevelGenerator
 {
-    public readonly int minRooms;
-    public readonly int minMoves;
-    private int _moves;
-    private Vector2Int _pos = Vector2Int.zero;
-    Func<Level, Room, LevelGenerator, bool> canSpawnRandom = (level, newRoom, levelGen) => {
-        if (newRoom.type == RoomType.Start || newRoom.type == RoomType.Boss || newRoom.type == RoomType.NextLevel) return false;
-        if (newRoom.IsSpecial() && level.rooms.Count < levelGen.minRooms / 2) return false;
-        int shops = level.rooms.Values.Count((room) => room.type == RoomType.Shop);
-        int treasures = level.rooms.Values.Count((room) => room.type == RoomType.Treasure);
+    Vector2Int _pos = Vector2Int.zero;
+    List<Room> _availableRooms = new List<Room>();
+    Level _level;
 
-        if (shops > 0 && newRoom.type == RoomType.Shop || treasures > 0 && newRoom.type == RoomType.Treasure)
-            return false;
-        return true;
-    };
-
-    public LevelGenerator(int _minRooms, int _minMoves, Func<Level, Room, LevelGenerator, bool> spawnCondition = null)
+    public Level Generate(int normals, int shops, int treasures)
     {
-        minMoves = _minMoves;
-        minRooms = _minRooms;
-        canSpawnRandom = spawnCondition != null ? spawnCondition : canSpawnRandom;
-    }
+        var newLevel = new Level();
+        _level = newLevel;
+        for (int i = 0; i < normals; i++) _availableRooms.Add(new Room(RoomType.Normal));
+        for (int i = 0; i < shops; i++) _availableRooms.Add(new Room(RoomType.Shop));
+        for (int i = 0; i < treasures; i++) _availableRooms.Add(new Room(RoomType.Treasure));
 
-    public Level Generate()
-    {
-        var level = new Level();
+        _availableRooms = _availableRooms.OrderBy((room) => UnityEngine.Random.Range(-1, 2)).ToList();
 
-        CreateStartRoom(level);
-        while(level.rooms.Values.Count < minRooms || _moves < minMoves)
+        CreateStartRoom();
+        foreach(Room room in _availableRooms)
         {
             Move();
-            CreateRandomRoomIfNull(level);
+            CreateRoom(room);
         }
-        CreateFinalRoom(level);
-        return level;
+        CreateFinalRoom();
+        return newLevel;
     }
 
     void Move()
     {
         var moveDir = Directions.directionVectors[EnumHelpers.GetRandom<MoveDirection>()];
         _pos += moveDir;
-        _moves++;
+        if (_level.rooms.ContainsKey(_pos)) Move();
     }
 
-    void CreateRandomRoomIfNull(Level level)
+    void CreateRoom(Room room)
     {
-        if (!level.rooms.ContainsKey(_pos))
+        try
         {
-            RoomType type = EnumHelpers.GetRandom<RoomType>();
-            Room room = new Room(type);
-            if (canSpawnRandom(level, room, this))
-                level.rooms.Add(_pos, room);
-            else
-                CreateRandomRoomIfNull(level);
+            _level.rooms.Add(_pos, room);
+            if (room.IsSpecial()) _pos = Vector2Int.zero;
         }
+        catch(Exception ex)
+        {
+            Debug.LogError($"Se intentó crear una habitación en la posicion ya existente {_pos}. {ex}");
+        }
+
     }
-    void CreateStartRoom(Level level)
+    void CreateStartRoom()
     {
-        level.rooms.Add(_pos, new Room(RoomType.Start));
+        _level.rooms.Add(_pos, new Room(RoomType.Start));
     }
-    void CreateFinalRoom(Level level)
+    void CreateFinalRoom()
     {
-        Vector2Int[] positions = level.rooms.Keys.ToArray();
+        Vector2Int[] positions = _level.rooms.Keys.ToArray();
 
         positions = positions.OrderByDescending(position => Vector2Int.Distance(Vector2Int.zero, position)).ToArray();
 
@@ -89,13 +78,40 @@ public class LevelGenerator
             foreach (MoveDirection direction in directions)
             {
                 var newPosition = position + Directions.directionVectors[direction];
-                if(!level.rooms.ContainsKey(newPosition))
+                if (!CanSpawnBossRoomAt(newPosition)) continue;
+
+                if(!_level.rooms.ContainsKey(newPosition))
                 {
                     var room = new Room(RoomType.NextLevel);
-                    level.rooms.Add(newPosition, room);
+                    _level.rooms.Add(newPosition, room);
                     return;
                 }
             }
         }
+
+        Debug.LogWarning($"No se pudo encontrar una posicion válida para crear la sala del jefe.");
     }
+
+    bool CanSpawnBossRoomAt(Vector2Int position)
+    {
+        var directions = EnumHelpers.Values<MoveDirection>();
+        foreach (MoveDirection direction in directions)
+        {
+            var checkPosition = position + Directions.directionVectors[direction];
+            _level.rooms.TryGetValue(checkPosition, out Room room);
+            if (room == null) continue;
+            if (room.IsSpecial()) return false;
+        }
+        return true;
+    }
+    /*bool CanSpawnRandom(Room newRoom){
+        if (newRoom.type == RoomType.Start || newRoom.type == RoomType.Boss || newRoom.type == RoomType.NextLevel) return false;
+        if (newRoom.IsSpecial() && _level.rooms.Count < minRooms / 2) return false;
+        int shops = _level.rooms.Values.Count((room) => room.type == RoomType.Shop);
+        int treasures = _level.rooms.Values.Count((room) => room.type == RoomType.Treasure);
+
+        if (shops > 0 && newRoom.type == RoomType.Shop || treasures > 0 && newRoom.type == RoomType.Treasure)
+            return false;
+        return true;
+    }*/
 }

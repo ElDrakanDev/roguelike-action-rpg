@@ -381,9 +381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db70bf384ad42ba4fa087c5cda2ae636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRooms: 5
-  minMoves: 8
-  seed: 200
+  minRooms: 10
+  minMoves: 15
+  seed: 0
   square: {fileID: 8936933303135201832, guid: 428d87282536cfc43bc87808285e1e80, type: 3}
 --- !u!4 &1587888311
 Transform:
