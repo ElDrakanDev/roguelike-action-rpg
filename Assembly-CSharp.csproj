@@ -62,6 +62,9 @@
     <Compile Include="Assets\Scripts\ID\RoomID.cs" />
     <Compile Include="Assets\Scripts\Generation\Level.cs" />
     <Compile Include="Assets\Scripts\Generation\Room.cs" />
+    <Compile Include="Assets\Scripts\Generation\RNG.cs" />
+    <Compile Include="Assets\Scripts\Run\GameRun.cs" />
+    <Compile Include="Assets\Scripts\General\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

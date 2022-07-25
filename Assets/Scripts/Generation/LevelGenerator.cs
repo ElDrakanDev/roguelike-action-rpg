@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.ID;
+using Game.RNG;
 using Game.Helpers;
 using System.Linq;
 
@@ -10,7 +11,7 @@ class RandomCompare : IComparer
 {
     public int Compare(object x, object y)
     {
-        return UnityEngine.Random.Range(-1, 2);
+        return RNG.roomRng.Range(-1, 2);
     }
 }
 
@@ -28,7 +29,7 @@ public class LevelGenerator
         for (int i = 0; i < shops; i++) _availableRooms.Add(new Room(RoomType.Shop));
         for (int i = 0; i < treasures; i++) _availableRooms.Add(new Room(RoomType.Treasure));
 
-        _availableRooms = _availableRooms.OrderBy((room) => UnityEngine.Random.Range(-1, 2)).ToList();
+        _availableRooms = _availableRooms.OrderBy((room) => RNG.roomRng.Range(-1, 2)).ToList();
 
         CreateStartRoom();
         for(int i = _availableRooms.Count - 1; i >= 0; i--)
@@ -44,7 +45,7 @@ public class LevelGenerator
 
     void Move()
     {
-        var moveDir = Directions.directionVectors[EnumHelpers.GetRandom<MoveDirection>()];
+        var moveDir = Directions.directionVectors[EnumHelpers.GetRandom<MoveDirection>(RNG.roomRng)];
         _pos += moveDir;
         if (_level.rooms.ContainsKey(_pos)) Move();
     }

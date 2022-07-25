@@ -10,11 +10,9 @@ public class DrawLevel : MonoBehaviour
     [SerializeField] int shopRooms = 10;
     [SerializeField] int treasureRooms = 10;
 
-    public int seed;
     public GameObject square;
     private void Start()
     {
-        Random.InitState(seed);
         LevelGenerator generator = new LevelGenerator();
         level = generator.Generate(normalRooms, shopRooms, treasureRooms);
 
