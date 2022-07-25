@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton : MonoBehaviour
+namespace Game.General
 {
-    public static Singleton instance;
-    void Awake()
+    public class Singleton : MonoBehaviour
     {
-        if (!instance)
+        public static Singleton instance;
+        void Awake()
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
+            if (!instance)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

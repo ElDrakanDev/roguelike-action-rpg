@@ -1,30 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Game.RNG;
 
-public class GameRun : MonoBehaviour
+namespace Game.Run
 {
-    [SerializeField] int _seed;
-    public int Seed { get => _seed; }
-    public static GameRun instance;
-    // Start is called before the first frame update
-    void Awake()
+    using UnityEngine;
+    using Game.RNG;
+
+    public class GameRun : MonoBehaviour
     {
-        if (!instance)
+        [SerializeField] int _seed;
+        public int Seed { get => _seed; }
+        public static GameRun instance;
+        // Start is called before the first frame update
+        void Awake()
         {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
+            if (!instance)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            Initialize();
         }
 
-        Initialize();
-    }
-
-    void Initialize()
-    {
-        RNG.Initialize(Seed);
+        void Initialize()
+        {
+            RNG.Initialize(Seed);
+        }
     }
 }

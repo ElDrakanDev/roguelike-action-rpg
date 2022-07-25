@@ -1,23 +1,26 @@
 using Game.ID;
 using UnityEngine;
 
-public class Room
+namespace Game.Generation
 {
-    public readonly RoomType type;
-    public GameObject gameObject;
-
-    public Room(RoomType _type)
+    public class Room
     {
-        type = _type;
-    }
+        public readonly RoomType type;
+        public GameObject gameObject;
 
-    public bool IsSpecial()
-    {
-        return type != RoomType.Normal;
-    }
+        public Room(RoomType _type)
+        {
+            type = _type;
+        }
 
-    public bool IsFixed()
-    {
-        return type == RoomType.Start || type == RoomType.Boss || type == RoomType.NextLevel;
+        public bool IsSpecial()
+        {
+            return type != RoomType.Normal;
+        }
+
+        public bool IsFixed()
+        {
+            return type == RoomType.Start || type == RoomType.Boss || type == RoomType.NextLevel;
+        }
     }
 }
