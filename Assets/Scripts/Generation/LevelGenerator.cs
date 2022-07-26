@@ -17,6 +17,30 @@ namespace Game.Generation
             return RNG.roomRng.Range(-1, 2);
         }
     }
+    class DistanceCompare : IComparer<Vector2Int>
+    {
+        readonly Vector2Int _center;
+        readonly bool _closest;
+        public DistanceCompare(Vector2Int _centerToMeasure, bool _closestPos = true)
+        {
+            _center = _centerToMeasure;
+            _closest = _closestPos;
+        }
+        bool ByCompareMode(float xDist, float yDist)
+        {
+            if (_closest)
+                return xDist < yDist;
+            return xDist > yDist;
+        }
+        public int Compare(Vector2Int x, Vector2Int y)
+        {
+            var xDist = Vector2Int.Distance(x, _center);
+            var yDist = Vector2Int.Distance(y, _center);
+
+            if (ByCompareMode(xDist, yDist)) return -1;
+            return 1;
+        }
+    }
     public class LevelGenerator
     {
         Vector2Int _pos = Vector2Int.zero;
@@ -73,40 +97,42 @@ namespace Game.Generation
         {
             Vector2Int[] positions = _level.rooms.Keys.ToArray();
 
-            positions = positions.OrderByDescending(position => Vector2Int.Distance(Vector2Int.zero, position)).ToArray();
+            positions = positions.OrderByDescending(pos => pos, new DistanceCompare(Vector2Int.zero)).ToArray();
 
             var directions = EnumHelpers.Values<MoveDirection>();
             Array.Sort(directions, new RandomCompare());
+
+            var finalPositions = new List<Vector2Int>();
 
             foreach (var position in positions)
             {
                 foreach (MoveDirection direction in directions)
                 {
-                    var newPosition = position + Directions.directionVectors[direction];
+                    finalPositions.Add(position + Directions.directionVectors[direction]);
+                }
+            }
 
-                    if (CanSpawnBossRoomAt(newPosition))
-                    {
-                        var room = new Room(RoomType.NextLevel);
-                        _level.rooms.Add(newPosition, room);
-                        return;
-                    }
+            finalPositions.Sort(new DistanceCompare(Vector2Int.zero, false));
+
+            foreach(var finalPos in finalPositions)
+            {
+                if (CanSpawnBossRoomAt(finalPos))
+                {
+                    var room = new Room(RoomType.NextLevel);
+                    _level.rooms.Add(finalPos, room);
+                    return;
                 }
             }
 
             Debug.LogWarning($"No se pudo encontrar una posicion válida para crear la sala del jefe. Se creará ignorando las condiciones.");
 
-            foreach (var position in positions)
+            foreach (var finalPos in finalPositions)
             {
-                foreach (MoveDirection direction in directions)
+                if (!_level.rooms.ContainsKey(finalPos))
                 {
-                    var newPosition = position + Directions.directionVectors[direction];
-
-                    if (!_level.rooms.ContainsKey(newPosition))
-                    {
-                        var room = new Room(RoomType.NextLevel);
-                        _level.rooms.Add(newPosition, room);
-                        return;
-                    }
+                    var room = new Room(RoomType.NextLevel);
+                    _level.rooms.Add(finalPos, room);
+                    return;
                 }
             }
         }
