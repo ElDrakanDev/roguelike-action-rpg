@@ -1,15 +1,26 @@
 using Game.ID;
 using UnityEngine;
 
-public class Room
+namespace Game.Generation
 {
-    public readonly RoomType type;
-    public readonly Vector2Int pos;
-    public GameObject gameObject;
-
-    public Room(RoomType _type, Vector2Int _pos)
+    public class Room
     {
-        type = _type;
-        pos = _pos;
+        public readonly RoomType type;
+        public GameObject gameObject;
+
+        public Room(RoomType _type)
+        {
+            type = _type;
+        }
+
+        public bool IsSpecial()
+        {
+            return type != RoomType.Normal;
+        }
+
+        public bool IsFixed()
+        {
+            return type == RoomType.Start || type == RoomType.Boss || type == RoomType.NextLevel;
+        }
     }
 }

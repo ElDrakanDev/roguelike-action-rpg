@@ -1,16 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level
+namespace Game.Generation
 {
-    public readonly int minRooms;
-    public readonly int minMoves;
-    public readonly Dictionary<Vector2Int, Room> rooms = new Dictionary<Vector2Int, Room>();
-
-    public Level(int _minRooms, int _minMoves)
+    public class Level
     {
-        minMoves = _minMoves;
-        minRooms = _minRooms;
+        public readonly Dictionary<Vector2Int, Room> rooms = new Dictionary<Vector2Int, Room>();
     }
+
 }
