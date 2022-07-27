@@ -55,7 +55,8 @@ namespace Game.Generation
             for (int i = 0; i < shops; i++) _availableRooms.Add(new Room(RoomType.Shop));
             for (int i = 0; i < treasures; i++) _availableRooms.Add(new Room(RoomType.Treasure));
 
-            _availableRooms = _availableRooms.OrderBy((room) => RNG.roomRng.Range(-1, 2)).ToList();
+            //_availableRooms = _availableRooms.OrderBy((room) => RNG.roomRng.Range(-1, 2)).ToList();
+            Shuffle(_availableRooms);
 
             CreateStartRoom();
             for (int i = _availableRooms.Count - 1; i >= 0; i--)
@@ -80,20 +81,46 @@ namespace Game.Generation
         {
             try
             {
+                if (room.IsSpecial())
+                {
+                    var furthest = GetFurthestSpecialPosition();
+                    _level.rooms.Add(furthest, room);
+                    return;
+                }
                 _level.rooms.Add(_pos, room);
-                if (room.IsSpecial()) _pos = Vector2Int.zero;
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
                 Debug.LogError($"Se intentó crear una habitación en la posicion ya existente {_pos}. {ex}");
             }
-
         }
         void CreateStartRoom()
         {
             _level.rooms.Add(_pos, new Room(RoomType.Start));
         }
         void CreateFinalRoom()
+        {
+            var furthest = GetFurthestSpecialPosition();
+            var room = new Room(RoomType.NextLevel);
+            _level.rooms.Add(furthest, room);               
+        }
+
+        bool CanSpawnSpecialRoomAt(Vector2Int position)
+        {
+            if (_level.rooms.ContainsKey(position)) return false;
+
+            var directions = EnumHelpers.Values<MoveDirection>();
+
+            foreach (MoveDirection direction in directions)
+            {
+                var checkPosition = position + Directions.directionVectors[direction];
+                _level.rooms.TryGetValue(checkPosition, out Room room);
+                if (room == null) continue;
+                if (room.IsSpecial()) return false;
+            }
+            return true;
+        }
+        Vector2Int GetFurthestSpecialPosition()
         {
             Vector2Int[] positions = _level.rooms.Keys.ToArray();
 
@@ -114,43 +141,35 @@ namespace Game.Generation
 
             finalPositions.Sort(new DistanceCompare(Vector2Int.zero, false));
 
-            foreach(var finalPos in finalPositions)
+            foreach (var finalPos in finalPositions)
             {
-                if (CanSpawnBossRoomAt(finalPos))
+                if (CanSpawnSpecialRoomAt(finalPos))
                 {
-                    var room = new Room(RoomType.NextLevel);
-                    _level.rooms.Add(finalPos, room);
-                    return;
+                    return finalPos;
                 }
             }
-
             Debug.LogWarning($"No se pudo encontrar una posicion válida para crear la sala del jefe. Se creará ignorando las condiciones.");
 
             foreach (var finalPos in finalPositions)
             {
                 if (!_level.rooms.ContainsKey(finalPos))
                 {
-                    var room = new Room(RoomType.NextLevel);
-                    _level.rooms.Add(finalPos, room);
-                    return;
+                    return finalPos;
                 }
             }
+            throw new KeyNotFoundException($"No se pudo encontrar una posición válida para la sala especial");
         }
-
-        bool CanSpawnBossRoomAt(Vector2Int position)
+        void Shuffle(List<Room> rooms)
         {
-            if (_level.rooms.ContainsKey(position)) return false;
-
-            var directions = EnumHelpers.Values<MoveDirection>();
-
-            foreach (MoveDirection direction in directions)
+            for (int indexA = 0; indexA < rooms.Count; indexA++)
             {
-                var checkPosition = position + Directions.directionVectors[direction];
-                _level.rooms.TryGetValue(checkPosition, out Room room);
-                if (room == null) continue;
-                if (room.IsSpecial()) return false;
+                int indexB = RNG.roomRng.Range(0, rooms.Count);
+                Room roomA = rooms[indexA];
+                Room roomB = rooms[indexB];
+
+                rooms[indexA] = roomB;
+                rooms[indexB] = roomA;
             }
-            return true;
         }
     }
 }
