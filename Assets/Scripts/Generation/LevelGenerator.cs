@@ -55,7 +55,8 @@ namespace Game.Generation
             for (int i = 0; i < shops; i++) _availableRooms.Add(new Room(RoomType.Shop));
             for (int i = 0; i < treasures; i++) _availableRooms.Add(new Room(RoomType.Treasure));
 
-            _availableRooms = _availableRooms.OrderBy((room) => RNG.roomRng.Range(-1, 2)).ToList();
+            //_availableRooms = _availableRooms.OrderBy((room) => RNG.roomRng.Range(-1, 2)).ToList();
+            Shuffle(_availableRooms);
 
             CreateStartRoom();
             for (int i = _availableRooms.Count - 1; i >= 0; i--)
@@ -151,6 +152,18 @@ namespace Game.Generation
                 if (room.IsSpecial()) return false;
             }
             return true;
+        }
+        void Shuffle(List<Room> rooms)
+        {
+            for (int indexA = 0; indexA < rooms.Count; indexA++)
+            {
+                int indexB = RNG.roomRng.Range(0, rooms.Count);
+                Room roomA = rooms[indexA];
+                Room roomB = rooms[indexB];
+
+                rooms[indexA] = roomB;
+                rooms[indexB] = roomA;
+            }
         }
     }
 }

@@ -503,9 +503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db70bf384ad42ba4fa087c5cda2ae636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalRooms: 10
-  shopRooms: 1
-  treasureRooms: 1
+  normalRooms: 100
+  shopRooms: 10
+  treasureRooms: 10
   square: {fileID: 8936933303135201832, guid: 428d87282536cfc43bc87808285e1e80, type: 3}
 --- !u!4 &1587888311
 Transform:
