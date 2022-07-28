@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Game.Stats;
 using Game.ID;
@@ -11,29 +9,28 @@ namespace Game.Effects
     public class AddStats : Effect
     {
         StatModifier modifier;
+        Stat stat;
         public StatType type;
         public AttributeID attribute;
         public float amount;
 
-        public override void Kill(EventData data)
+        public override void Kill(EventData data= null)
         {
-            if (data.destination.stat is Stat)
+            if (stat != null)
             {
                 modifier = null;
-                Stat stat = data.destination.stat as Stat;
                 stat.Remove(this);
+                stat = null;
             }
         }
-        public override void Run(EventData data)
+        public override void Run(EventData data= null)
         {
             if(data.destination.stat is Stat)
             {
-                Debug.Log("Se creo la stat");
-                Stat stat = data.destination.stat as Stat;
+                stat = data.destination.stat as Stat;
                 modifier = new StatModifier(data.amount, this, stat, data.type);
                 stat.Add(modifier);
                 Debug.Log(stat.owner);
-                Debug.Log($"Creada: valor {modifier.Value}, source {modifier.Source}, ");
             }
         }
     }

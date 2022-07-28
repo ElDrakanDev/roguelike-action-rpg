@@ -33,7 +33,7 @@ public class ShowStat : MonoBehaviour
         }
         else if (mouse.rightButton.wasPressedThisFrame)
         {
-
+            effect.Kill();
         }
         /*var keyboard = Keyboard.current;
 
