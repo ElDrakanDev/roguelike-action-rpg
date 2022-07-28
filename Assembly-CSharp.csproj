@@ -56,7 +56,39 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\QuickSave\Core\Converters\Vector2Converter.cs" />
+    <Compile Include="Assets\QuickSave\Core\Converters\Vector4Converter.cs" />
+    <Compile Include="Assets\QuickSave\QuickSaveReader.cs" />
+    <Compile Include="Assets\QuickSave\Core\Converters\Texture2DConverter.cs" />
+    <Compile Include="Assets\QuickSave\Core\Serialisers\JsonSerialiser.cs" />
+    <Compile Include="Assets\QuickSave\Core\Converters\Vector3Converter.cs" />
+    <Compile Include="Assets\QuickSave\QuickSaveBase.cs" />
+    <Compile Include="Assets\QuickSave\QuickSaveWriter.cs" />
     <Compile Include="Assets\Scripts\ShowStat.cs" />
+    <Compile Include="Assets\QuickSave\Core\Settings\Cryptography.cs" />
+    <Compile Include="Assets\QuickSave\Core\Converters\SpriteConverter.cs" />
+    <Compile Include="Assets\QuickSave\QuickSaveRaw.cs" />
+    <Compile Include="Assets\QuickSave\Core\Converters\QuaternionConverter.cs" />
+    <Compile Include="Assets\QuickSave\QuickSaveSettings.cs" />
+    <Compile Include="Assets\QuickSave\Core\Converters\ColorConverter.cs" />
+    <Compile Include="Assets\QuickSave\Core\Settings\Compression.cs" />
+    <Compile Include="Assets\QuickSave\SecurityMode.cs" />
+    <Compile Include="Assets\QuickSave\QuickSaveGlobalSettings.cs" />
+    <Compile Include="Assets\QuickSave\QuickSaveException.cs" />
+    <Compile Include="Assets\QuickSave\Core\Storage\FileAccess.cs" />
+    <Compile Include="Assets\QuickSave\Example\ExampleSceneManagerController.cs" />
+    <Compile Include="Assets\QuickSave\Core\Converters\Matrix4x4Converter.cs" />
+    <Compile Include="Assets\QuickSave\CompressionMode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\QuickSave\Plugins\jillejr.newtonsoft.json-for-unity@12.0.301\Plugins\Newtonsoft.Json Portable\Newtonsoft.Json.dll" />
+    <None Include="Assets\QuickSave\Plugins\jillejr.newtonsoft.json-for-unity@12.0.301\Plugins\Newtonsoft.Json Editor\Newtonsoft.Json.dll" />
+    <None Include="Assets\QuickSave\Plugins\jillejr.newtonsoft.json-for-unity@12.0.301\Plugins\Newtonsoft.Json AOT\Newtonsoft.Json.dll" />
+    <None Include="Assets\QuickSave\Plugins\jillejr.newtonsoft.json-for-unity@12.0.301\Plugins\Newtonsoft.Json Portable\Newtonsoft.Json.xml" />
+    <None Include="Assets\QuickSave\Plugins\jillejr.newtonsoft.json-for-unity@12.0.301\Plugins\Newtonsoft.Json AOT\Newtonsoft.Json.xml" />
+    <None Include="Assets\QuickSave\Plugins\jillejr.newtonsoft.json-for-unity@12.0.301\Plugins\Newtonsoft.Json Editor\Newtonsoft.Json.xml" />
+    <None Include="Assets\QuickSave\readme.txt" />
+    <None Include="Assets\QuickSave\Plugins\jillejr.newtonsoft.json-for-unity@12.0.301\link.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -308,6 +340,9 @@
     <Reference Include="Unity.Burst.Cecil.Mdb">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\QuickSave\Plugins\jillejr.newtonsoft.json-for-unity@12.0.301\Plugins\Newtonsoft.Json Editor\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Cecil.Pdb">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
     </Reference>
@@ -319,9 +354,6 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.6f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -689,48 +721,6 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.6f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="PPv2URPConverters">
-      <HintPath>Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj">
@@ -740,6 +730,10 @@
     <ProjectReference Include="Unity.2D.PixelPerfect.csproj">
       <Project>{224F2293-7F0F-9270-563B-3A930392F4A5}</Project>
       <Name>Unity.2D.PixelPerfect</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Universal.Shaders.csproj">
+      <Project>{739E3B94-58B5-748B-B9E3-FC14B09D0185}</Project>
+      <Name>Unity.RenderPipelines.Universal.Shaders</Name>
     </ProjectReference>
     <ProjectReference Include="PsdPlugin.csproj">
       <Project>{3800AC0F-EA39-077B-17FA-33398D69D5F9}</Project>
@@ -773,6 +767,10 @@
       <Project>{7197A02B-66D4-67CB-18CA-471C0D961262}</Project>
       <Name>Run</Name>
     </ProjectReference>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
+      <Name>UnityEditor.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.InputSystem.csproj">
       <Project>{E1029596-0002-285C-9258-99EE3E672C6B}</Project>
       <Name>Unity.InputSystem</Name>
@@ -781,9 +779,17 @@
       <Project>{9254FE50-1E7B-E00E-F38E-D39740D113F6}</Project>
       <Name>Unity.Rider.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Core.ShaderLibrary.csproj">
+      <Project>{8AC06163-2685-55D2-7946-D3396CBA9D9E}</Project>
+      <Name>Unity.RenderPipelines.Core.ShaderLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="Generation.csproj">
       <Project>{0671B5FC-F0ED-0EA8-8D33-185C2A36D5D0}</Project>
       <Name>Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.csproj">
+      <Project>{F078A78B-0754-5236-14CF-A9E3B9AC455C}</Project>
+      <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="ID.csproj">
       <Project>{7B3CD0F0-82EC-BE17-4EE7-E7A857F61C2A}</Project>
@@ -793,6 +799,10 @@
       <Project>{F8FCD9C7-8FC4-083A-F651-F639C173003C}</Project>
       <Name>Unity.2D.IK.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.ShaderGraph.Editor.csproj">
+      <Project>{3027750A-1C7C-68BF-F9D2-0E8DB1AC3EE1}</Project>
+      <Name>Unity.ShaderGraph.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.SettingsProvider.Editor.csproj">
       <Project>{0D6D916C-A73A-B2AB-F44C-3706796E53F4}</Project>
       <Name>Unity.VisualScripting.SettingsProvider.Editor</Name>
@@ -800,6 +810,10 @@
     <ProjectReference Include="Helpers.csproj">
       <Project>{941DF200-BDF5-A3A9-0E80-B5891AD8BCFC}</Project>
       <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.csproj">
+      <Project>{4E217833-67CC-E5FC-A090-DFCDB7DB251D}</Project>
+      <Name>Unity.RenderPipeline.Universal.ShaderLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Mathematics.Editor.csproj">
       <Project>{7F717B21-5D82-09DE-9796-3BE3AECFABAD}</Project>
@@ -825,6 +839,18 @@
       <Project>{3AF2D78D-AA23-6D8C-02F9-25F086C4FBB4}</Project>
       <Name>Unity.2D.Animation.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
+      <Project>{87EA31F5-BF43-A113-203D-4D6B7D81450F}</Project>
+      <Name>Unity.2D.Tilemap.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj">
+      <Project>{2D00D3D7-3717-AD68-E997-22A6846904DC}</Project>
+      <Name>Unity.RenderPipelines.Universal.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="PPv2URPConverters.csproj">
+      <Project>{9EA41EAB-E6E6-E256-6E19-DD724CFF4C90}</Project>
+      <Name>PPv2URPConverters</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
       <Project>{B1B0E86F-FA85-8F42-9A7E-9331DEA5084A}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
@@ -845,6 +871,10 @@
       <Project>{C61AB550-AC0A-5F96-F576-9DCAEFA958BD}</Project>
       <Name>Unity.Burst.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
+      <Project>{9DAD1398-456E-A7B6-5705-0C63EDE445CF}</Project>
+      <Name>Unity.2D.Sprite.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
       <Project>{00B8DC89-87E2-4037-5B82-397B8CC590B0}</Project>
       <Name>Unity.2D.Psdimporter.Editor</Name>
@@ -852,6 +882,10 @@
     <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj">
       <Project>{FE0CA2B2-5B34-B986-E3B5-B4ED1E4467FF}</Project>
       <Name>Unity.InternalAPIEditorBridge.001</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.csproj">
+      <Project>{011AD870-4A4E-1713-F134-8280B526FDF4}</Project>
+      <Name>Unity.RenderPipelines.Core.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
       <Project>{6471706E-EB1B-0725-8A0D-704903B71B32}</Project>
@@ -885,6 +919,10 @@
       <Project>{26866D75-FE59-C273-7541-C9ADDFE375C9}</Project>
       <Name>Unity.Burst</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Universal.Editor.csproj">
+      <Project>{0E3197FE-DE3E-864E-9BB8-758C0C78EBC4}</Project>
+      <Name>Unity.RenderPipelines.Universal.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Shared.Editor.csproj">
       <Project>{16C67677-1DC6-9F72-4803-93983AEAF30F}</Project>
       <Name>Unity.VisualScripting.Shared.Editor</Name>
@@ -905,6 +943,10 @@
       <Project>{72C80ACD-CB10-D0AD-8DE4-5A9E142251A2}</Project>
       <Name>Unity.Timeline.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.csproj">
+      <Project>{E697D2D6-8252-038A-18B8-53EB50369C62}</Project>
+      <Name>Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Runtime.csproj">
       <Project>{204FEB3F-7562-0245-C928-451A7E1BE5C2}</Project>
       <Name>Unity.2D.Common.Runtime</Name>
@@ -917,6 +959,10 @@
       <Project>{5458B5D0-5606-6034-9445-4721D2D57E7C}</Project>
       <Name>RNG</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Core.Editor.csproj">
+      <Project>{453B010A-FA41-D5B4-9AE8-A436C9A3B344}</Project>
+      <Name>Unity.RenderPipelines.Core.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.SpriteShape.Runtime.csproj">
       <Project>{F1163EA5-0925-8CB6-08C1-D39B390B5D43}</Project>
       <Name>Unity.2D.SpriteShape.Runtime</Name>
@@ -924,6 +970,10 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{B77ABF90-422F-48BC-A35B-9384E040E0B5}</Project>
       <Name>Unity.VisualScripting.State</Name>
+    </ProjectReference>
+    <ProjectReference Include="Items.csproj">
+      <Project>{7843235E-1411-4679-E23B-380C8E235774}</Project>
+      <Name>Items</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

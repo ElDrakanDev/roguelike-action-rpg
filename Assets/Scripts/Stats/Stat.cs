@@ -23,7 +23,7 @@ namespace Game.Stats
                 else if (_value > max) return max;
                 return _value;
             }
-            set { _value = value; }
+            private set { _value = value; }
         }
         readonly List<StatModifier> stats = new List<StatModifier>();
         readonly float min;
