@@ -25,15 +25,17 @@ namespace Game.Stats
             }
             private set { _value = value; }
         }
-        readonly List<StatModifier> stats = new List<StatModifier>();
+        public readonly List<StatModifier> stats = new List<StatModifier>();
         readonly float min;
         readonly float max;
+        public readonly dynamic owner;
 
-        public Stat(float baseValue, float argMin = 1, float argMax = float.MaxValue)
+        public Stat(float baseValue, dynamic argOwner, float argMin = 1, float argMax = float.MaxValue)
         {
             stats.Add(new StatModifier(baseValue, this, this, StatType.Flat));
             min = argMin;
             max = argMax;
+            owner = argOwner;
         }
 
         private float UpdateValue()
@@ -60,7 +62,7 @@ namespace Game.Stats
             return stat;
         }
 
-        public void Remove(object source)
+        public void Remove(dynamic source)
         {
             stats.RemoveAll((stat) => stat.Source == source);
             needUpdate = true;

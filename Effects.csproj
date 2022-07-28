@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{7843235E-1411-4679-E23B-380C8E235774}</ProjectGuid>
+    <ProjectGuid>{6B87D993-3138-1BB0-B662-D2DA413A99F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Items</AssemblyName>
+    <AssemblyName>Effects</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -56,10 +56,11 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Items\ItemData.cs" />
+    <Compile Include="Assets\Scripts\Effects\Effect.cs" />
+    <Compile Include="Assets\Scripts\Effects\AddStats.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Items\Items.asmdef" />
+    <None Include="Assets\Scripts\Effects\Effects.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -724,6 +725,18 @@
     <ProjectReference Include="Events.csproj">
       <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
       <Name>Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="RNG.csproj">
+      <Project>{5458B5D0-5606-6034-9445-4721D2D57E7C}</Project>
+      <Name>RNG</Name>
+    </ProjectReference>
+    <ProjectReference Include="Stats.csproj">
+      <Project>{93556C28-4650-FCDD-86E7-A4BD7BD10DE6}</Project>
+      <Name>Stats</Name>
+    </ProjectReference>
+    <ProjectReference Include="ID.csproj">
+      <Project>{7B3CD0F0-82EC-BE17-4EE7-E7A857F61C2A}</Project>
+      <Name>ID</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

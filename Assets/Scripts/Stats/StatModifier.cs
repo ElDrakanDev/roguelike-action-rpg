@@ -28,9 +28,9 @@ namespace Game.Stats
         }
         public StatType Type { get; set; }
         public Stat Owner { get; set; }
-        public object Source { get; set; }
+        public dynamic Source { get; set; }
 
-        public StatModifier(float argValue, object argSource, Stat argOwner, StatType argType)
+        public StatModifier(float argValue, dynamic argSource, Stat argOwner, StatType argType)
         {
             Source = argSource;
             Owner = argOwner;

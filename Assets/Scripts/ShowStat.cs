@@ -4,16 +4,38 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Stats;
 using Game.ID;
+using Game.Events;
+using Game.Effects;
 using CI.QuickSave;
 
 public class ShowStat : MonoBehaviour
 {
-    public Stat stat = new Stat(10, 1);
+    public Stat stat; 
     [SerializeField] float statAmount = -1.111111111f;
+    public Effect effect;
 
+    private void Start()
+    {
+        stat = new Stat(10, this);
+    }
     void Update()
     {
-        var keyboard = Keyboard.current;
+        var mouse = Mouse.current;
+        statAmount = stat.Value;
+
+        if (mouse.leftButton.wasPressedThisFrame)
+        {
+            effect.Run(new EventData(1, this, this, StatType.Flat));
+            foreach(var modifier in stat.stats)
+            {
+                Debug.Log($"Stat {modifier}: {modifier.Value} type {modifier.Type}");
+            }
+        }
+        else if (mouse.rightButton.wasPressedThisFrame)
+        {
+
+        }
+        /*var keyboard = Keyboard.current;
 
         if (keyboard.fKey.wasPressedThisFrame)
         {
@@ -46,6 +68,6 @@ public class ShowStat : MonoBehaviour
             Debug.Log($"STAT: {data.Value}");
         }
 
-
+        */
     }
 }

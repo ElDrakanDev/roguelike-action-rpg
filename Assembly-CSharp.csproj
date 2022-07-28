@@ -975,6 +975,14 @@
       <Project>{7843235E-1411-4679-E23B-380C8E235774}</Project>
       <Name>Items</Name>
     </ProjectReference>
+    <ProjectReference Include="Events.csproj">
+      <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
+      <Name>Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="Effects.csproj">
+      <Project>{6B87D993-3138-1BB0-B662-D2DA413A99F1}</Project>
+      <Name>Effects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

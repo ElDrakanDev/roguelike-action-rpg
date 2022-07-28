@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{7843235E-1411-4679-E23B-380C8E235774}</ProjectGuid>
+    <ProjectGuid>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Items</AssemblyName>
+    <AssemblyName>Events</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -56,10 +56,11 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Items\ItemData.cs" />
+    <Compile Include="Assets\Scripts\Events\EventData.cs" />
+    <Compile Include="Assets\Scripts\Events\GameEvent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Items\Items.asmdef" />
+    <None Include="Assets\Scripts\Events\Events.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -721,10 +722,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Events.csproj">
-      <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
-      <Name>Events</Name>
-    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>
