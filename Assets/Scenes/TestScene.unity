@@ -152,6 +152,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1587888311}
+  - {fileID: 624146627}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -429,6 +430,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &624146626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 624146627}
+  - component: {fileID: 624146628}
+  m_Layer: 0
+  m_Name: StatObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &624146627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624146626}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 85913840}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &624146628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624146626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2deef85c903f3459c6c8ee58ed9cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1154802133
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64bbc3030c43364fa03f34089186752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _seed: 2
+  _seed: 0
 --- !u!1 &1587888309
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,9 +548,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db70bf384ad42ba4fa087c5cda2ae636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalRooms: 100
-  shopRooms: 10
-  treasureRooms: 10
+  normalRooms: 10
+  shopRooms: 1
+  treasureRooms: 1
   square: {fileID: 8936933303135201832, guid: 428d87282536cfc43bc87808285e1e80, type: 3}
 --- !u!4 &1587888311
 Transform:
