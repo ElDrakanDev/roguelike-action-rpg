@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System;
-using Game.ID;
 using UnityEngine;
 
 namespace Game.Stats
@@ -67,10 +66,10 @@ namespace Game.Stats
             return _value;
         }
 
-        public StatModifier Add(StatModifier stat)
+        public void Add(StatModifier stat)
         {
             stats.Add(stat);
-            return stat;
+            needUpdate = true;
         }
 
         public void Remove(dynamic source)

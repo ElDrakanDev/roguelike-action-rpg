@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.ID
+namespace Game.Generation
 {
     public enum RoomType
     {

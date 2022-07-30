@@ -1,4 +1,4 @@
-namespace Game.ID
+namespace Game.Stats
 {
     public enum AttributeID
     {

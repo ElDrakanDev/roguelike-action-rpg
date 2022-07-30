@@ -1,5 +1,3 @@
-using Game.ID;
-
 namespace Game.Stats
 {
     public interface IStatComponent

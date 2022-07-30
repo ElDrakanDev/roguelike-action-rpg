@@ -1,6 +1,5 @@
 using UnityEngine;
 using Game.Stats;
-using Game.ID;
 using Game.Events;
 
 namespace Game.Effects
@@ -10,9 +9,19 @@ namespace Game.Effects
     {
         StatModifier modifier;
         Stat stat;
-        public StatType type;
-        public AttributeID attribute;
-        public float amount;
+        [HideInInspector] public StatType type;
+        [HideInInspector] public AttributeID attribute;
+        [HideInInspector] public float amount;
+
+        public override void Init(EventData data = null)
+        {
+            if(data.destination.stat is Stat)
+            {
+                stat = data.destination.stat as Stat;
+                modifier = new StatModifier(data.amount, this, stat, data.type);
+                stat.Add(modifier);
+            }
+        }
 
         public override void Kill(EventData data= null)
         {
@@ -21,16 +30,6 @@ namespace Game.Effects
                 modifier = null;
                 stat.Remove(this);
                 stat = null;
-            }
-        }
-        public override void Run(EventData data= null)
-        {
-            if(data.destination.stat is Stat)
-            {
-                stat = data.destination.stat as Stat;
-                modifier = new StatModifier(data.amount, this, stat, data.type);
-                stat.Add(modifier);
-                Debug.Log(stat.owner);
             }
         }
     }

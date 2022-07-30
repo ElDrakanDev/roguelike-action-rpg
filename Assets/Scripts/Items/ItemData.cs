@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Game.Events;
+using Game.Stats;
+using Game.Effects;
 
 namespace Game.Items
 {
@@ -11,7 +13,10 @@ namespace Game.Items
     {
         [SerializeField] string _id;
         public string ID { get => _id; }
-        public GameEvent trigger;
+        public StatType[] types;
+        public float[] amounts;
+        public GameEvent[] events;
+        public Effect[] effects;
         public Sprite sprite;
         public string description;
     }

@@ -1,4 +1,3 @@
-using Game.ID;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +16,8 @@ namespace Game.Stats
                 try
                 {
                     _value = value;
-                    StatOwner.needUpdate = true;
+                    if(StatOwner != null)
+                        StatOwner.needUpdate = true;
                 }
                 catch(NullReferenceException ex)
                 {
