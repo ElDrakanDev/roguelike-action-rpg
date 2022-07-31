@@ -31,10 +31,10 @@ namespace Game.Items
         {
             if (pickedUp)
             {
+                OnDrop();
                 owner = null;
                 player = null;
                 pickedUp = false;
-                OnDrop();
             }
             else
                 throw new System.Exception($"Tried dropping an already dropped item.");

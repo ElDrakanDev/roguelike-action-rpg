@@ -59,8 +59,8 @@
     <Compile Include="Assets\Scripts\Stats\StatID.cs" />
     <Compile Include="Assets\Scripts\Stats\IStatComponent.cs" />
     <Compile Include="Assets\Scripts\Stats\StatModifier.cs" />
-    <Compile Include="Assets\Scripts\Stats\Stat.cs" />
     <Compile Include="Assets\Scripts\Stats\StatStructs.cs" />
+    <Compile Include="Assets\Scripts\Stats\Stat.cs" />
     <Compile Include="Assets\Scripts\Stats\BaseStatObject.cs" />
     <Compile Include="Assets\Scripts\Stats\CharacterStats.cs" />
   </ItemGroup>

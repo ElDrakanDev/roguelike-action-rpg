@@ -20,14 +20,14 @@ namespace Game.Players
 
         private void Start()
         {
-            IInteractable interactable = GameObject.FindGameObjectWithTag("Interactable").GetComponent<IInteractable>();
-            interactable.Interact(gameObject);
+            IInteractable[] interactables = GameObject.FindGameObjectWithTag("Interactable").GetComponents<IInteractable>();
+            foreach(var interactable in interactables) interactable.Interact(gameObject);
 
             Debug.Log("Post-pickup attributes:");
             PrintAttributes();
         }
 
-        void PrintAttributes()
+        public void PrintAttributes()
         {
             string msg = "";
             foreach (var attribute in stats.Attributes)

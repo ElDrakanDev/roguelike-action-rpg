@@ -752,6 +752,10 @@
       <Project>{7843235E-1411-4679-E23B-380C8E235774}</Project>
       <Name>Items</Name>
     </ProjectReference>
+    <ProjectReference Include="Player.csproj">
+      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
+      <Name>Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{185857C6-B34A-E4F8-2A17-61ED5B65F38E}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
@@ -991,10 +995,6 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{B77ABF90-422F-48BC-A35B-9384E040E0B5}</Project>
       <Name>Unity.VisualScripting.State</Name>
-    </ProjectReference>
-    <ProjectReference Include="Player.csproj">
-      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
-      <Name>Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
