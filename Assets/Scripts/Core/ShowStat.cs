@@ -1,19 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Game.Stats;
-using Game.ID;
-using CI.QuickSave;
+using Game.Events;
+using Game.Items;
 
 public class ShowStat : MonoBehaviour
 {
-    public Stat stat = new Stat(10, 1);
+    public Stat stat; 
     [SerializeField] float statAmount = -1.111111111f;
 
+    private void Start()
+    {
+        stat = new Stat(10, this);
+
+        FindObjectOfType<StatsItem>().Interact(gameObject);
+    }
     void Update()
     {
-        var keyboard = Keyboard.current;
+        statAmount = stat.Value;
+
+        /*var keyboard = Keyboard.current;
 
         if (keyboard.fKey.wasPressedThisFrame)
         {
@@ -46,6 +53,10 @@ public class ShowStat : MonoBehaviour
             Debug.Log($"STAT: {data.Value}");
         }
 
+        */
+    }
 
+    public void ASD(EventData data){
+        Debug.Log("ASDASD");
     }
 }

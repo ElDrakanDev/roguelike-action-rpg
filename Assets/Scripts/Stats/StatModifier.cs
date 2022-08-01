@@ -1,4 +1,3 @@
-using Game.ID;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +16,8 @@ namespace Game.Stats
                 try
                 {
                     _value = value;
-                    Owner.needUpdate = true;
+                    if(StatOwner != null)
+                        StatOwner.needUpdate = true;
                 }
                 catch(NullReferenceException ex)
                 {
@@ -27,13 +27,13 @@ namespace Game.Stats
             }
         }
         public StatType Type { get; set; }
-        public Stat Owner { get; set; }
-        public object Source { get; set; }
+        public Stat StatOwner { get; set; }
+        public dynamic Source { get; set; }
 
-        public StatModifier(float argValue, object argSource, Stat argOwner, StatType argType)
+        public StatModifier(float argValue, dynamic argSource, Stat argOwner, StatType argType)
         {
             Source = argSource;
-            Owner = argOwner;
+            StatOwner = argOwner;
             Type = argType;
             Value = argValue;
         }

@@ -1,6 +1,6 @@
-namespace Game.ID
+namespace Game.Stats
 {
-    public enum StatID
+    public enum AttributeID
     {
         Strength = 10,
         Accuracy = 20,

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System;
-using Game.ID;
+using UnityEngine;
 
 namespace Game.Stats
 {
-    public class Stat
+    public class Stat : IStatComponent
     {
         public bool needUpdate = true;
         private float _value;
@@ -19,21 +19,32 @@ namespace Game.Stats
                     return _value;
                 }
                 UpdateValue();
-                if (_value < min) return min;
-                else if (_value > max) return max;
                 return _value;
             }
-            private set { _value = value; }
+            set
+            {
+                if (value < min) _value = min;
+                else if (value > max) _value = max;
+                else _value = value;
+            }
         }
-        readonly List<StatModifier> stats = new List<StatModifier>();
+
+        public StatType Type { get; set; }
+        public Stat StatOwner { get; set; }
+        public object Source { get; set; }
+
+        public readonly List<IStatComponent> stats = new List<IStatComponent>();
         readonly float min;
         readonly float max;
+        public readonly dynamic owner;
 
-        public Stat(float baseValue, float argMin = 1, float argMax = float.MaxValue)
+        public Stat(float baseValue, dynamic argOwner, float argMin = 1, float argMax = float.MaxValue, StatType type = StatType.Flat)
         {
             stats.Add(new StatModifier(baseValue, this, this, StatType.Flat));
             min = argMin;
             max = argMax;
+            owner = argOwner;
+            Type = type;
         }
 
         private float UpdateValue()
@@ -51,18 +62,29 @@ namespace Game.Stats
 
             needUpdate = false;
             _value = (float)Math.Round(flatStats * multStats, 2);
+            if (StatOwner != null) StatOwner.needUpdate = true;
             return _value;
         }
 
-        public StatModifier Add(StatModifier stat)
+        public void Add(StatModifier stat)
         {
             stats.Add(stat);
-            return stat;
+            needUpdate = true;
         }
 
-        public void Remove(object source)
+        public void Remove(dynamic source)
         {
-            stats.RemoveAll((stat) => stat.Source == source);
+            stats.RemoveAll((stat) => {
+                try
+                {
+                    bool remove = stat.Source == source;
+                    return remove;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
             needUpdate = true;
         }
     }
