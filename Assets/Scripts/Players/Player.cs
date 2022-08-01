@@ -11,22 +11,29 @@ namespace Game.Players
     {
         public CharacterStats stats;
         [SerializeField] BaseStatObject baseStats;
+        int steps = 0;
         private void Awake()
         {
             stats = new CharacterStats(this, baseStats.baseStats);
-            Debug.Log("Base Atributes:");
-            PrintAttributes();
         }
 
         private void Start()
         {
-            IInteractable[] interactables = GameObject.FindGameObjectWithTag("Interactable").GetComponents<IInteractable>();
-            foreach(var interactable in interactables) interactable.Interact(gameObject);
-
-            Debug.Log("Post-pickup attributes:");
-            PrintAttributes();
+            IInteractable[] interactables = GameObject.FindGameObjectWithTag("Interactable")?.GetComponents<IInteractable>();
+            if(interactables != null && interactables.Length > 0)
+            {
+                foreach (var interactable in interactables)
+                {
+                    interactable.Interact(gameObject);
+                }
+            }
         }
-
+        public void Update()
+        {
+            if (steps % 1000 == 0)
+                PrintAttributes();
+            steps++;
+        }
         public void PrintAttributes()
         {
             string msg = "";
@@ -36,5 +43,6 @@ namespace Game.Players
             }
             Debug.Log(msg);
         }
+
     }
 }

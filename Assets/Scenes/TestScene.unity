@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 1051803860}
   - component: {fileID: 1051803859}
   - component: {fileID: 1051803858}
+  - component: {fileID: 1051803861}
   m_Layer: 0
   m_Name: StatItem
   m_TagString: Interactable
@@ -524,6 +525,15 @@ MonoBehaviour:
   - type: 10
     attribute: 20
     value: 1
+  - type: 20
+    attribute: 10
+    value: 0.5
+  - type: 10
+    attribute: 30
+    value: 2
+  - type: 10
+    attribute: 10
+    value: 0.1
 --- !u!61 &1051803859
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -565,6 +575,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1051803861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051803857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b98944d36999324583012e8d109e530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: Item
+  _description: Description
+  stats:
+  - type: 20
+    attribute: 20
+    value: 1
+  - type: 10
+    attribute: 10
+    value: 10
+  - type: 20
+    attribute: 30
+    value: 2
+  - type: 20
+    attribute: 10
+    value: 0.1
 --- !u!1 &1154802133
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Stats;
-using Game.Players;
-using System.Threading.Tasks;
 
 namespace Game.Items
 {
@@ -11,15 +9,6 @@ namespace Game.Items
     {
         [SerializeField] ItemStatValue[] stats;
         StatModifier[] _modifiers;
-
-        async void Start()
-        {
-            await Task.Delay(1000);
-            Player _player = player;
-            Drop();
-            Debug.Log($"Item removido:");
-            _player.PrintAttributes();
-        }
 
         public override void OnPickUp()
         {
