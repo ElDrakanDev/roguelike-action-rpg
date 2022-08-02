@@ -95,6 +95,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RNG", "RNG.csproj", "{5458B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.RenderPipelines.Universal.Shaders", "Unity.RenderPipelines.Universal.Shaders.csproj", "{739E3B94-58B5-748B-B9E3-FC14B09D0185}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "States", "States.csproj", "{FBE8BC23-24C1-922E-224D-5C31285B1F74}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.PlasticSCM.Editor", "Unity.PlasticSCM.Editor.csproj", "{FD244123-380A-A007-FAF5-EB942FC38269}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.VisualScripting.Core.Editor", "Unity.VisualScripting.Core.Editor.csproj", "{0DEA3194-8182-F9B6-7DA6-EC723D18BCD4}"
@@ -361,6 +363,10 @@ Global
 		{739E3B94-58B5-748B-B9E3-FC14B09D0185}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{739E3B94-58B5-748B-B9E3-FC14B09D0185}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{739E3B94-58B5-748B-B9E3-FC14B09D0185}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE8BC23-24C1-922E-224D-5C31285B1F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE8BC23-24C1-922E-224D-5C31285B1F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE8BC23-24C1-922E-224D-5C31285B1F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE8BC23-24C1-922E-224D-5C31285B1F74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD244123-380A-A007-FAF5-EB942FC38269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FD244123-380A-A007-FAF5-EB942FC38269}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD244123-380A-A007-FAF5-EB942FC38269}.Release|Any CPU.ActiveCfg = Release|Any CPU
