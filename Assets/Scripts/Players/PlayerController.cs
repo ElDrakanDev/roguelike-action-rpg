@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.States;
+using Game.Stats;
+
 
 namespace Game.Players
 {
     public class PlayerController : Context<ControllerState>
     {
+        const float MAX_FALL = 20f;
+        const float MAX_SPEED = 30f;
+        const float GRAVITY = 1f;
+        PlayerActionsControls inputs;
         public new ControllerState Current 
         { 
             get 
@@ -24,14 +30,18 @@ namespace Game.Players
 
         public PlayerController(ControllerState state, Player player, GameObject gameObject) : base(state) 
         {
+            inputs = new PlayerActionsControls();
             this.gameObject = gameObject;
             this.player = player;
             rb = gameObject.GetComponent<Rigidbody2D>();
+            if (state == null)
+                Current = new GroundedMoveState(rb);
         }
 
-        public void Move(Vector2 direction, float speed, float maxSpeed, float gravity)
+        public void Move(Vector2 direction)
         {
-            Current.Move(direction, speed, maxSpeed, gravity);
+            float speed = Mathf.Clamp(player.stats[AttributeID.Agility].Value * 0.4f, 0.55f, 1);
+            Current.Move(direction, speed, MAX_SPEED, GRAVITY, MAX_FALL);
         }
 
         public void Jump(float force)
@@ -40,6 +50,9 @@ namespace Game.Players
                 Current.Jump(force);
         }
 
-        public void Update() { }
+        public void Update() 
+        {
+
+        }
     }
 }

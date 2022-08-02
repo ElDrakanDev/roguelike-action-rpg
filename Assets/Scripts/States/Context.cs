@@ -15,7 +15,7 @@ namespace Game.States
             if(_current != state)
             {
                 _current = state;
-                _current.Context = this;
+                _current.Context = this as Context<State>;
                 return true;
             }
             return false;

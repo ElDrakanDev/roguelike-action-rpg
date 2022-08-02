@@ -17,9 +17,12 @@ namespace Game.Players
             rb.velocity = new Vector2(rb.velocity.x, force);
         }
 
-        public override void Move(Vector2 direction, float speed, float maxSpeed, float gravity)
+        public override void Move(Vector2 direction, float acceleration, float maxSpeed, float gravity, float maxFall)
         {
-            Vector2 vel = new Vector2(, rb.velocity.y);
+            float xSpeed = Mathf.Lerp(rb.velocity.x, direction.x * maxSpeed, acceleration);
+            float ySpeed = rb.velocity.y + gravity - (direction.y * 0.3f);
+            ySpeed = ySpeed < maxFall ? ySpeed : maxFall;
+            ySpeed = ySpeed > -maxFall ? ySpeed : -maxFall;
         }
     }
 }
