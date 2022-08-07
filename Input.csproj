@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{FBE8BC23-24C1-922E-224D-5C31285B1F74}</ProjectGuid>
+    <ProjectGuid>{0DD16EC1-5296-59AC-B45C-54D28AE32A16}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>States</AssemblyName>
+    <AssemblyName>Input</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -56,11 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\States\State.cs" />
-    <Compile Include="Assets\Scripts\States\Context.cs" />
+    <Compile Include="Assets\Scripts\Input\PlayerActionsControls.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\States\States.asmdef" />
+    <None Include="Assets\Scripts\Input\Input.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

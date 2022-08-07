@@ -752,6 +752,10 @@
       <Project>{7843235E-1411-4679-E23B-380C8E235774}</Project>
       <Name>Items</Name>
     </ProjectReference>
+    <ProjectReference Include="Player.csproj">
+      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
+      <Name>Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{185857C6-B34A-E4F8-2A17-61ED5B65F38E}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
@@ -803,6 +807,10 @@
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{F078A78B-0754-5236-14CF-A9E3B9AC455C}</Project>
       <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Events.csproj">
+      <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
+      <Name>Events</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.IK.Runtime.csproj">
       <Project>{F8FCD9C7-8FC4-083A-F651-F639C173003C}</Project>
@@ -880,6 +888,10 @@
       <Project>{C61AB550-AC0A-5F96-F576-9DCAEFA958BD}</Project>
       <Name>Unity.Burst.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="States.csproj">
+      <Project>{FBE8BC23-24C1-922E-224D-5C31285B1F74}</Project>
+      <Name>States</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
       <Project>{9DAD1398-456E-A7B6-5705-0C63EDE445CF}</Project>
       <Name>Unity.2D.Sprite.Editor</Name>
@@ -920,6 +932,10 @@
       <Project>{1AE7F51D-91B8-CDFB-5F65-8299EC556C8C}</Project>
       <Name>Unity.Mathematics</Name>
     </ProjectReference>
+    <ProjectReference Include="Interfaces.csproj">
+      <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Services.Core.Analytics.csproj">
       <Project>{305B0D46-4C4E-913C-8A07-35D3C11634DE}</Project>
       <Name>Unity.Services.Core.Analytics</Name>
@@ -931,6 +947,10 @@
     <ProjectReference Include="Unity.RenderPipelines.Universal.Editor.csproj">
       <Project>{0E3197FE-DE3E-864E-9BB8-758C0C78EBC4}</Project>
       <Name>Unity.RenderPipelines.Universal.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NewAssembly.csproj">
+      <Project>{84BADABC-5948-4A6B-63CB-360953822817}</Project>
+      <Name>NewAssembly</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Shared.Editor.csproj">
       <Project>{16C67677-1DC6-9F72-4803-93983AEAF30F}</Project>
@@ -976,29 +996,13 @@
       <Project>{F1163EA5-0925-8CB6-08C1-D39B390B5D43}</Project>
       <Name>Unity.2D.SpriteShape.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.State.csproj">
-      <Project>{B77ABF90-422F-48BC-A35B-9384E040E0B5}</Project>
-      <Name>Unity.VisualScripting.State</Name>
-    </ProjectReference>
-    <ProjectReference Include="Interfaces.csproj">
-      <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
-      <Name>Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="Player.csproj">
-      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
-      <Name>Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Events.csproj">
-      <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
-      <Name>Events</Name>
-    </ProjectReference>
     <ProjectReference Include="Effects.csproj">
       <Project>{6B87D993-3138-1BB0-B662-D2DA413A99F1}</Project>
       <Name>Effects</Name>
     </ProjectReference>
-    <ProjectReference Include="States.csproj">
-      <Project>{FBE8BC23-24C1-922E-224D-5C31285B1F74}</Project>
-      <Name>States</Name>
+    <ProjectReference Include="Unity.VisualScripting.State.csproj">
+      <Project>{B77ABF90-422F-48BC-A35B-9384E040E0B5}</Project>
+      <Name>Unity.VisualScripting.State</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

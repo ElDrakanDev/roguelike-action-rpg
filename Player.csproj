@@ -56,11 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Players\Player.cs" />
-    <Compile Include="Assets\Scripts\Players\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Players\ControllerState.cs" />
     <Compile Include="Assets\Scripts\Players\GroundedMoveState.cs" />
-    <Compile Include="Assets\Scripts\Players\PlayerActionsControls.cs" />
+    <Compile Include="Assets\Scripts\Players\Player.cs" />
+    <Compile Include="Assets\Scripts\Players\ControllerState.cs" />
+    <Compile Include="Assets\Scripts\Players\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Players\Players.asmdef" />
@@ -749,6 +748,10 @@
     <ProjectReference Include="States.csproj">
       <Project>{FBE8BC23-24C1-922E-224D-5C31285B1F74}</Project>
       <Name>States</Name>
+    </ProjectReference>
+    <ProjectReference Include="NewAssembly.csproj">
+      <Project>{84BADABC-5948-4A6B-63CB-360953822817}</Project>
+      <Name>NewAssembly</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InputSystem.csproj">
       <Project>{E1029596-0002-285C-9258-99EE3E672C6B}</Project>

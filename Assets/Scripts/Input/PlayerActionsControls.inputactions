@@ -1,5 +1,5 @@
 {
-    "name": "PlayerActions",
+    "name": "PlayerActionsControls",
     "maps": [
         {
             "name": "Player",
@@ -82,11 +82,33 @@
                 },
                 {
                     "name": "",
+                    "id": "1fd5979a-1f03-409d-8145-b1f681d375f5",
+                    "path": "<HID::Microntek              USB Joystick          >/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad Default",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a55c185e-2203-4a0a-815d-d0d76ebb36d3",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard Default",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c11f4391-09db-44e6-8bce-83216af1b092",
+                    "path": "<HID::Microntek              USB Joystick          >/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad Default",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -101,6 +123,17 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad Default",
+            "bindingGroup": "Gamepad Default",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
                     "isOptional": false,
                     "isOR": false
                 }
