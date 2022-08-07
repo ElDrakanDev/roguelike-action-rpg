@@ -19,8 +19,9 @@ namespace Game.Players
 
         public override void Move(Vector2 direction, float acceleration, float maxSpeed, float gravity, float maxFall)
         {
+            acceleration = direction.x == 0 ? acceleration * 1.5f : acceleration;
             float xSpeed = Mathf.Lerp(rb.velocity.x, direction.x * maxSpeed, acceleration);
-            float extraFallSpeed = Mathf.Clamp(direction.y, -1, 0.3f);
+            float extraFallSpeed = Mathf.Clamp(direction.y * 1.5f, -1.5f, 0.3f);
             float ySpeed = rb.velocity.y - gravity + extraFallSpeed * gravity;
             ySpeed = ySpeed < maxFall ? ySpeed : maxFall;
             ySpeed = ySpeed > -maxFall ? ySpeed : -maxFall;

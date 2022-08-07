@@ -52,7 +52,7 @@ namespace Game.Input
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""fc53260b-807b-411e-bc7f-1c620f872675"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -106,11 +106,11 @@ namespace Game.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1fd5979a-1f03-409d-8145-b1f681d375f5"",
+                    ""id"": ""785409a6-c532-45ea-9e03-846805293bfb"",
                     ""path"": ""<HID::Microntek              USB Joystick          >/stick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad Default"",
+                    ""groups"": ""Joystick"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -128,11 +128,11 @@ namespace Game.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c11f4391-09db-44e6-8bce-83216af1b092"",
+                    ""id"": ""0800c01d-fe68-4377-bcbf-570b17120773"",
                     ""path"": ""<HID::Microntek              USB Joystick          >/button3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad Default"",
+                    ""groups"": ""Joystick"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -153,11 +153,11 @@ namespace Game.Input
             ]
         },
         {
-            ""name"": ""Gamepad Default"",
-            ""bindingGroup"": ""Gamepad Default"",
+            ""name"": ""Joystick"",
+            ""bindingGroup"": ""Joystick"",
             ""devices"": [
                 {
-                    ""devicePath"": ""<Gamepad>"",
+                    ""devicePath"": ""<HID::Microntek              USB Joystick          >"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -274,13 +274,13 @@ namespace Game.Input
                 return asset.controlSchemes[m_KeyboardDefaultSchemeIndex];
             }
         }
-        private int m_GamepadDefaultSchemeIndex = -1;
-        public InputControlScheme GamepadDefaultScheme
+        private int m_JoystickSchemeIndex = -1;
+        public InputControlScheme JoystickScheme
         {
             get
             {
-                if (m_GamepadDefaultSchemeIndex == -1) m_GamepadDefaultSchemeIndex = asset.FindControlSchemeIndex("Gamepad Default");
-                return asset.controlSchemes[m_GamepadDefaultSchemeIndex];
+                if (m_JoystickSchemeIndex == -1) m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
+                return asset.controlSchemes[m_JoystickSchemeIndex];
             }
         }
         public interface IPlayerActions

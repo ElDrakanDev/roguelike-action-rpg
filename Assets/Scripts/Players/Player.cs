@@ -14,6 +14,7 @@ namespace Game.Players
         public CharacterStats stats;
         [SerializeField] BaseStatObject baseStats;
         [SerializeField] LayerMask ground;
+        [SerializeField] PlayerInput input;
         PlayerController controller;
         PlayerActionsControls playerControls;
 
@@ -23,9 +24,9 @@ namespace Game.Players
             controller = new PlayerController(null, this, gameObject, ground);
             playerControls = new PlayerActionsControls();
 
-            playerControls.Player.Movement.performed += controller.ReadMovement;
-            playerControls.Player.Movement.canceled += controller.ReadMovement;
-            playerControls.Player.Jump.started += controller.Jump;
+            //playerControls.Player.Movement.performed += controller.ReadMovement;
+            //playerControls.Player.Movement.canceled += controller.ReadMovement;
+            //playerControls.Player.Jump.started += controller.Jump;
         }
         private void OnEnable()
         {
@@ -62,7 +63,7 @@ namespace Game.Players
             {
                 Debug.Log("Application Quit by user");
                 Application.Quit();
-            } 
+            }
         }
         private void FixedUpdate()
         {
@@ -78,5 +79,14 @@ namespace Game.Players
             Debug.Log(msg);
         }
 
+        public void Move(InputAction.CallbackContext context)
+        {
+            controller.ReadMovement(context);
+        }
+
+        public void Jump(InputAction.CallbackContext context)
+        {
+            controller.Jump(context);
+        }
     }
 }
