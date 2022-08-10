@@ -888,6 +888,10 @@
       <Project>{C61AB550-AC0A-5F96-F576-9DCAEFA958BD}</Project>
       <Name>Unity.Burst.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="States.csproj">
+      <Project>{FBE8BC23-24C1-922E-224D-5C31285B1F74}</Project>
+      <Name>States</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
       <Project>{9DAD1398-456E-A7B6-5705-0C63EDE445CF}</Project>
       <Name>Unity.2D.Sprite.Editor</Name>
@@ -943,6 +947,10 @@
     <ProjectReference Include="Unity.RenderPipelines.Universal.Editor.csproj">
       <Project>{0E3197FE-DE3E-864E-9BB8-758C0C78EBC4}</Project>
       <Name>Unity.RenderPipelines.Universal.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NewAssembly.csproj">
+      <Project>{84BADABC-5948-4A6B-63CB-360953822817}</Project>
+      <Name>NewAssembly</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Shared.Editor.csproj">
       <Project>{16C67677-1DC6-9F72-4803-93983AEAF30F}</Project>

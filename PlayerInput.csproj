@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</ProjectGuid>
+    <ProjectGuid>{0E2A9774-AC7F-D835-08E4-8A338046E0F9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Player</AssemblyName>
+    <AssemblyName>PlayerInput</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -56,13 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Players\GroundedMoveState.cs" />
-    <Compile Include="Assets\Scripts\Players\Player.cs" />
-    <Compile Include="Assets\Scripts\Players\ControllerState.cs" />
-    <Compile Include="Assets\Scripts\Players\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Input\PlayerActionsControls.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Players\Players.asmdef" />
+    <None Include="Assets\Scripts\Input\PlayerInput.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -733,26 +730,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Stats.csproj">
-      <Project>{93556C28-4650-FCDD-86E7-A4BD7BD10DE6}</Project>
-      <Name>Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="Helpers.csproj">
-      <Project>{941DF200-BDF5-A3A9-0E80-B5891AD8BCFC}</Project>
-      <Name>Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="Interfaces.csproj">
-      <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
-      <Name>Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="States.csproj">
-      <Project>{FBE8BC23-24C1-922E-224D-5C31285B1F74}</Project>
-      <Name>States</Name>
-    </ProjectReference>
-    <ProjectReference Include="NewAssembly.csproj">
-      <Project>{84BADABC-5948-4A6B-63CB-360953822817}</Project>
-      <Name>NewAssembly</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.InputSystem.csproj">
       <Project>{E1029596-0002-285C-9258-99EE3E672C6B}</Project>
       <Name>Unity.InputSystem</Name>
