@@ -211,6 +211,23 @@ MonoBehaviour:
     m_ActionId: 684b62af-a2ba-47b2-b425-51c06c8214ce
     m_ActionName: Player/Jump[/Keyboard/space,/Microntek              USB Joystick         
       /button3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1818466363995379201}
+        m_TargetAssemblyTypeName: Game.Players.Player, Player
+        m_MethodName: MoveSkill
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 96530d0c-0e96-4aa8-9b09-3efbaab4ecc8
+    m_ActionName: Player/MoveSkill[/Keyboard/l,/Microntek              USB Joystick         
+      /button6]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

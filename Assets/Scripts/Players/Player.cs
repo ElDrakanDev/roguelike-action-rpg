@@ -64,10 +64,11 @@ namespace Game.Players
                 Debug.Log("Application Quit by user");
                 Application.Quit();
             }
+            controller.Update();
         }
         private void FixedUpdate()
         {
-            controller.Update();
+            controller.FixedUpdate();
         }
         public void PrintAttributes()
         {
@@ -87,6 +88,11 @@ namespace Game.Players
         public void Jump(InputAction.CallbackContext context)
         {
             controller.Jump(context);
+        }
+
+        public void MoveSkill(InputAction.CallbackContext context)
+        {
+            controller.MoveSkill(context);
         }
     }
 }

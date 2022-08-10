@@ -9,5 +9,6 @@ namespace Game.Players
     {
         public abstract void Move(Vector2 direction, float speed, float maxSpeed, float gravity, float maxFall);
         public abstract void Jump(float force);
+        public abstract void MoveSkill(Vector2 direction, float speed, float maxSpeed);
     }
 }

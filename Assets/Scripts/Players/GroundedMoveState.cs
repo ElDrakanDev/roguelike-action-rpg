@@ -28,5 +28,11 @@ namespace Game.Players
 
             rb.velocity = new Vector2(xSpeed, ySpeed);
         }
+
+        public override void MoveSkill(Vector2 direction, float speed, float maxSpeed)
+        {
+            speed = Mathf.Max(speed, 0.1f);
+            rb.velocity = new Vector2(direction.x * maxSpeed * speed * 20f, 0);
+        }
     }
 }
