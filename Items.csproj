@@ -60,6 +60,8 @@
     <Compile Include="Assets\Scripts\Items\ItemContainer.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\StatsItem.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemEffect.cs" />
+    <Compile Include="Assets\Scripts\Items\StatItemEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Items\Items.asmdef" />
@@ -736,10 +738,6 @@
     <ProjectReference Include="Events.csproj">
       <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
       <Name>Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="Effects.csproj">
-      <Project>{6B87D993-3138-1BB0-B662-D2DA413A99F1}</Project>
-      <Name>Effects</Name>
     </ProjectReference>
     <ProjectReference Include="Interfaces.csproj">
       <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1818466363995379213}
   - component: {fileID: 1818466363995379201}
   - component: {fileID: 1818466363995379200}
+  - component: {fileID: 3918861163214877595}
   m_Layer: 7
   m_Name: walter
   m_TagString: Player
@@ -228,8 +229,37 @@ MonoBehaviour:
     m_ActionId: 96530d0c-0e96-4aa8-9b09-3efbaab4ecc8
     m_ActionName: Player/MoveSkill[/Keyboard/l,/Microntek              USB Joystick         
       /button6]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1818466363995379201}
+        m_TargetAssemblyTypeName: Game.Players.Player, Player
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e2e62a08-0499-4ddf-8b48-8cbf914b9169
+    m_ActionName: Player/Interact[/Keyboard/e,/Microntek              USB Joystick         
+      /button2]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3918861163214877595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818466363995379214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c5ca33ca55ff547893c5df49af436e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

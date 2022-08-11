@@ -23,10 +23,6 @@ namespace Game.Players
             stats = new CharacterStats(this, baseStats.baseStats);
             controller = new PlayerController(null, this, gameObject, ground);
             playerControls = new PlayerActionsControls();
-
-            //playerControls.Player.Movement.performed += controller.ReadMovement;
-            //playerControls.Player.Movement.canceled += controller.ReadMovement;
-            //playerControls.Player.Jump.started += controller.Jump;
         }
         private void OnEnable()
         {
@@ -36,23 +32,7 @@ namespace Game.Players
         {
             if(playerControls != null) playerControls.Disable();
         }
-        private void Start()
-        {
-            IInteractable[] interactables = GameObject.FindGameObjectWithTag("Interactable")?.GetComponents<IInteractable>();
-            if(interactables != null && interactables.Length > 0)
-            {
-                foreach (var interactable in interactables)
-                {
-                    interactable.Interact(gameObject);
-                }
-            }
-        }
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            if(controller.point != null && controller.size != null)
-                Gizmos.DrawWireCube(controller.point, controller.size);
-        }
+
         public void Update()
         {
             Keyboard keyboard = Keyboard.current;
@@ -93,6 +73,12 @@ namespace Game.Players
         public void MoveSkill(InputAction.CallbackContext context)
         {
             controller.MoveSkill(context);
+        }
+
+        public void Interact(InputAction.CallbackContext context)
+        {
+            PrintAttributes();
+            controller.Interact(context);
         }
     }
 }

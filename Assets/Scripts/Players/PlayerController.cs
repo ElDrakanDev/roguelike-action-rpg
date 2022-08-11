@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Game.States;
 using Game.Stats;
-using Game.Input;
 using UnityEngine.InputSystem;
+using Game.Interfaces;
 
 namespace Game.Players
 {
@@ -16,9 +14,9 @@ namespace Game.Players
         const float MAX_MOVE_SKILL_COOLDOWN = 1f;
         public float Speed
         {
-            get => Mathf.Clamp(player.stats[AttributeID.Agility].Value * 0.1f, 0.05f, 1);
+            get => Mathf.Clamp((player.stats[AttributeID.Agility].Value + 1) * 0.05f, 0.05f, 0.2f);
         }
-        float MaxSpeed { get => Mathf.Clamp(MAX_SPEED + (player.stats[AttributeID.Agility].Value - 1), MAX_SPEED - 3, MAX_SPEED + 3); }
+        float MaxSpeed { get => Mathf.Clamp(MAX_SPEED + (player.stats[AttributeID.Agility].Value - 1), MAX_SPEED - 3, MAX_SPEED + 5); }
         Vector2 direction;
         readonly GameObject gameObject;
         readonly Player player;
@@ -28,7 +26,6 @@ namespace Game.Players
         LayerMask groundLayer;
         public Vector2 point, size;
         float _moveSkillCooldown = 0f;
-
 
         public new ControllerState Current 
         { 
@@ -84,12 +81,36 @@ namespace Game.Players
                 _moveSkillCooldown = MAX_MOVE_SKILL_COOLDOWN;
             }
         }
-
         bool CheckGrounded()
         {
             point = new Vector2(rb.position.x, rb.position.y - collider.bounds.size.y * 0.5f);
             size = new Vector2(collider.bounds.size.x * 0.99f, collider.bounds.size.y * 0.1f);
             return Physics2D.OverlapBox(point, size, 0, groundLayer) != null;
+        }
+        public void Interact(InputAction.CallbackContext context)
+        {
+            GameObject[] interactableGameObjects = GameObject.FindGameObjectsWithTag("Interactable");
+            if (interactableGameObjects != null && interactableGameObjects.Length > 0)
+            {
+                float closestDist = float.MaxValue;
+                GameObject closest = null;
+
+                foreach (var interactableGameObject in interactableGameObjects)
+                {
+                    float distance = Vector2.Distance(interactableGameObject.transform.position, rb.position);
+
+                    if(distance <= closestDist)
+                    {
+                        closest = interactableGameObject;
+                    }
+                }
+
+                foreach(var interactable in closest.GetComponents<IInteractable>())
+                {
+                    interactable.Interact(gameObject);
+                }
+                
+            }
         }
     }
 }

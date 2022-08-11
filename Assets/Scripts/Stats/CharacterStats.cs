@@ -47,7 +47,7 @@ namespace Game.Stats
         {
             foreach (var stat in Stats) 
             { 
-                stat.Remove(source);
+                stat.RemoveFromSource(source);
             }
         }
     }

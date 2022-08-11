@@ -5,14 +5,14 @@ namespace Game.Items
 {
     public class ItemContainer : MonoBehaviour
     {
-        List<Item> items = new List<Item>();
+        [SerializeField] List<ItemData> items = new List<ItemData>();
 
-        public void Add(Item item)
+        public void Add(ItemData item)
         {
             items.Add(item);
         }
 
-        public void Remove(Item item)
+        public void Remove(ItemData item)
         {
             items.Remove(item);
         }

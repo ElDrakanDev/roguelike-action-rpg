@@ -14,7 +14,7 @@ public class ShowStat : MonoBehaviour
     {
         stat = new Stat(10, this);
 
-        FindObjectOfType<StatsItem>().Interact(gameObject);
+        //FindObjectOfType<StatsItem>().Interact(gameObject);
     }
     void Update()
     {

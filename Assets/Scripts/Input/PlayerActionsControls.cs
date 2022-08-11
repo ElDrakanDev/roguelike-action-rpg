@@ -55,6 +55,15 @@ namespace Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2e62a08-0499-4ddf-8b48-8cbf914b9169"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -167,6 +176,28 @@ namespace Game.Input
                     ""action"": ""MoveSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c9795f6-2a89-44dc-9b9f-9d71ec1b9637"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard Default"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2dc53cfc-2737-4474-9631-82ff38b405bd"",
+                    ""path"": ""<HID::Microntek              USB Joystick          >/button2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -201,6 +232,7 @@ namespace Game.Input
             m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_MoveSkill = m_Player.FindAction("MoveSkill", throwIfNotFound: true);
+            m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -263,6 +295,7 @@ namespace Game.Input
         private readonly InputAction m_Player_Movement;
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_MoveSkill;
+        private readonly InputAction m_Player_Interact;
         public struct PlayerActions
         {
             private @PlayerActionsControls m_Wrapper;
@@ -270,6 +303,7 @@ namespace Game.Input
             public InputAction @Movement => m_Wrapper.m_Player_Movement;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @MoveSkill => m_Wrapper.m_Player_MoveSkill;
+            public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -288,6 +322,9 @@ namespace Game.Input
                     @MoveSkill.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveSkill;
                     @MoveSkill.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveSkill;
                     @MoveSkill.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveSkill;
+                    @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                    @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                    @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -301,6 +338,9 @@ namespace Game.Input
                     @MoveSkill.started += instance.OnMoveSkill;
                     @MoveSkill.performed += instance.OnMoveSkill;
                     @MoveSkill.canceled += instance.OnMoveSkill;
+                    @Interact.started += instance.OnInteract;
+                    @Interact.performed += instance.OnInteract;
+                    @Interact.canceled += instance.OnInteract;
                 }
             }
         }
@@ -328,6 +368,7 @@ namespace Game.Input
             void OnMovement(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnMoveSkill(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
     }
 }

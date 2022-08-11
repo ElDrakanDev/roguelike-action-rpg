@@ -66,13 +66,18 @@ namespace Game.Stats
             return _value;
         }
 
-        public void Add(StatModifier stat)
+        public void Add(IStatComponent stat)
         {
             stats.Add(stat);
             needUpdate = true;
         }
 
-        public void Remove(dynamic source)
+        public bool RemoveComponent(IStatComponent component)
+        {
+            return stats.Remove(component);
+        }
+
+        public void RemoveFromSource(dynamic source)
         {
             stats.RemoveAll((stat) => {
                 try

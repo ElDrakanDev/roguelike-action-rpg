@@ -5,9 +5,10 @@ using System;
 
 namespace Game.Stats
 {
+    [Serializable]
     public class StatModifier : IStatComponent
     {
-        float _value;
+        [SerializeField] float _value;
         public float Value
         {
             get { return _value; }
@@ -26,7 +27,9 @@ namespace Game.Stats
                 }
             }
         }
-        public StatType Type { get; set; }
+
+        [SerializeField] StatType _type;
+        public StatType Type { get => _type; set => _type = value; }
         public Stat StatOwner { get; set; }
         public dynamic Source { get; set; }
 

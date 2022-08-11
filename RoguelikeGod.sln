@@ -61,8 +61,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items", "Items.csproj", "{7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.2D.Tilemap.Extras", "Unity.2D.Tilemap.Extras.csproj", "{264A8494-B1D8-C065-DDF5-672986CE3B6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Effects", "Effects.csproj", "{6B87D993-3138-1BB0-B662-D2DA413A99F1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Services.Core.Threading", "Unity.Services.Core.Threading.csproj", "{3E679474-0D7F-4A43-C7AC-29794BE105B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.2D.Common.Runtime", "Unity.2D.Common.Runtime.csproj", "{204FEB3F-7562-0245-C928-451A7E1BE5C2}"
@@ -297,10 +295,6 @@ Global
 		{264A8494-B1D8-C065-DDF5-672986CE3B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{264A8494-B1D8-C065-DDF5-672986CE3B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{264A8494-B1D8-C065-DDF5-672986CE3B6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B87D993-3138-1BB0-B662-D2DA413A99F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B87D993-3138-1BB0-B662-D2DA413A99F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B87D993-3138-1BB0-B662-D2DA413A99F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B87D993-3138-1BB0-B662-D2DA413A99F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E679474-0D7F-4A43-C7AC-29794BE105B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E679474-0D7F-4A43-C7AC-29794BE105B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E679474-0D7F-4A43-C7AC-29794BE105B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
