@@ -89,14 +89,15 @@ namespace Game.Players
         }
         public void Interact(InputAction.CallbackContext context)
         {
-            GameObject[] interactableGameObjects = GameObject.FindGameObjectsWithTag("Interactable");
-            if (interactableGameObjects != null && interactableGameObjects.Length > 0)
+            Collider2D[] interactableColliders = Physics2D.OverlapBoxAll(collider.transform.position, collider.bounds.size, collider.transform.rotation.z);
+            if (interactableColliders != null && interactableColliders.Length > 0)
             {
                 float closestDist = float.MaxValue;
                 GameObject closest = null;
 
-                foreach (var interactableGameObject in interactableGameObjects)
+                foreach (var col in interactableColliders)
                 {
+                    var interactableGameObject = col.gameObject;
                     float distance = Vector2.Distance(interactableGameObject.transform.position, rb.position);
 
                     if(distance <= closestDist)
@@ -109,7 +110,6 @@ namespace Game.Players
                 {
                     interactable.Interact(gameObject);
                 }
-                
             }
         }
     }

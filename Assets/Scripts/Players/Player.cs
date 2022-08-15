@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Game.Stats;
-using Game.Interfaces;
-using Game.Helpers;
 using Game.Input;
 using UnityEngine.InputSystem;
 
@@ -41,7 +37,6 @@ namespace Game.Players
 
             if (keyboard.escapeKey.wasPressedThisFrame) 
             {
-                Debug.Log("Application Quit by user");
                 Application.Quit();
             }
             controller.Update();

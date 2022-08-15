@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Threading.Tasks;
 
 namespace Game.Players
 {
@@ -23,9 +22,10 @@ namespace Game.Players
 
             if(dashFrames < 0)
             {
-                acceleration = direction.x == 0 ? acceleration * 1.5f : acceleration;
+                if (direction.x == 0) acceleration *= 1.5f;
                 float xSpeed = Mathf.Lerp(rb.velocity.x, direction.x * maxSpeed, acceleration);
                 float extraFallSpeed = Mathf.Clamp(direction.y * 1.5f, -1.5f, 0.3f);
+                if (extraFallSpeed < 0) maxFall *= 1.5f;
                 float ySpeed = rb.velocity.y - gravity + extraFallSpeed * gravity;
                 ySpeed = ySpeed < maxFall ? ySpeed : maxFall;
                 ySpeed = ySpeed > -maxFall ? ySpeed : -maxFall;

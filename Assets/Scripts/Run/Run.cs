@@ -3,13 +3,14 @@ namespace Game.Run
 {
     using UnityEngine;
     using Game.RNG;
+    using Game.Generation;
 
-    public class GameRun : MonoBehaviour
+    public class Run : MonoBehaviour
     {
         [SerializeField] int _seed;
-        public int Seed { get => _seed; }
-        public static GameRun instance;
-        // Start is called before the first frame update
+        public int Seed { get => _seed; private set => _seed = value; }
+        public static Run instance;
+
         void Awake()
         {
             if (!instance)
@@ -21,11 +22,12 @@ namespace Game.Run
                 Destroy(gameObject);
             }
 
-            Initialize();
+            Initialize(Seed == 0 ? Random.Range(int.MinValue, int.MaxValue) : Seed);
         }
 
-        void Initialize()
+        void Initialize(int seed)
         {
+            Seed = seed;
             RNG.Initialize(Seed);
         }
     }

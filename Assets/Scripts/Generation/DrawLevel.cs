@@ -19,9 +19,9 @@ namespace Game.Generation
 
             var renderer = square.GetComponent<SpriteRenderer>();
 
-            foreach(var pos in level.rooms.Keys)
+            foreach(var pos in level.Keys)
             {
-                var room = level.rooms[pos];
+                var room = level[pos];
                 var newSquare = Instantiate(square, new Vector3(pos.x * renderer.bounds.size.x, pos.y * renderer.bounds.size.y, 0), Quaternion.identity);
                 newSquare.GetComponent<SpriteRenderer>().color = GetColorByType(room.type);
                 newSquare.name = room.type + pos.ToString();

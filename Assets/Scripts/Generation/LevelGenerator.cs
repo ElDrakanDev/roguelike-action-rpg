@@ -73,7 +73,7 @@ namespace Game.Generation
         {
             var moveDir = Directions.directionVectors[EnumHelpers.GetRandom<MoveDirection>(RNG.roomRng)];
             _pos += moveDir;
-            if (_level.rooms.ContainsKey(_pos)) Move();
+            if (_level.ContainsKey(_pos)) Move();
         }
 
         void CreateRoom(Room room)
@@ -83,10 +83,10 @@ namespace Game.Generation
                 if (room.IsSpecial())
                 {
                     var furthest = GetFurthestSpecialPosition();
-                    _level.rooms.Add(furthest, room);
+                    _level.Add(furthest, room);
                     return;
                 }
-                _level.rooms.Add(_pos, room);
+                _level.Add(_pos, room);
             }
             catch (ArgumentException ex)
             {
@@ -95,25 +95,25 @@ namespace Game.Generation
         }
         void CreateStartRoom()
         {
-            _level.rooms.Add(_pos, new Room(RoomType.Start));
+            _level.Add(_pos, new Room(RoomType.Start));
         }
         void CreateFinalRoom()
         {
             var furthest = GetFurthestSpecialPosition();
             var room = new Room(RoomType.NextLevel);
-            _level.rooms.Add(furthest, room);               
+            _level.Add(furthest, room);               
         }
 
         bool CanSpawnSpecialRoomAt(Vector2Int position)
         {
-            if (_level.rooms.ContainsKey(position)) return false;
+            if (_level.ContainsKey(position)) return false;
 
             var directions = EnumHelpers.Values<MoveDirection>();
 
             foreach (MoveDirection direction in directions)
             {
                 var checkPosition = position + Directions.directionVectors[direction];
-                _level.rooms.TryGetValue(checkPosition, out Room room);
+                _level.TryGetValue(checkPosition, out Room room);
                 if (room == null) continue;
                 if (room.IsSpecial()) return false;
             }
@@ -121,7 +121,7 @@ namespace Game.Generation
         }
         Vector2Int GetFurthestSpecialPosition()
         {
-            Vector2Int[] positions = _level.rooms.Keys.ToArray();
+            Vector2Int[] positions = _level.Keys.ToArray();
 
             positions = positions.OrderByDescending(pos => pos, new DistanceCompare(Vector2Int.zero)).ToArray();
 
@@ -151,7 +151,7 @@ namespace Game.Generation
 
             foreach (var finalPos in finalPositions)
             {
-                if (!_level.rooms.ContainsKey(finalPos))
+                if (!_level.ContainsKey(finalPos))
                 {
                     return finalPos;
                 }

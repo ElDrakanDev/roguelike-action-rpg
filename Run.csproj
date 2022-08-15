@@ -56,7 +56,7 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Run\GameRun.cs" />
+    <Compile Include="Assets\Scripts\Run\Run.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Run\Run.asmdef" />
@@ -733,6 +733,10 @@
     <ProjectReference Include="RNG.csproj">
       <Project>{5458B5D0-5606-6034-9445-4721D2D57E7C}</Project>
       <Name>RNG</Name>
+    </ProjectReference>
+    <ProjectReference Include="Generation.csproj">
+      <Project>{0671B5FC-F0ED-0EA8-8D33-185C2A36D5D0}</Project>
+      <Name>Generation</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

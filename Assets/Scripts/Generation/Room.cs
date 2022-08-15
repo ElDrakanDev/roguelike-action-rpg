@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Game.Generation
 {
+    [System.Serializable]
     public class Room
     {
         public readonly RoomType type;
