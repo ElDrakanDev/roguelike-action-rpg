@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Run\Run.cs" />
+    <Compile Include="Assets\Scripts\Run\RoomNavigator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Run\Run.asmdef" />
@@ -737,6 +738,10 @@
     <ProjectReference Include="Generation.csproj">
       <Project>{0671B5FC-F0ED-0EA8-8D33-185C2A36D5D0}</Project>
       <Name>Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.InputSystem.csproj">
+      <Project>{E1029596-0002-285C-9258-99EE3E672C6B}</Project>
+      <Name>Unity.InputSystem</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

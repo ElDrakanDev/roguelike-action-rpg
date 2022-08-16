@@ -23,8 +23,8 @@ namespace Game.Generation
             {
                 var room = level[pos];
                 var newSquare = Instantiate(square, new Vector3(pos.x * renderer.bounds.size.x, pos.y * renderer.bounds.size.y, 0), Quaternion.identity);
-                newSquare.GetComponent<SpriteRenderer>().color = GetColorByType(room.type);
-                newSquare.name = room.type + pos.ToString();
+                newSquare.GetComponent<SpriteRenderer>().color = GetColorByType(room.Type);
+                newSquare.name = room.Type + pos.ToString();
             }
         }
 

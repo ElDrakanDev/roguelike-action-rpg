@@ -5,22 +5,23 @@ namespace Game.Generation
     [System.Serializable]
     public class Room
     {
-        public readonly RoomType type;
+        [SerializeField] RoomType _type;
+        public RoomType Type { get => _type; private set => _type = value; }
         public GameObject gameObject;
 
         public Room(RoomType _type)
         {
-            type = _type;
+            Type = _type;
         }
 
         public bool IsSpecial()
         {
-            return type != RoomType.Normal;
+            return Type != RoomType.Normal;
         }
 
         public bool IsFixed()
         {
-            return type == RoomType.Start || type == RoomType.Boss || type == RoomType.NextLevel;
+            return Type == RoomType.Start || Type == RoomType.Boss || Type == RoomType.NextLevel;
         }
     }
 }

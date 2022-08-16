@@ -474,7 +474,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64bbc3030c43364fa03f34089186752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _seed: 0
+  _seed: 10
+  navigator:
+    _position: {x: 0, y: 0}
+    _activeRoom:
+      gameObject: {fileID: 0}
+  normals: 8
+  specials: 1
+  shops: 1
 --- !u!1 &1587888309
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +506,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587888309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db70bf384ad42ba4fa087c5cda2ae636, type: 3}
   m_Name: 
