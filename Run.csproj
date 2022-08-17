@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Run\Run.cs" />
     <Compile Include="Assets\Scripts\Run\RoomNavigator.cs" />
+    <Compile Include="Assets\Scripts\Run\TestRoomContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Run\Run.asmdef" />

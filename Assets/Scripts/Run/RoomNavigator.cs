@@ -9,8 +9,8 @@ namespace Game.Run
         Level _level;
         [SerializeField] Vector2Int _position = Vector2Int.zero;
         [SerializeField] Room _activeRoom;
-        public Level Level { get => _level; private set => _level = value; }
-        public Room ActiveRoom { get { _activeRoom = Level[Position] ; return Level[Position]; } }
+        public Level CurrentLevel { get => _level; private set => _level = value; }
+        public Room ActiveRoom { get { _activeRoom = CurrentLevel[Position] ; return CurrentLevel[Position]; } }
         public Vector2Int Position { get => _position; set =>  _position = value; }
         LevelGenerator generator;
 
@@ -28,8 +28,9 @@ namespace Game.Run
         public bool Move(int x, int y)
         {
             var newPos = Position + new Vector2Int(x, y);
-            if(Level.ContainsKey(newPos))
+            if(CurrentLevel.ContainsKey(newPos))
             {
+                CurrentLevel.EnterRoom(Position, newPos);
                 Position = newPos;
                 Debug.Log($"Moved to: {Position}. RoomType: {ActiveRoom.Type}");
                 return true;
@@ -38,10 +39,13 @@ namespace Game.Run
         }
         public void MoveTo(int x, int y)
         {
-            Position = new Vector2Int(x, y);
+            var newPos = new Vector2Int(x, y);
+            CurrentLevel.EnterRoom(Position, newPos);
+            Position = newPos;
         }
         public void MoveTo(Vector2Int pos)
         {
+            CurrentLevel.EnterRoom(Position, pos);
             Position = pos;
         }
     }
