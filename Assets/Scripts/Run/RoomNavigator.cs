@@ -1,5 +1,6 @@
 using UnityEngine;
 using Game.Generation;
+using Game.Events;
 
 namespace Game.Run
 {
@@ -23,6 +24,7 @@ namespace Game.Run
         {
             Position = Vector2Int.zero;
             _level = generator.Generate(normals, specials, shops);
+            EventManager.instance.OnFinishGeneration();
         }
 
         public bool Move(int x, int y)
@@ -32,7 +34,7 @@ namespace Game.Run
             {
                 CurrentLevel.EnterRoom(Position, newPos);
                 Position = newPos;
-                Debug.Log($"Moved to: {Position}. RoomType: {ActiveRoom.Type}");
+                EventManager.instance.OnRoomChange();
                 return true;
             }
             return false;
@@ -42,11 +44,13 @@ namespace Game.Run
             var newPos = new Vector2Int(x, y);
             CurrentLevel.EnterRoom(Position, newPos);
             Position = newPos;
+            EventManager.instance.OnRoomChange();
         }
         public void MoveTo(Vector2Int pos)
         {
             CurrentLevel.EnterRoom(Position, pos);
             Position = pos;
+            EventManager.instance.OnRoomChange();
         }
     }
 }

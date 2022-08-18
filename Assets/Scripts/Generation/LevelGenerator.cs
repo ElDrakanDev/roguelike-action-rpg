@@ -50,18 +50,17 @@ namespace Game.Generation
         {
             var newLevel = new Level();
             _level = newLevel;
-            for (int i = 0; i < normals; i++) _availableRooms.Add(new Room(RoomType.Normal));
-            for (int i = 0; i < shops; i++) _availableRooms.Add(new Room(RoomType.Shop));
             for (int i = 0; i < treasures; i++) _availableRooms.Add(new Room(RoomType.Treasure));
+            for (int i = 0; i < shops; i++) _availableRooms.Add(new Room(RoomType.Shop));
+            for (int i = 0; i < normals; i++) _availableRooms.Add(new Room(RoomType.Normal));
 
-            //_availableRooms = _availableRooms.OrderBy((room) => RNG.roomRng.Range(-1, 2)).ToList();
             Shuffle(_availableRooms);
 
             CreateStartRoom();
             for (int i = _availableRooms.Count - 1; i >= 0; i--)
             {
                 Room room = _availableRooms[i];
-                Move();
+                if(!room.IsSpecial()) Move();
                 CreateRoom(room);
                 _availableRooms.Remove(room);
             }
@@ -73,7 +72,10 @@ namespace Game.Generation
         {
             var moveDir = Directions.directionVectors[EnumHelpers.GetRandom<MoveDirection>(RNG.roomRng)];
             _pos += moveDir;
-            if (_level.ContainsKey(_pos)) Move();
+            if (_level.ContainsKey(_pos))
+            {
+                Move();
+            }
         }
 
         void CreateRoom(Room room)
@@ -147,7 +149,7 @@ namespace Game.Generation
                     return finalPos;
                 }
             }
-            Debug.LogWarning($"No se pudo encontrar una posicion válida para crear la sala del jefe. Se creará ignorando las condiciones.");
+            Debug.LogWarning($"No se pudo encontrar una posicion válida para crear la sala especial. Se creará ignorando las condiciones.");
 
             foreach (var finalPos in finalPositions)
             {

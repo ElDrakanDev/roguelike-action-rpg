@@ -1,13 +1,13 @@
 using UnityEngine;
+using System;
 
 namespace Game.Events
 {
     public class EventManager : MonoBehaviour
     {
-        static EventManager instance;
-        public GameEvent leftClick = new GameEvent();
+        public static EventManager instance;
 
-        private void Start()
+        private void Awake()
         {
             if (!instance)
             {
@@ -20,5 +20,11 @@ namespace Game.Events
             }
         }
 
+        #region Events
+        public event Action onFinishGeneration;
+        public void OnFinishGeneration() => onFinishGeneration?.Invoke();
+        public event Action onRoomChange;
+        public void OnRoomChange() => onRoomChange?.Invoke();
+        #endregion
+        }
     }
-}

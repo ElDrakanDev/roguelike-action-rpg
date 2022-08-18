@@ -1006,6 +1006,10 @@
       <Project>{938F4803-AC96-6895-3DDC-A18E30058BDC}</Project>
       <Name>Unity.2D.SpriteShape.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="UI.csproj">
+      <Project>{67A83228-6674-C76E-3359-C7C347FC35D0}</Project>
+      <Name>UI</Name>
+    </ProjectReference>
     <ProjectReference Include="RNG.csproj">
       <Project>{5458B5D0-5606-6034-9445-4721D2D57E7C}</Project>
       <Name>RNG</Name>

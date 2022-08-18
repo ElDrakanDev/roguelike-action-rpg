@@ -13,8 +13,9 @@ namespace Game.Run
         public int Seed { get => _seed; private set => _seed = value; }
         public static Run instance;
         public RoomNavigator navigator;
-
         public int normals = 8, specials = 1, shops = 1;
+        public Level Level{ get => navigator.CurrentLevel; }
+        public Room ActiveRoom { get => navigator.ActiveRoom; }
 
         void Awake()
         {
