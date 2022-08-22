@@ -25,6 +25,12 @@ namespace Game.Events
         public void OnFinishGeneration() => onFinishGeneration?.Invoke();
         public event Action onRoomChange;
         public void OnRoomChange() => onRoomChange?.Invoke();
+        public event Action onDoorEnter;
+        public void OnDoorEnter() => onDoorEnter?.Invoke();
+        public event Action onDoorExit;
+        public void OnDoorExit() => onDoorExit?.Invoke();
+        public event Action onNavigationExit;
+        public void OnNavigationExit() => onNavigationExit?.Invoke();
         #endregion
-        }
+    }
     }

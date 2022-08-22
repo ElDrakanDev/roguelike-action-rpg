@@ -56,10 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\UI\Minimap.cs" />
+    <Compile Include="Assets\_Scripts\UI\Minimap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\UI\UI.asmdef" />
+    <None Include="Assets\_Scripts\UI\UI.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

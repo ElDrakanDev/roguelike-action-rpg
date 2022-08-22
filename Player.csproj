@@ -56,13 +56,13 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Players\GroundedMoveState.cs" />
-    <Compile Include="Assets\Scripts\Players\Player.cs" />
-    <Compile Include="Assets\Scripts\Players\ControllerState.cs" />
-    <Compile Include="Assets\Scripts\Players\PlayerController.cs" />
+    <Compile Include="Assets\_Scripts\Players\GroundedMoveState.cs" />
+    <Compile Include="Assets\_Scripts\Players\Player.cs" />
+    <Compile Include="Assets\_Scripts\Players\ControllerState.cs" />
+    <Compile Include="Assets\_Scripts\Players\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Players\Players.asmdef" />
+    <None Include="Assets\_Scripts\Players\Players.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

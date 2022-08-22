@@ -35,7 +35,7 @@ namespace Game.Run
         {
             Seed = seed;
             RNG.Initialize(Seed);
-            navigator = new RoomNavigator();
+            navigator = new RoomNavigator(new Game.Input.PlayerActionsControls());
             GenerateLevel();
         }
 
@@ -64,6 +64,8 @@ namespace Game.Run
             else if (kb.downArrowKey.wasPressedThisFrame) navigator.Move(0, -1);
         }
 
+        public void ReadInputDirection(InputAction.CallbackContext context) => navigator.ReadInputDirection(context);
+        public void ReadInputCancel(InputAction.CallbackContext context) => navigator.ReadInputCancel(context);
         Color GetColorByType(RoomType type)
         {
             switch (type)

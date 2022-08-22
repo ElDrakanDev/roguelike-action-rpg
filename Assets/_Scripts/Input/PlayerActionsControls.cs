@@ -200,6 +200,140 @@ namespace Game.Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""23ef34c6-43e6-417f-94e1-2cc8ee358511"",
+            ""actions"": [
+                {
+                    ""name"": ""Direction"",
+                    ""type"": ""Value"",
+                    ""id"": ""0db4062a-e495-420b-bac9-196e84fb41ba"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""e239b386-70b4-4568-b7a4-08143bf4bef5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""75f72c7f-3f49-45b3-af4e-c71a45dea418"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c9b7be58-c049-444e-8105-334e2434c5e7"",
+                    ""path"": ""<HID::Microntek              USB Joystick          >/stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""d3e2381b-f1e1-4902-a456-f494d8d01f96"",
+                    ""path"": ""2DVector(mode=1)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Direction"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f1c7ef36-8c52-4a39-922e-f704fca42713"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard Default"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""0ea4a9e0-601f-4866-92ee-4ac8202b169a"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard Default"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""75c9b8da-c53c-4804-99b6-5a2cf69572b7"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard Default"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7f3c691a-3af7-4078-91f1-bda1d22a9228"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard Default"",
+                    ""action"": ""Direction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fddee15-4391-45dc-b83d-b94dc0f81e02"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard Default"",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d6a66aa-3b8f-4197-8372-ecd7de2ec40b"",
+                    ""path"": ""<HID::Microntek              USB Joystick          >/button2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94ace22d-caf3-4696-a0b8-df5603ddd529"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard Default"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -233,6 +367,11 @@ namespace Game.Input
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_MoveSkill = m_Player.FindAction("MoveSkill", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+            // UI
+            m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+            m_UI_Direction = m_UI.FindAction("Direction", throwIfNotFound: true);
+            m_UI_Enter = m_UI.FindAction("Enter", throwIfNotFound: true);
+            m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -345,6 +484,55 @@ namespace Game.Input
             }
         }
         public PlayerActions @Player => new PlayerActions(this);
+
+        // UI
+        private readonly InputActionMap m_UI;
+        private IUIActions m_UIActionsCallbackInterface;
+        private readonly InputAction m_UI_Direction;
+        private readonly InputAction m_UI_Enter;
+        private readonly InputAction m_UI_Exit;
+        public struct UIActions
+        {
+            private @PlayerActionsControls m_Wrapper;
+            public UIActions(@PlayerActionsControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Direction => m_Wrapper.m_UI_Direction;
+            public InputAction @Enter => m_Wrapper.m_UI_Enter;
+            public InputAction @Exit => m_Wrapper.m_UI_Exit;
+            public InputActionMap Get() { return m_Wrapper.m_UI; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+            public void SetCallbacks(IUIActions instance)
+            {
+                if (m_Wrapper.m_UIActionsCallbackInterface != null)
+                {
+                    @Direction.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDirection;
+                    @Direction.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDirection;
+                    @Direction.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDirection;
+                    @Enter.started -= m_Wrapper.m_UIActionsCallbackInterface.OnEnter;
+                    @Enter.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnEnter;
+                    @Enter.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnEnter;
+                    @Exit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnExit;
+                    @Exit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnExit;
+                    @Exit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnExit;
+                }
+                m_Wrapper.m_UIActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Direction.started += instance.OnDirection;
+                    @Direction.performed += instance.OnDirection;
+                    @Direction.canceled += instance.OnDirection;
+                    @Enter.started += instance.OnEnter;
+                    @Enter.performed += instance.OnEnter;
+                    @Enter.canceled += instance.OnEnter;
+                    @Exit.started += instance.OnExit;
+                    @Exit.performed += instance.OnExit;
+                    @Exit.canceled += instance.OnExit;
+                }
+            }
+        }
+        public UIActions @UI => new UIActions(this);
         private int m_KeyboardDefaultSchemeIndex = -1;
         public InputControlScheme KeyboardDefaultScheme
         {
@@ -369,6 +557,12 @@ namespace Game.Input
             void OnJump(InputAction.CallbackContext context);
             void OnMoveSkill(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+        }
+        public interface IUIActions
+        {
+            void OnDirection(InputAction.CallbackContext context);
+            void OnEnter(InputAction.CallbackContext context);
+            void OnExit(InputAction.CallbackContext context);
         }
     }
 }

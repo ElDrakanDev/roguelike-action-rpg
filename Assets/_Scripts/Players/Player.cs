@@ -72,7 +72,6 @@ namespace Game.Players
 
         public void Interact(InputAction.CallbackContext context)
         {
-            PrintAttributes();
             controller.Interact(context);
         }
     }

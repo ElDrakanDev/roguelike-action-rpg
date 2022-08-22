@@ -56,11 +56,11 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\States\State.cs" />
-    <Compile Include="Assets\Scripts\States\Context.cs" />
+    <Compile Include="Assets\_Scripts\States\State.cs" />
+    <Compile Include="Assets\_Scripts\States\Context.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\States\States.asmdef" />
+    <None Include="Assets\_Scripts\States\States.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -24,6 +24,7 @@ namespace Game.Players
         bool isGrounded;
         BoxCollider2D collider;
         LayerMask groundLayer;
+        LayerMask interactableLayer;
         public Vector2 point, size;
         float _moveSkillCooldown = 0f;
 
@@ -43,6 +44,7 @@ namespace Game.Players
             this.gameObject = gameObject;
             this.player = player;
             this.groundLayer = groundLayer;
+            this.interactableLayer = LayerMask.GetMask("Interactable");
             rb = gameObject.GetComponent<Rigidbody2D>();
             collider = gameObject.GetComponent<BoxCollider2D>();
             if (state == null)
@@ -89,7 +91,8 @@ namespace Game.Players
         }
         public void Interact(InputAction.CallbackContext context)
         {
-            Collider2D[] interactableColliders = Physics2D.OverlapBoxAll(collider.transform.position, collider.bounds.size, collider.transform.rotation.z);
+            Collider2D[] interactableColliders = Physics2D.OverlapBoxAll(collider.transform.position, collider.bounds.size, collider.transform.rotation.z, interactableLayer);
+            
             if (interactableColliders != null && interactableColliders.Length > 0)
             {
                 float closestDist = float.MaxValue;
@@ -104,6 +107,7 @@ namespace Game.Players
                     {
                         closest = interactableGameObject;
                     }
+
                 }
 
                 foreach(var interactable in closest.GetComponents<IInteractable>())

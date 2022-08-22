@@ -56,16 +56,16 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Stats\StatID.cs" />
-    <Compile Include="Assets\Scripts\Stats\IStatComponent.cs" />
-    <Compile Include="Assets\Scripts\Stats\StatModifier.cs" />
-    <Compile Include="Assets\Scripts\Stats\StatStructs.cs" />
-    <Compile Include="Assets\Scripts\Stats\Stat.cs" />
-    <Compile Include="Assets\Scripts\Stats\BaseStatObject.cs" />
-    <Compile Include="Assets\Scripts\Stats\CharacterStats.cs" />
+    <Compile Include="Assets\_Scripts\Stats\StatID.cs" />
+    <Compile Include="Assets\_Scripts\Stats\IStatComponent.cs" />
+    <Compile Include="Assets\_Scripts\Stats\StatModifier.cs" />
+    <Compile Include="Assets\_Scripts\Stats\StatStructs.cs" />
+    <Compile Include="Assets\_Scripts\Stats\Stat.cs" />
+    <Compile Include="Assets\_Scripts\Stats\BaseStatObject.cs" />
+    <Compile Include="Assets\_Scripts\Stats\CharacterStats.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Stats\Stats.asmdef" />
+    <None Include="Assets\_Scripts\Stats\Stats.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

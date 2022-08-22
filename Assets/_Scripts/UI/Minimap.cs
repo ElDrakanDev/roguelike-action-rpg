@@ -17,6 +17,7 @@ namespace Game.UI
         Dictionary<Vector2Int, GameObject> minimapIcons = new Dictionary<Vector2Int, GameObject>();
         Level _level;
         float width, height;
+        Vector3 _scale;
         Vector2Int CurrentPosition { get => Run.instance.navigator.Position; }
 
         private void Awake()
@@ -24,29 +25,37 @@ namespace Game.UI
             var rectTransform = minimapObject.GetComponent<RectTransform>();
             width = rectTransform.rect.width * margin;
             height = rectTransform.rect.height * margin;
+            _scale = GetComponent<RectTransform>().localScale;
+            DownScale();
         }
 
         private void OnEnable()
         {
             EventManager.instance.onFinishGeneration += CreateMinimap;
             EventManager.instance.onRoomChange += UpdateMinimap;
+            EventManager.instance.onDoorEnter += UpScale;
+            EventManager.instance.onNavigationExit += DownScale;
+
 
             if (_level == null && minimapIcons.Count == 0 && Run.instance.Level != null)
             {
                 CreateMinimap();
                 UpdateMinimap();
             }
+            else if (_level != null && minimapIcons.Count > 0)
+                UpdateMinimap();
         }
 
         private void OnDisable()
         {
             EventManager.instance.onFinishGeneration -= CreateMinimap;
             EventManager.instance.onRoomChange -= UpdateMinimap;
+            EventManager.instance.onDoorEnter -= UpScale;
+            EventManager.instance.onNavigationExit -= DownScale;
         }
 
         void CreateMinimap()
         {
-            Debug.Log("Creando minimapa");
             foreach (var go in minimapIcons.Values) Destroy(go);
             minimapIcons.Clear();
 
@@ -77,13 +86,13 @@ namespace Game.UI
                 Room room = _level[roomPos];
                 var icon = minimapIcons[roomPos];
                 var img = icon.GetComponent<Image>();
-                var rectTransform = icon.GetComponent<RectTransform>();
+                var iconTransform = icon.GetComponent<RectTransform>();
                 Color newColor = img.color;
                 newColor.a = GetAlphaByExploreState(room);
                 img.color = newColor;
-                rectTransform.anchoredPosition = new Vector2(width * (roomPos.x - CurrentPosition.x), height * (roomPos.y - CurrentPosition.y));
+                iconTransform.anchoredPosition = new Vector2(width * (roomPos.x - CurrentPosition.x), height * (roomPos.y - CurrentPosition.y));
 
-                rectTransform.localScale = roomPos == CurrentPosition ? rectTransform.localScale * focusMult : Vector3.one;
+                iconTransform.localScale = roomPos == CurrentPosition ? iconTransform.localScale * focusMult : Vector3.one;
             }
         }
 
@@ -117,6 +126,15 @@ namespace Game.UI
                 default:
                     throw new ArgumentException($"{room.exploredState} no es un estado de exploracion valido");
             }
+        }
+
+        void DownScale()
+        {
+            GetComponent<RectTransform>().localScale = Vector3.zero;
+        }
+        void UpScale()
+        {
+            GetComponent<RectTransform>().localScale = _scale;
         }
     }
 }

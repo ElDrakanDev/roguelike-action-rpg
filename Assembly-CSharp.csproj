@@ -64,12 +64,12 @@
     <Compile Include="Assets\QuickSave\Core\Converters\Vector3Converter.cs" />
     <Compile Include="Assets\QuickSave\QuickSaveBase.cs" />
     <Compile Include="Assets\QuickSave\QuickSaveWriter.cs" />
-    <Compile Include="Assets\Scripts\Core\ShowStat.cs" />
+    <Compile Include="Assets\_Scripts\Core\ShowStat.cs" />
     <Compile Include="Assets\QuickSave\Core\Settings\Cryptography.cs" />
     <Compile Include="Assets\QuickSave\Core\Converters\SpriteConverter.cs" />
     <Compile Include="Assets\QuickSave\QuickSaveRaw.cs" />
     <Compile Include="Assets\QuickSave\Core\Converters\QuaternionConverter.cs" />
-    <Compile Include="Assets\Scripts\Effects\AddStats.cs" />
+    <Compile Include="Assets\_Scripts\Effects\AddStats.cs" />
     <Compile Include="Assets\QuickSave\QuickSaveSettings.cs" />
     <Compile Include="Assets\QuickSave\Core\Converters\ColorConverter.cs" />
     <Compile Include="Assets\QuickSave\Core\Settings\Compression.cs" />

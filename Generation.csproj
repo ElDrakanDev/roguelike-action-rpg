@@ -56,14 +56,14 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Generation\RoomID.cs" />
-    <Compile Include="Assets\Scripts\Generation\DrawLevel.cs" />
-    <Compile Include="Assets\Scripts\Generation\LevelGenerator.cs" />
-    <Compile Include="Assets\Scripts\Generation\Level.cs" />
-    <Compile Include="Assets\Scripts\Generation\Room.cs" />
+    <Compile Include="Assets\_Scripts\Generation\RoomID.cs" />
+    <Compile Include="Assets\_Scripts\Generation\DrawLevel.cs" />
+    <Compile Include="Assets\_Scripts\Generation\LevelGenerator.cs" />
+    <Compile Include="Assets\_Scripts\Generation\Level.cs" />
+    <Compile Include="Assets\_Scripts\Generation\Room.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Generation\Generation.asmdef" />
+    <None Include="Assets\_Scripts\Generation\Generation.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

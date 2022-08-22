@@ -56,12 +56,12 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Events\EventManager.cs" />
-    <Compile Include="Assets\Scripts\Events\EventData.cs" />
-    <Compile Include="Assets\Scripts\Events\GameEvent.cs" />
+    <Compile Include="Assets\_Scripts\Events\EventManager.cs" />
+    <Compile Include="Assets\_Scripts\Events\EventData.cs" />
+    <Compile Include="Assets\_Scripts\Events\GameEvent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Events\Events.asmdef" />
+    <None Include="Assets\_Scripts\Events\Events.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
