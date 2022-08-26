@@ -4,6 +4,7 @@ using Game.Events;
 using Game.Generation;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace Game.UI
 {
@@ -29,8 +30,10 @@ namespace Game.UI
             DownScale();
         }
 
-        private void OnEnable()
+        private async void OnEnable()
         {
+            if (EventManager.instance == null) await Task.Delay(1);
+
             EventManager.instance.onFinishGeneration += CreateMinimap;
             EventManager.instance.onRoomChange += UpdateMinimap;
             EventManager.instance.onDoorEnter += UpScale;
@@ -67,64 +70,26 @@ namespace Game.UI
             {
                 Room room = _level[position];
                 var icon = Instantiate(minimapObject);
-                var img = icon.GetComponent<Image>();
                 rectTransform = icon.GetComponent<RectTransform>();
                 icon.transform.SetParent(transform, false);
                 rectTransform.anchoredPosition = new Vector2(width * position.x, height * position.y);
-                Color newColor = GetColorByType(room);
-                newColor.a = 0;
-                img.color = newColor;
-                icon.name = position.ToString();
+                icon.GetComponent<MinimapRoom>().room = room;
 
                 minimapIcons.Add(position, icon);
             }
+
+            UpdateMinimap();
         }
         void UpdateMinimap()
         {
             foreach (var roomPos in minimapIcons.Keys)
             {
-                Room room = _level[roomPos];
                 var icon = minimapIcons[roomPos];
-                var img = icon.GetComponent<Image>();
                 var iconTransform = icon.GetComponent<RectTransform>();
-                Color newColor = img.color;
-                newColor.a = GetAlphaByExploreState(room);
-                img.color = newColor;
                 iconTransform.anchoredPosition = new Vector2(width * (roomPos.x - CurrentPosition.x), height * (roomPos.y - CurrentPosition.y));
+                icon.GetComponent<MinimapRoom>().UpdateIcon();
 
                 iconTransform.localScale = roomPos == CurrentPosition ? iconTransform.localScale * focusMult : Vector3.one;
-            }
-        }
-
-        Color GetColorByType(Room room)
-        {
-            switch (room.Type)
-            {
-                case RoomType.Treasure:
-                    return Color.yellow;
-                case RoomType.Shop:
-                    return Color.magenta;
-                case RoomType.NextLevel:
-                    return Color.red;
-                case RoomType.Start:
-                    return Color.gray;
-                default:
-                    return Color.white;
-            }
-        }
-
-        float GetAlphaByExploreState(Room room)
-        {
-            switch (room.exploredState)
-            {
-                case ExploredState.NotDiscovered:
-                    return 0;
-                case ExploredState.Nearby:
-                    return 0.3f;
-                case ExploredState.Explored:
-                    return 1;
-                default:
-                    throw new ArgumentException($"{room.exploredState} no es un estado de exploracion valido");
             }
         }
 

@@ -28,9 +28,11 @@ namespace Game.Run
                 Destroy(gameObject);
             }
 
+        }
+        private void Start()
+        {
             Initialize(Seed == 0 ? Random.Range(int.MinValue, int.MaxValue) : Seed);
         }
-
         void Initialize(int seed)
         {
             Seed = seed;

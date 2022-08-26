@@ -43,26 +43,26 @@ namespace Game.Generation
     public class LevelGenerator
     {
         Vector2Int _pos = Vector2Int.zero;
-        List<Room> _availableRooms = new List<Room>();
+        List<RoomType> _availableRooms = new List<RoomType>();
         Level _level;
 
         public Level Generate(int normals, int shops, int treasures)
         {
             var newLevel = new Level();
             _level = newLevel;
-            for (int i = 0; i < treasures; i++) _availableRooms.Add(new Room(RoomType.Treasure));
-            for (int i = 0; i < shops; i++) _availableRooms.Add(new Room(RoomType.Shop));
-            for (int i = 0; i < normals; i++) _availableRooms.Add(new Room(RoomType.Normal));
+            for (int i = 0; i < treasures; i++) _availableRooms.Add(RoomType.Treasure);
+            for (int i = 0; i < shops; i++) _availableRooms.Add(RoomType.Shop);
+            for (int i = 0; i < normals; i++) _availableRooms.Add(RoomType.Normal);
 
             Shuffle(_availableRooms);
 
             CreateStartRoom();
             for (int i = _availableRooms.Count - 1; i >= 0; i--)
             {
-                Room room = _availableRooms[i];
-                if(!room.IsSpecial()) Move();
-                CreateRoom(room);
-                _availableRooms.Remove(room);
+                RoomType type = _availableRooms[i];
+                if(!Room.IsSpecial(type)) Move();
+                CreateRoom(type);
+                _availableRooms.Remove(type);
             }
             CreateFinalRoom();
             return newLevel;
@@ -78,31 +78,29 @@ namespace Game.Generation
             }
         }
 
-        void CreateRoom(Room room)
+        void CreateRoom(RoomType roomType)
         {
             try
             {
-                if (room.IsSpecial())
+                if (Room.IsSpecial(roomType))
                 {
                     var furthest = GetFurthestSpecialPosition();
-                    _level.Add(furthest, room);
+                    _level.Add(furthest, new Room(roomType, furthest));
                     return;
                 }
-                _level.Add(_pos, room);
+                _level.Add(_pos, new Room(roomType, _pos));
             }
             catch (ArgumentException ex)
             {
                 Debug.LogError($"Se intentó crear una habitación en la posicion ya existente {_pos}. {ex}");
             }
         }
-        void CreateStartRoom()
-        {
-            _level.Add(_pos, new Room(RoomType.Start));
-        }
+        void CreateStartRoom() => _level.Add(_pos, new Room(RoomType.Start, _pos));
+
         void CreateFinalRoom()
         {
             var furthest = GetFurthestSpecialPosition();
-            var room = new Room(RoomType.NextLevel);
+            var room = new Room(RoomType.NextLevel, furthest);
             _level.Add(furthest, room);               
         }
 
@@ -160,13 +158,13 @@ namespace Game.Generation
             }
             throw new KeyNotFoundException($"No se pudo encontrar una posición válida para la sala especial");
         }
-        void Shuffle(List<Room> rooms)
+        void Shuffle(List<RoomType> rooms)
         {
             for (int indexA = 0; indexA < rooms.Count; indexA++)
             {
                 int indexB = RNG.roomRng.Range(0, rooms.Count);
-                Room roomA = rooms[indexA];
-                Room roomB = rooms[indexB];
+                var roomA = rooms[indexA];
+                var roomB = rooms[indexB];
 
                 rooms[indexA] = roomB;
                 rooms[indexB] = roomA;

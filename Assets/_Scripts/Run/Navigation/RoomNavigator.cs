@@ -91,6 +91,7 @@ namespace Game.Run
         {
             if (!_isHandlingMovementInput)
             {
+                Debug.Log("HANDLING ROOM MOVEMENT");
                 _inputDir = Vector2Int.zero;
                 controls.UI.Direction.performed += ReadInputDirection;
                 controls.UI.Exit.performed += ReadInputCancel;
