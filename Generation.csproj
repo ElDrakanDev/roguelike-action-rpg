@@ -57,10 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Generation\RoomID.cs" />
+    <Compile Include="Assets\_Scripts\Generation\TestRoomContainer.cs" />
     <Compile Include="Assets\_Scripts\Generation\DrawLevel.cs" />
     <Compile Include="Assets\_Scripts\Generation\LevelGenerator.cs" />
     <Compile Include="Assets\_Scripts\Generation\Level.cs" />
     <Compile Include="Assets\_Scripts\Generation\Room.cs" />
+    <Compile Include="Assets\_Scripts\Generation\RoomContainer.cs" />
+    <Compile Include="Assets\_Scripts\Generation\RoomLayoutsContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Generation\Generation.asmdef" />

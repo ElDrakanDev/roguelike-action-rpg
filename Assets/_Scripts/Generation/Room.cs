@@ -39,13 +39,13 @@ namespace Game.Generation
 
         public void Exit()
         {
-            //gameObject?.SetActive(false);
+            gameObject?.SetActive(false);
         }
 
         public void Enter()
         {
             exploredState = ExploredState.Explored;
-            //gameObject?.SetActive(true);
+            gameObject?.SetActive(true);
         }
     }
 }

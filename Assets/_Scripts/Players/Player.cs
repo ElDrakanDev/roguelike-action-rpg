@@ -2,6 +2,7 @@ using UnityEngine;
 using Game.Stats;
 using Game.Input;
 using UnityEngine.InputSystem;
+using Game.Events;
 
 namespace Game.Players
 {
@@ -29,6 +30,10 @@ namespace Game.Players
             if(playerControls != null) playerControls.Disable();
         }
 
+        private void Start()
+        {
+            EventManager.OnPlayerSpawn(gameObject);
+        }
         public void Update()
         {
             Keyboard keyboard = Keyboard.current;
@@ -44,6 +49,10 @@ namespace Game.Players
         private void FixedUpdate()
         {
             controller.FixedUpdate();
+        }
+        private void OnDestroy()
+        {
+            EventManager.OnPlayerDespawn(gameObject);
         }
         public void PrintAttributes()
         {

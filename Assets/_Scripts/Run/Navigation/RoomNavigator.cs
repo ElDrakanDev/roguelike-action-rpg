@@ -13,7 +13,7 @@ namespace Game.Run
         [SerializeField] Vector2Int _position = Vector2Int.zero;
         [SerializeField] Room _activeRoom;
         [SerializeField] PlayerActionsControls controls;
-        public Level CurrentLevel { get => _level; private set => _level = value; }
+        public Level CurrentLevel { get => _level; set{ _level = value; Position = Vector2Int.zero; _level.EnterRoom(Position); } }
         public Room ActiveRoom { get { _activeRoom = CurrentLevel[Position] ; return CurrentLevel[Position]; } }
         public Vector2Int Position { get => _position; set =>  _position = value; }
         LevelGenerator generator;
@@ -91,7 +91,6 @@ namespace Game.Run
         {
             if (!_isHandlingMovementInput)
             {
-                Debug.Log("HANDLING ROOM MOVEMENT");
                 _inputDir = Vector2Int.zero;
                 controls.UI.Direction.performed += ReadInputDirection;
                 controls.UI.Exit.performed += ReadInputCancel;

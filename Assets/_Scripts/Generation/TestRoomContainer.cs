@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Game.Generation;
 
-namespace Game.Run
+namespace Game.Generation
 {
     public class TestRoomContainer : MonoBehaviour
     {

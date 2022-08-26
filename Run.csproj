@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Run\Run.cs" />
     <Compile Include="Assets\_Scripts\Run\Navigation\RoomNavigator.cs" />
-    <Compile Include="Assets\_Scripts\Run\TestRoomContainer.cs" />
     <Compile Include="Assets\_Scripts\Run\Navigation\RoomDoor.cs" />
   </ItemGroup>
   <ItemGroup>

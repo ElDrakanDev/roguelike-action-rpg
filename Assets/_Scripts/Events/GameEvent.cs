@@ -1,7 +1,7 @@
 using UnityEngine.Events;
+using System;
 
 namespace Game.Events
 {
-    [System.Serializable]
-    public class GameEvent : UnityEvent<EventData> { }
+
 }
