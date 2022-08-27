@@ -18,35 +18,31 @@ namespace Game.UI
         Dictionary<Vector2Int, GameObject> minimapIcons = new Dictionary<Vector2Int, GameObject>();
         Level _level;
         float width, height;
+        Vector3 _iconScale;
         Vector3 _scale;
         Vector2Int CurrentPosition { get => Run.instance.navigator.Position; }
 
         private void Awake()
         {
-            var rectTransform = minimapObject.GetComponent<RectTransform>();
-            width = rectTransform.rect.width * margin;
-            height = rectTransform.rect.height * margin;
+            var iconRectTransform = minimapObject.GetComponent<RectTransform>();
+            _iconScale = iconRectTransform.localScale;
+            width = iconRectTransform.rect.width * margin;
+            height = iconRectTransform.rect.height * margin;
             _scale = GetComponent<RectTransform>().localScale;
             DownScale();
         }
 
         private async void OnEnable()
         {
-            if (EventManager.instance == null) await Task.Delay(1);
+            while(!Run.instance || Run.instance.Level is null) await Task.Delay(1);
 
             EventManager.instance.onFinishGeneration += CreateMinimap;
             EventManager.instance.onRoomChange += UpdateMinimap;
             EventManager.instance.onDoorEnter += UpScale;
             EventManager.instance.onNavigationExit += DownScale;
 
-
-            if (_level == null && minimapIcons.Count == 0 && Run.instance.Level != null)
-            {
-                CreateMinimap();
-                UpdateMinimap();
-            }
-            else if (_level != null && minimapIcons.Count > 0)
-                UpdateMinimap();
+            CreateMinimap();
+            UpdateMinimap();
         }
 
         private void OnDisable()
@@ -89,7 +85,7 @@ namespace Game.UI
                 iconTransform.anchoredPosition = new Vector2(width * (roomPos.x - CurrentPosition.x), height * (roomPos.y - CurrentPosition.y));
                 icon.GetComponent<MinimapRoom>().UpdateIcon();
 
-                iconTransform.localScale = roomPos == CurrentPosition ? iconTransform.localScale * focusMult : Vector3.one;
+                iconTransform.localScale = roomPos == CurrentPosition ? _iconScale * focusMult : _iconScale;
             }
         }
 

@@ -76,15 +76,21 @@ namespace Game.Run
         public void MoveTo(int x, int y)
         {
             var newPos = new Vector2Int(x, y);
-            CurrentLevel.EnterRoom(Position, newPos);
-            Position = newPos;
-            EventManager.instance.OnRoomChange();
+            if(newPos != Position)
+            {
+                CurrentLevel.EnterRoom(Position, newPos);
+                Position = newPos;
+                EventManager.instance.OnRoomChange();
+            }
         }
         public void MoveTo(Vector2Int pos)
         {
-            CurrentLevel.EnterRoom(Position, pos);
-            Position = pos;
-            EventManager.instance.OnRoomChange();
+            if(pos != Position)
+            {
+                CurrentLevel.EnterRoom(Position, pos);
+                Position = pos;
+                EventManager.instance.OnRoomChange();
+            }
         }
 
         public void HandleRoomMovement()
@@ -92,8 +98,8 @@ namespace Game.Run
             if (!_isHandlingMovementInput)
             {
                 _inputDir = Vector2Int.zero;
-                controls.UI.Direction.performed += ReadInputDirection;
-                controls.UI.Exit.performed += ReadInputCancel;
+                controls.UI.Direction.started += ReadInputDirection;
+                controls.UI.Exit.started += ReadInputCancel;
                 _isHandlingMovementInput = true;
             }
         }
@@ -101,13 +107,13 @@ namespace Game.Run
         {
             var vec2Dir = context.ReadValue<Vector2>();
             _inputDir = new Vector2Int(Mathf.RoundToInt(vec2Dir.x), Mathf.RoundToInt(vec2Dir.y));
-
-            if(_inputDir != Vector2Int.zero)
+            Debug.Log($"Reading room move. {_inputDir}");
+            if(_inputDir != Vector2Int.zero && _inputDir.magnitude <= 1)
             {
                 if (Move(_inputDir))
                 {
-                    controls.UI.Direction.performed -= ReadInputDirection;
-                    controls.UI.Exit.performed -= ReadInputCancel;
+                    controls.UI.Direction.started -= ReadInputDirection;
+                    controls.UI.Exit.started -= ReadInputCancel;
                     EventManager.instance.OnNavigationExit();
                     _isHandlingMovementInput = false;
                     _inputDir = Vector2Int.zero;
@@ -122,8 +128,8 @@ namespace Game.Run
             if (_inputCanceled)
             {
                 _isHandlingMovementInput = false;
-                controls.UI.Direction.performed -= ReadInputDirection;
-                controls.UI.Exit.performed -= ReadInputCancel;
+                controls.UI.Direction.started -= ReadInputDirection;
+                controls.UI.Exit.started -= ReadInputCancel;
                 EventManager.instance.OnNavigationExit();
                 _inputDir = Vector2Int.zero;
             }
