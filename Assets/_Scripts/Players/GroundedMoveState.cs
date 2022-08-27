@@ -36,6 +36,7 @@ namespace Game.Players
 
         public override void MoveSkill(Vector2 direction, float speed, float maxSpeed)
         {
+            if(direction.x > 0.8f || direction.x < -0.8f)
             rb.velocity = new Vector2(direction.x * maxSpeed * 2.5f, 0);
 
             dashFrames = 5;

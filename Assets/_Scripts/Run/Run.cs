@@ -41,6 +41,7 @@ namespace Game.Run
         }
         public void Initialize(int seed)
         {
+            Debug.Log($"Inicializando partida con la semilla {seed}");
             Seed = seed;
             RNG.Initialize(Seed);
             navigator = new RoomNavigator(new Game.Input.PlayerActionsControls());

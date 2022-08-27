@@ -23,7 +23,7 @@ namespace Game.Run
 
         public void Interact(GameObject interactor)
         {
-            EventManager.instance.OnDoorEnter();
+            EventManager.OnDoorEnter();
         }
     }
 }

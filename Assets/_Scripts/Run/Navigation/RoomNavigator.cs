@@ -14,7 +14,16 @@ namespace Game.Run
         [SerializeField] Room _activeRoom;
         [SerializeField] PlayerActionsControls controls;
         public Level CurrentLevel { get => _level; set{ _level = value; Position = Vector2Int.zero; _level.EnterRoom(Position); } }
-        public Room ActiveRoom { get { _activeRoom = CurrentLevel[Position] ; return CurrentLevel[Position]; } }
+        public Room ActiveRoom {
+            get {
+                Room value = null;
+                CurrentLevel?.TryGetValue(Position, out value);
+                _activeRoom = value;
+                if (value != null)
+                    return value;
+                return null;
+            }
+        }
         public Vector2Int Position { get => _position; set =>  _position = value; }
         LevelGenerator generator;
 
@@ -28,21 +37,21 @@ namespace Game.Run
             generator = new LevelGenerator();
             this.controls = controls;
 
-            EventManager.instance.onDoorEnter += OnDoorEnter;
-            //EventManager.instance.onDoorExit += OnDoorExit;
+            EventManager.onDoorEnter += OnDoorEnter;
+            //EventManager.onDoorExit += OnDoorExit;
             controls.Enable();
         }
         ~RoomNavigator()
         {
-            EventManager.instance.onDoorEnter -= OnDoorEnter;
-            //EventManager.instance.onDoorExit -= OnDoorExit;
+            EventManager.onDoorEnter -= OnDoorEnter;
+            //EventManager.onDoorExit -= OnDoorExit;
             controls.Disable();
         }
         public void Generate(int normals, int specials, int shops)
         {
             Position = Vector2Int.zero;
             _level = generator.Generate(normals, specials, shops);
-            EventManager.instance.OnFinishGeneration();
+            EventManager.OnFinishGeneration();
         }
 
         public bool Move(int x, int y)
@@ -54,7 +63,7 @@ namespace Game.Run
             {
                 CurrentLevel.EnterRoom(Position, newPos);
                 Position = newPos;
-                EventManager.instance.OnRoomChange();
+                EventManager.OnRoomChange();
                 return true;
             }
             return false;
@@ -68,7 +77,7 @@ namespace Game.Run
             {
                 CurrentLevel.EnterRoom(Position, newPos);
                 Position = newPos;
-                EventManager.instance.OnRoomChange();
+                EventManager.OnRoomChange();
                 return true;
             }
             return false;
@@ -80,7 +89,7 @@ namespace Game.Run
             {
                 CurrentLevel.EnterRoom(Position, newPos);
                 Position = newPos;
-                EventManager.instance.OnRoomChange();
+                EventManager.OnRoomChange();
             }
         }
         public void MoveTo(Vector2Int pos)
@@ -89,7 +98,7 @@ namespace Game.Run
             {
                 CurrentLevel.EnterRoom(Position, pos);
                 Position = pos;
-                EventManager.instance.OnRoomChange();
+                EventManager.OnRoomChange();
             }
         }
 
@@ -114,7 +123,7 @@ namespace Game.Run
                 {
                     controls.UI.Direction.started -= ReadInputDirection;
                     controls.UI.Exit.started -= ReadInputCancel;
-                    EventManager.instance.OnNavigationExit();
+                    EventManager.OnNavigationExit();
                     _isHandlingMovementInput = false;
                     _inputDir = Vector2Int.zero;
                 }
@@ -130,7 +139,7 @@ namespace Game.Run
                 _isHandlingMovementInput = false;
                 controls.UI.Direction.started -= ReadInputDirection;
                 controls.UI.Exit.started -= ReadInputCancel;
-                EventManager.instance.OnNavigationExit();
+                EventManager.OnNavigationExit();
                 _inputDir = Vector2Int.zero;
             }
         }

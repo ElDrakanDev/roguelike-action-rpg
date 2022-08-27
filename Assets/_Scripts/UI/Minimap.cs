@@ -36,10 +36,10 @@ namespace Game.UI
         {
             while(!Run.instance || Run.instance.Level is null) await Task.Delay(1);
 
-            EventManager.instance.onFinishGeneration += CreateMinimap;
-            EventManager.instance.onRoomChange += UpdateMinimap;
-            EventManager.instance.onDoorEnter += UpScale;
-            EventManager.instance.onNavigationExit += DownScale;
+            EventManager.onFinishGeneration += CreateMinimap;
+            EventManager.onRoomChange += UpdateMinimap;
+            EventManager.onDoorEnter += UpScale;
+            EventManager.onNavigationExit += DownScale;
 
             CreateMinimap();
             UpdateMinimap();
@@ -47,10 +47,10 @@ namespace Game.UI
 
         private void OnDisable()
         {
-            EventManager.instance.onFinishGeneration -= CreateMinimap;
-            EventManager.instance.onRoomChange -= UpdateMinimap;
-            EventManager.instance.onDoorEnter -= UpScale;
-            EventManager.instance.onNavigationExit -= DownScale;
+            EventManager.onFinishGeneration -= CreateMinimap;
+            EventManager.onRoomChange -= UpdateMinimap;
+            EventManager.onDoorEnter -= UpScale;
+            EventManager.onNavigationExit -= DownScale;
         }
 
         void CreateMinimap()

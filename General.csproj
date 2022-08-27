@@ -735,6 +735,14 @@
       <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
       <Name>Events</Name>
     </ProjectReference>
+    <ProjectReference Include="Run.csproj">
+      <Project>{7197A02B-66D4-67CB-18CA-471C0D961262}</Project>
+      <Name>Run</Name>
+    </ProjectReference>
+    <ProjectReference Include="Generation.csproj">
+      <Project>{0671B5FC-F0ED-0EA8-8D33-185C2A36D5D0}</Project>
+      <Name>Generation</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>

@@ -21,18 +21,18 @@ namespace Game.Events
         }
 
         #region Events
-        public event Action onDoorEnter;
-        public void OnDoorEnter() => onDoorEnter?.Invoke();
-        public event Action onFinishGeneration;
-        public void OnFinishGeneration() => onFinishGeneration?.Invoke();
-        public event Action onNavigationExit;
-        public void OnNavigationExit() => onNavigationExit?.Invoke();
+        public static event Action onDoorEnter;
+        public static void OnDoorEnter() => onDoorEnter?.Invoke();
+        public static event Action onFinishGeneration;
+        public static void OnFinishGeneration() => onFinishGeneration?.Invoke();
+        public static event Action onNavigationExit;
+        public static void OnNavigationExit() => onNavigationExit?.Invoke();
         public static event Action<GameObject> onPlayerSpawn;
         public static void OnPlayerSpawn(GameObject player) => onPlayerSpawn?.Invoke(player);
         public static event Action<GameObject> onPlayerDespawn;
         public static void OnPlayerDespawn(GameObject player) => onPlayerDespawn?.Invoke(player);
-        public event Action onRoomChange;
-        public void OnRoomChange() => onRoomChange?.Invoke();
+        public static event Action onRoomChange;
+        public static void OnRoomChange() => onRoomChange?.Invoke();
         #endregion
     }
 }
