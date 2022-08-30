@@ -15,7 +15,7 @@ namespace Game.Players
             {
                 Vector2 point = new Vector2(rb.position.x, rb.position.y - collider.bounds.size.y * 0.5f);
                 Vector2 size = new Vector2(collider.bounds.size.x * 0.99f, collider.bounds.size.y * 0.1f);
-                return Physics2D.OverlapBox(point, size, 0, ground) != null;
+                return Physics2D.OverlapBox(point, size, 0, groundLayer) != null;
             }
         }
 

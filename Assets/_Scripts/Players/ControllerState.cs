@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Game.States;
 using UnityEngine.InputSystem;
@@ -15,11 +13,14 @@ namespace Game.Players
         protected readonly Rigidbody2D rb;
         protected readonly BoxCollider2D collider;
         protected readonly Player player;
-        protected LayerMask ground;
-        protected LayerMask platform;
+        protected LayerMask groundLayer;
+        protected LayerMask platformLayer;
         protected Vector2 inputDirection;
+        bool ignoringPlatforms = false;
+        int platformLayerValue;
         protected Vector3 Velocity { get => rb.velocity; set => rb.velocity = value; }
         protected Vector3 Position { get => gameObject.transform.position; set => gameObject.transform.position = value; }
+        GameObject ActiveRoomGO { get => Run.Run.instance.ActiveRoom.gameObject; }
         public float Speed
         {
             get => Mathf.Clamp((player.stats[AttributeID.Agility].Value + 1) * 0.05f, 0.05f, 0.2f);
@@ -31,13 +32,34 @@ namespace Game.Players
             this.player = player;
             rb = gameObject.GetComponent<Rigidbody2D>();
             collider = gameObject.GetComponent<BoxCollider2D>();
-            ground = LayerMask.GetMask("Ground");
-            platform = LayerMask.GetMask("Platform");
+            groundLayer = LayerMask.GetMask("Ground", "Platform");
+            platformLayer = LayerMask.GetMask("Platform");
+            platformLayerValue = LayerMask.NameToLayer("Platform");
         }
         public abstract void Update();
         public abstract void FixedUpdate();
-        public void ReadMovement(InputAction.CallbackContext context) => inputDirection = context.ReadValue<Vector2>();
+        public void ReadMovement(InputAction.CallbackContext context)
+        {
+            inputDirection = context.ReadValue<Vector2>();
+
+            if (!ignoringPlatforms && inputDirection.y < 0) SetPlatformIgnore(true);
+            else if (ignoringPlatforms && inputDirection.y >= 0) SetPlatformIgnore(false);
+        }
         public abstract void Jump(InputAction.CallbackContext context);
         public abstract void Dash(InputAction.CallbackContext context);
+
+        void SetPlatformIgnore(bool ignore)
+        {
+            Debug.Log($"IgnoreLayer: {platformLayerValue}");
+            foreach (var platformCollider in ActiveRoomGO.GetComponentsInChildren<Collider2D>())
+            {
+                Debug.Log($"{platformCollider} layer: {platformCollider.gameObject.layer}. Affected = {platformCollider.gameObject.layer == platformLayerValue}. Ignore = {ignore}");
+                if (platformCollider.gameObject.layer == platformLayerValue)
+                {
+                    Physics2D.IgnoreCollision(collider, platformCollider, ignore);
+                }
+            }
+            ignoringPlatforms = ignore;
+        }
     }
 }

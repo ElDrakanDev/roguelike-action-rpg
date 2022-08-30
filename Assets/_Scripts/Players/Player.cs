@@ -39,10 +39,6 @@ namespace Game.Players
             if (keyboard.numpadPlusKey.wasPressedThisFrame) stats.Add(new StatModifier(0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
             else if (keyboard.numpadMinusKey.wasPressedThisFrame) stats.Add(new StatModifier(-0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
 
-            if (keyboard.escapeKey.wasPressedThisFrame) 
-            {
-                Application.Quit();
-            }
             controller.Update();
         }
         private void FixedUpdate()

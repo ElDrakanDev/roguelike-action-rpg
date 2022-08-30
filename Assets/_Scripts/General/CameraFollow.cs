@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Events;
-using Game.Run;
-using Game.Generation;
 using UnityEngine.Tilemaps;
 using System.Threading.Tasks;
+using System;
 
 namespace Game.General
 {
@@ -67,14 +65,22 @@ namespace Game.General
 
         void UpdateBoundaries()
         {
-            var tilemap = Run.Run.instance.ActiveRoom.gameObject.GetComponentInChildren<Tilemap>();
-            tilemap.CompressBounds();
-            float halfHeight = cam.orthographicSize;
-            float halfWidth = cam.aspect * halfHeight;          
-            _min = tilemap.transform.TransformPoint(tilemap.localBounds.min + tilemap.tileAnchor - new Vector3(0.5f, 0.5f, 0));
-            _max = tilemap.transform.TransformPoint(tilemap.localBounds.max + tilemap.tileAnchor - new Vector3(0.5f, 0.5f, 0));
-            _min.x += halfWidth; _max.x -= halfWidth;
-            _min.y += halfHeight; _max.y -= halfHeight;
+            var tilemaps = Run.Run.instance.ActiveRoom.gameObject.GetComponentsInChildren<Tilemap>();
+            foreach(var tilemap in tilemaps)
+            {
+                if (!tilemap.gameObject.CompareTag("Ground")) continue;
+                tilemap.CompressBounds();
+                float halfHeight = cam.orthographicSize;
+                float halfWidth = cam.aspect * halfHeight;          
+                _min = tilemap.transform.TransformPoint(tilemap.localBounds.min + tilemap.tileAnchor - new Vector3(0.5f, 0.5f, 0));
+                _max = tilemap.transform.TransformPoint(tilemap.localBounds.max + tilemap.tileAnchor - new Vector3(0.5f, 0.5f, 0));
+                _min.x += halfWidth; _max.x -= halfWidth;
+                _min.y += halfHeight; _max.y -= halfHeight;
+
+                return;
+            }
+
+            throw new NullReferenceException($"No se encuntro ningun tilemap con tag 'Ground' para establecer los límites de la camara.");
         }
 
         private void OnDrawGizmosSelected()
