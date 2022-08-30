@@ -10,7 +10,6 @@ namespace Game.Players
     {
         public CharacterStats stats;
         [SerializeField] BaseStatObject baseStats;
-        [SerializeField] LayerMask ground;
         [SerializeField] PlayerInput input;
         PlayerController controller;
         PlayerActionsControls playerControls;
@@ -18,7 +17,7 @@ namespace Game.Players
         private void Awake()
         {
             stats = new CharacterStats(this, baseStats.baseStats);
-            controller = new PlayerController(null, this, gameObject, ground);
+            controller = new PlayerController(null, this, gameObject);
             playerControls = new PlayerActionsControls();
         }
         private void OnEnable()
@@ -66,7 +65,7 @@ namespace Game.Players
 
         public void Move(InputAction.CallbackContext context)
         {
-            controller.ReadMovement(context);
+            controller.Move(context);
         }
 
         public void Jump(InputAction.CallbackContext context)
@@ -76,7 +75,7 @@ namespace Game.Players
 
         public void MoveSkill(InputAction.CallbackContext context)
         {
-            controller.MoveSkill(context);
+            controller.Dash(context);
         }
 
         public void Interact(InputAction.CallbackContext context)
