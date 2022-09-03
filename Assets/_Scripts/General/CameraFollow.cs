@@ -12,7 +12,6 @@ namespace Game.General
     {
         Camera cam;
         List<Transform> targets = new List<Transform>();
-        public float followSpeed = 0.9f;
         Vector3 _min, _max;
         Vector3 RoomCenter { get => (_min + _max) * 0.5f; }
 
@@ -38,7 +37,7 @@ namespace Game.General
             EventManager.onPlayerDespawn -= RemoveTarget;
             EventManager.onRoomChange -= UpdateBoundaries;
         }
-        void Update()
+        void LateUpdate()
         {
             if(targets.Count > 0)
             {
@@ -50,7 +49,7 @@ namespace Game.General
                 }
                 finalPos.x = Mathf.Clamp(finalPos.x / targets.Count, _min.x, _max.x);
                 finalPos.y = Mathf.Clamp(finalPos.y / targets.Count, _min.y, _max.y);
-                transform.position = Vector3.Lerp(transform.position, finalPos, followSpeed);
+                transform.position = finalPos;
             }
         }
 
