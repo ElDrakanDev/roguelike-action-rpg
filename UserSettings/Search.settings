@@ -10,6 +10,9 @@ scopes = {
 	"last_search.DA949528" = "physics"
 	"OpenInspectorPreview.DA949528" = "0"
 	"currentGroup.DA949528" = "settings"
+	"last_search.DE949528" = "profiler"
+	"OpenInspectorPreview.DE949528" = "0"
+	"currentGroup.DE949528" = "all"
 }
 providers = {
 	adb = {
@@ -56,6 +59,7 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"i"
 	"p"
 ]
 searchItemFavorites = [
