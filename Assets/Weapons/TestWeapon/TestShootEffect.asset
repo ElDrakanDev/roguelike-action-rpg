@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: TestShootEffect
   m_EditorClassIdentifier: 
   projectile: {fileID: 6774924309079741391, guid: c2f33618354bff04999f6f5084cf396f, type: 3}
+  gun: {fileID: 2781631102103764473, guid: 62162df99e552774aa583c0e09a58af5, type: 3}
+  gunMargin: 2
