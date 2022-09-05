@@ -1,6 +1,5 @@
 using UnityEngine;
 using Game.States;
-using Game.Stats;
 using UnityEngine.InputSystem;
 using Game.Interfaces;
 
@@ -11,9 +10,10 @@ namespace Game.Players
         readonly GameObject gameObject;
         readonly Player player;
         readonly BoxCollider2D collider;
-        //Vector2 direction;
+        Vector2 direction;
         LayerMask interactableLayer;
         public Vector2 point, size;
+        bool usingWeapon = false;
 
         public new ControllerState Current 
         { 
@@ -25,7 +25,6 @@ namespace Game.Players
             }
             protected set => _current = value;
         }
-
         public PlayerController(ControllerState state, Player player, GameObject gameObject) : base(state) 
         {
             this.gameObject = gameObject;
@@ -34,12 +33,34 @@ namespace Game.Players
             collider = gameObject.GetComponent<BoxCollider2D>();
             if (state is null) Current = new GroundedMoveState(gameObject, player);
         }
+        public void Move(InputAction.CallbackContext context)
+        {
+            direction = context.ReadValue<Vector2>();
+            Current.ReadMovement(context);
+        }
         public void Jump(InputAction.CallbackContext context) => Current.Jump(context);
-        public void Move(InputAction.CallbackContext context) => Current.ReadMovement(context);
-        public void Update() => Current.Update();
+        public void Update()
+        {
+            Current.Update();
+            if (usingWeapon) player.weapon?.Use();
+            player.weapon?.Aim(direction);
+        }
         public void FixedUpdate() => Current.FixedUpdate();
 
         public void Dash(InputAction.CallbackContext context) => Current.Dash(context);
+        public void MainAttack(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                player.weapon?.UseBegin();
+                usingWeapon = true;
+            }
+            else if (context.canceled)
+            {
+                usingWeapon = false;
+                player.weapon?.UseEnd();
+            }
+        }
         public void Interact(InputAction.CallbackContext context)
         {
             if (!context.started) return;

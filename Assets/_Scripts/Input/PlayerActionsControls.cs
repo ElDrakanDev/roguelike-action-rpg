@@ -64,6 +64,15 @@ namespace Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MainAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""2e7a5577-b930-4e24-bab8-fb4589c2f611"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +205,17 @@ namespace Game.Input
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0aae3a09-2029-458d-a11d-822891862a66"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MainAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -754,6 +774,7 @@ namespace Game.Input
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_MoveSkill = m_Player.FindAction("MoveSkill", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+            m_Player_MainAttack = m_Player.FindAction("MainAttack", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Direction = m_UI.FindAction("Direction", throwIfNotFound: true);
@@ -829,6 +850,7 @@ namespace Game.Input
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_MoveSkill;
         private readonly InputAction m_Player_Interact;
+        private readonly InputAction m_Player_MainAttack;
         public struct PlayerActions
         {
             private @PlayerActionsControls m_Wrapper;
@@ -837,6 +859,7 @@ namespace Game.Input
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @MoveSkill => m_Wrapper.m_Player_MoveSkill;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
+            public InputAction @MainAttack => m_Wrapper.m_Player_MainAttack;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -858,6 +881,9 @@ namespace Game.Input
                     @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                     @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                     @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                    @MainAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainAttack;
+                    @MainAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainAttack;
+                    @MainAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainAttack;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -874,6 +900,9 @@ namespace Game.Input
                     @Interact.started += instance.OnInteract;
                     @Interact.performed += instance.OnInteract;
                     @Interact.canceled += instance.OnInteract;
+                    @MainAttack.started += instance.OnMainAttack;
+                    @MainAttack.performed += instance.OnMainAttack;
+                    @MainAttack.canceled += instance.OnMainAttack;
                 }
             }
         }
@@ -1007,6 +1036,7 @@ namespace Game.Input
             void OnJump(InputAction.CallbackContext context);
             void OnMoveSkill(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnMainAttack(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

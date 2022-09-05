@@ -3,12 +3,14 @@ using Game.Stats;
 using Game.Input;
 using UnityEngine.InputSystem;
 using Game.Events;
+using Game.Interfaces;
 
 namespace Game.Players
 {
     public class Player : MonoBehaviour
     {
         public CharacterStats stats;
+        public IWeapon weapon;
         [SerializeField] BaseStatObject baseStats;
         [SerializeField] PlayerInput input;
         PlayerController controller;
@@ -22,11 +24,11 @@ namespace Game.Players
         }
         private void OnEnable()
         {
-            if (playerControls != null) playerControls.Enable();
+            playerControls?.Enable();
         }
         private void OnDisable()
         {
-            if(playerControls != null) playerControls.Disable();
+            playerControls?.Disable();
         }
 
         private void Start()
@@ -40,6 +42,7 @@ namespace Game.Players
             else if (keyboard.numpadMinusKey.wasPressedThisFrame) stats.Add(new StatModifier(-0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
 
             controller.Update();
+            weapon?.Update();
         }
         private void FixedUpdate()
         {
@@ -49,34 +52,10 @@ namespace Game.Players
         {
             EventManager.OnPlayerDespawn(gameObject);
         }
-        public void PrintAttributes()
-        {
-            string msg = "";
-            foreach (var attribute in stats.Attributes)
-            {
-                msg += $"{attribute}: {stats[attribute].Value}\n";
-            }
-            Debug.Log(msg);
-        }
-
-        public void Move(InputAction.CallbackContext context)
-        {
-            controller.Move(context);
-        }
-
-        public void Jump(InputAction.CallbackContext context)
-        {
-            controller.Jump(context);
-        }
-
-        public void MoveSkill(InputAction.CallbackContext context)
-        {
-            controller.Dash(context);
-        }
-
-        public void Interact(InputAction.CallbackContext context)
-        {
-            controller.Interact(context);
-        }
+        public void Move(InputAction.CallbackContext context) => controller.Move(context);
+        public void Jump(InputAction.CallbackContext context) => controller.Jump(context);
+        public void MoveSkill(InputAction.CallbackContext context) => controller.Dash(context);
+        public void Interact(InputAction.CallbackContext context) => controller.Interact(context);
+        public void MainAttack(InputAction.CallbackContext context) => controller.MainAttack(context);
     }
 }

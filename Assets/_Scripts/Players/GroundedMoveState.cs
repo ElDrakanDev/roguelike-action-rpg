@@ -6,9 +6,11 @@ namespace Game.Players
     public class GroundedMoveState : ControllerState
     {
         const float MAX_DASH_COOLDOWN = 1f;
+        const float DASH_LENGTH = 0.1f;
         const float MAX_FALL = -20f;
         const float GRAVITY = 1f;
         float dashSeconds = 0;
+        float dashCooldown = 0;
         bool Grounded
         {
             get
@@ -22,6 +24,7 @@ namespace Game.Players
         public override void Update()
         {
             dashSeconds -= Time.deltaTime;
+            dashCooldown -= Time.deltaTime;
         }
         public override void FixedUpdate()
         {
@@ -50,12 +53,12 @@ namespace Game.Players
         }
         public override void Dash(InputAction.CallbackContext context)
         {
-            if (!context.started) return;
-            dashSeconds = MAX_DASH_COOLDOWN;
+            if (!context.started || dashCooldown > 0) return;
+            dashCooldown = MAX_DASH_COOLDOWN;
             if(inputDirection.x > 0.8f || inputDirection.x < -0.8f)
             rb.velocity = new Vector2(inputDirection.x * MaxSpeed * 2.5f, 0);
 
-            dashSeconds = 0.1f;
+            dashSeconds = DASH_LENGTH;
         }
     }
 }

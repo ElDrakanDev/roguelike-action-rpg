@@ -149,9 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: 08685232c9cb45249a6356c7532d541a, type: 2}
-  ground:
-    serializedVersion: 2
-    m_Bits: 64
   input: {fileID: 1818466363995379200}
 --- !u!114 &1818466363995379200
 MonoBehaviour:
@@ -246,6 +243,62 @@ MonoBehaviour:
     m_ActionId: e2e62a08-0499-4ddf-8b48-8cbf914b9169
     m_ActionName: Player/Interact[/Keyboard/e,/Microntek              USB Joystick         
       /button2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1818466363995379201}
+        m_TargetAssemblyTypeName: Game.Players.Player, Player
+        m_MethodName: MainAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2e7a5577-b930-4e24-bab8-fb4589c2f611
+    m_ActionName: Player/MainAttack[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e0aa1933-06fa-42e4-a774-fc168690ecc2
+    m_ActionName: UI/Direction[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 75b08a8a-495f-4314-8c28-ecbff30de991
+    m_ActionName: UI/Enter[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af0ade07-6849-49cf-8e16-59faaeff3faf
+    m_ActionName: UI/Exit[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3f4a3f50-330c-49fd-baee-10f364849c1d
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cb579d2-e2aa-482f-a838-77c8ad9514ee
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c8a4ca1c-b68d-4d0d-a900-50f736304553
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 26b51f4d-b766-4772-ac4b-e47c74319f62
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 124aeeee-9c89-45e3-a89a-3a2259754fb9
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d7d74b68-7c69-47fd-9364-551c1bf67d58
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50b21ab1-bec3-472c-a9a1-3bae7d0ef95c
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -263,3 +316,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c5ca33ca55ff547893c5df49af436e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items: []
