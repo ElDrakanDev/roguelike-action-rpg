@@ -154,9 +154,21 @@ namespace Game.Run
                 if (interactable.TryGetComponent(out RoomDoor roomDoor))
                 {
                     doorPos = interactable.transform.position;
+                    float doorOffset = interactable.GetComponent<SpriteRenderer>().bounds.size.y * 0.5f;
+                    Vector3 groundPos = Physics2D.Raycast(doorPos, Vector2.down, float.MaxValue, LayerMask.GetMask("Ground", "Platform")).point;
                     foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
                     {
-                        player.transform.position = doorPos;
+                        float playerOffset = 0;
+                        if (player.TryGetComponent<BoxCollider2D>(out var playerCollider))
+                            playerOffset = playerCollider.bounds.size.y * 0.5f;
+                        if(groundPos != null)
+                            player.transform.position = new Vector3(groundPos.x, groundPos.y + playerOffset, 0);
+                        else
+                        {
+                            float yPos = doorPos.y;
+                            if (playerOffset > -0.01f && playerOffset < 0.01f && doorOffset > -0.01f && doorOffset < 0.01f) yPos += -doorOffset + playerOffset;
+                            player.transform.position = new Vector3(doorPos.x, yPos, 0);
+                        }
                     }
                     return;
                 }
