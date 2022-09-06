@@ -7,11 +7,13 @@ namespace Game.Weapons
     [RequireComponent(typeof(Collider2D))]
     public class WeaponContainer : MonoBehaviour, IInteractable
     {
-        [SerializeField] WeaponData data;
+        [SerializeField] public WeaponData data;
         public void Interact(GameObject other)
         {
             data.owner = other;
             data.player = other.GetComponent<Player>();
+            data.player.weapon?.Drop();
+            data.sprite = GetComponent<SpriteRenderer>().sprite;
             data.PickUp(other);
             Destroy(gameObject);
         }

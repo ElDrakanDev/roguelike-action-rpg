@@ -38,12 +38,14 @@ namespace Game.Run
             this.controls = controls;
 
             EventManager.onDoorEnter += OnDoorEnter;
+            EventManager.onRoomChange += OnRoomChange;
             //EventManager.onDoorExit += OnDoorExit;
             controls.Enable();
         }
         ~RoomNavigator()
         {
             EventManager.onDoorEnter -= OnDoorEnter;
+            EventManager.onRoomChange -= OnRoomChange;
             //EventManager.onDoorExit -= OnDoorExit;
             controls.Disable();
         }
@@ -116,7 +118,6 @@ namespace Game.Run
         {
             var vec2Dir = context.ReadValue<Vector2>();
             _inputDir = new Vector2Int(Mathf.RoundToInt(vec2Dir.x), Mathf.RoundToInt(vec2Dir.y));
-            Debug.Log($"Reading room move. {_inputDir}");
             if(_inputDir != Vector2Int.zero && _inputDir.magnitude <= 1)
             {
                 if (Move(_inputDir))
@@ -145,6 +146,22 @@ namespace Game.Run
         }
 
         void OnDoorEnter() => HandleRoomMovement();
+        void OnRoomChange()
+        {
+            Vector3 doorPos;
+            foreach (var interactable in GameObject.FindGameObjectsWithTag("Interactable"))
+            {
+                if (interactable.TryGetComponent(out RoomDoor roomDoor))
+                {
+                    doorPos = interactable.transform.position;
+                    foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+                    {
+                        player.transform.position = doorPos;
+                    }
+                    return;
+                }
+            }
+        }
         //void OnDoorExit() => HandleRoomMovement(false);
     }
 }

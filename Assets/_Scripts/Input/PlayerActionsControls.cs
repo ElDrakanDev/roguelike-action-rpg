@@ -218,6 +218,17 @@ namespace Game.Input
                     ""action"": ""MainAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9944c63f-dbd0-409e-8d53-d2d3d74079ed"",
+                    ""path"": ""<HID::Microntek              USB Joystick          >/button4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""MainAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },

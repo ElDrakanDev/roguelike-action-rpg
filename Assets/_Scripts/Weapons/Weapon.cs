@@ -40,8 +40,6 @@ namespace Game.Weapons
         }
         public void PickUp(GameObject origin)
         {
-            Drop();
-
             owner = origin;
             player = owner.GetComponent<Player>();
             player.weapon = this;
@@ -50,7 +48,18 @@ namespace Game.Weapons
         {
             if (player.weapon == this)
             {
+                var newWeaponGameObject = new GameObject(title);
+                newWeaponGameObject.transform.position = player.transform.position;
+                var renderer = newWeaponGameObject.AddComponent<SpriteRenderer>();
+                renderer.sprite = sprite;
+                var collider = newWeaponGameObject.AddComponent<BoxCollider2D>();
+                collider.isTrigger = true;
+                var weaponContainer = newWeaponGameObject.AddComponent<WeaponContainer>();
+                weaponContainer.data = this;
+                newWeaponGameObject.layer = LayerMask.NameToLayer("Interactable");
+                newWeaponGameObject.tag = "Interactable";
                 player.weapon = null;
+                owner = null;
             }
         }
         public void Update()
