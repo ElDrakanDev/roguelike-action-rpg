@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Game.Weapons
 {
     [CreateAssetMenu(fileName = "New shoot effect", menuName = "ScriptableObjects/Weapons/ShootEffect")]
-    public class ShootEffect : WeaponEffect
+    public class ShootAttack : WeaponAttack
     {
         struct ShootData
         {
@@ -25,15 +25,15 @@ namespace Game.Weapons
         [SerializeField] GameObject gun;
         [SerializeField] float gunMargin = 0.5f;
         Dictionary<Player, ShootData> shotsDict = new Dictionary<Player, ShootData>();
-        public override void Use(Player owner, Vector2 direction, float damage, WeaponType type, float speed)
+        public override void Use(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
         {
             Shoot(owner, direction, damage, type, speed);
         }
-        public override void UseBegin(Player owner, Vector2 direction, float damage, WeaponType type, float speed)
+        public override void UseBegin(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
         {
             Shoot(owner, direction, damage, type, speed);
         }
-        public override void UseEnd(Player owner, Vector2 direction, float damage, WeaponType type, float speed)
+        public override void UseEnd(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
         {
             RemoveGun(owner);
         }

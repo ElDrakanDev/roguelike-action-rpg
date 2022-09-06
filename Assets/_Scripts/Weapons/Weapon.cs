@@ -22,7 +22,7 @@ namespace Game.Weapons
         [HideInInspector] public Sprite sprite;
         [HideInInspector] public Player player;
         [HideInInspector] public GameObject owner;
-        public List<WeaponEffect> effects = new List<WeaponEffect>();
+        public List<WeaponAttack> attacks = new List<WeaponAttack>();
         float _cooldown = 0;
         bool _inUse = false;
 
@@ -77,9 +77,9 @@ namespace Game.Weapons
         {
             if(_cooldown < 0)
             {
-                foreach (var effect in effects)
+                foreach (var effect in attacks)
                 {
-                    effect.UseBegin(player, aimDirection, damage, type, speed);
+                    effect.UseBegin(player, aimDirection, damage, type, speed, useTime);
                 }
                 _cooldown = useTime;
                 _inUse = true;
@@ -89,9 +89,9 @@ namespace Game.Weapons
         {
             if (autoUse && _cooldown < 0)
             {
-                foreach (var effect in effects)
+                foreach (var effect in attacks)
                 {
-                    effect.Use(player, aimDirection, damage, type, speed);
+                    effect.Use(player, aimDirection, damage, type, speed, useTime);
                 }
                 _cooldown = useTime;
             }
@@ -100,9 +100,9 @@ namespace Game.Weapons
         {
             if (_inUse)
             {
-                foreach(var effect in effects)
+                foreach(var effect in attacks)
                 {
-                    effect.UseEnd(player, aimDirection, damage, type, speed);
+                    effect.UseEnd(player, aimDirection, damage, type, speed, useTime);
                 }
             }
         }

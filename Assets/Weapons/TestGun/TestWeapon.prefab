@@ -127,7 +127,7 @@ MonoBehaviour:
   data:
     title: TestWeapon
     description: TestDescWeapon
-    type: 0
+    type: 1
     damage: 10
     useTime: 0.1
     speed: 10
@@ -135,5 +135,5 @@ MonoBehaviour:
     sprite: {fileID: 0}
     player: {fileID: 0}
     owner: {fileID: 0}
-    effects:
+    attacks:
     - {fileID: 11400000, guid: 43caca1fcf427e94dbd6d6014cca933c, type: 2}
