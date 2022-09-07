@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\UI\Minimap.cs" />
     <Compile Include="Assets\_Scripts\UI\MinimapRoom.cs" />
+    <Compile Include="Assets\_Scripts\UI\FpsCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\UI\UI.asmdef" />
@@ -342,6 +343,9 @@
     <Reference Include="Unity.Burst.Cecil">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
     </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\DOTween_1_2_632\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.18\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -353,9 +357,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>Assets\DOTween_1_2_632\DOTween\Editor\DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
       <HintPath>Assets\DOTween_1_2_632\DOTween\DOTween.dll</HintPath>
@@ -748,6 +749,14 @@
     <ProjectReference Include="Generation.csproj">
       <Project>{0671B5FC-F0ED-0EA8-8D33-185C2A36D5D0}</Project>
       <Name>Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.csproj">
+      <Project>{C734B7EC-CFCC-5A3F-790A-A5B5D049B6BE}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.InputSystem.csproj">
+      <Project>{E1029596-0002-285C-9258-99EE3E672C6B}</Project>
+      <Name>Unity.InputSystem</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
