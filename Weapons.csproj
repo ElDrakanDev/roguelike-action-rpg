@@ -62,6 +62,7 @@
     <Compile Include="Assets\_Scripts\Weapons\WeaponContainer.cs" />
     <Compile Include="Assets\_Scripts\Weapons\WeaponAttack.cs" />
     <Compile Include="Assets\_Scripts\Weapons\SwingAttack.cs" />
+    <Compile Include="Assets\_Scripts\Weapons\WeaponAttackMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Weapons\Weapons.asmdef" />

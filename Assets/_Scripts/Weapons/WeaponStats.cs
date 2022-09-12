@@ -10,5 +10,6 @@ namespace Game.Weapons
         public WeaponType type;
         public bool autoUse;
         public float projectileSpeed = 1;
+        public AttackModes attackMode = AttackModes.Sequence;
     }
 }

@@ -1,7 +1,6 @@
 using UnityEngine;
 using Game.Interfaces;
 using Game.Players;
-using System.Collections.Generic;
 
 namespace Game.Weapons
 {
@@ -18,7 +17,8 @@ namespace Game.Weapons
         [HideInInspector] public Sprite sprite;
         [HideInInspector] public Player player;
         [HideInInspector] public GameObject owner;
-        public List<WeaponAttack> attacks = new List<WeaponAttack>();
+        public WeaponAttack[] attacks;
+        WeaponAttackMode attackMode;
         float _cooldown = 0;
         bool _inUse = false;
 
@@ -28,11 +28,13 @@ namespace Game.Weapons
             this.title = title;
             this.description = description;
             this.sprite = sprite;
+            attackMode = WeaponAttackMode.FromEnum(stats.attackMode);
 
             if (owner) PickUp(owner);
         }
         public void PickUp(GameObject origin)
         {
+            attackMode = WeaponAttackMode.FromEnum(stats.attackMode);
             owner = origin;
             player = owner.GetComponent<Player>();
             player.weapon = this;
@@ -62,7 +64,7 @@ namespace Game.Weapons
         {
             if(_cooldown < 0)
             {
-                foreach (var attack in attacks)
+                foreach (var attack in attackMode.ChooseAttacks(attacks))
                 {
                     attack.UseBegin(player, aimDirection, stats);
                 }
@@ -74,7 +76,7 @@ namespace Game.Weapons
         {
             if (stats.autoUse && _cooldown < 0)
             {
-                foreach (var attack in attacks)
+                foreach (var attack in attackMode.ChooseAttacks(attacks))
                 {
                     attack.Use(player, aimDirection, stats);
                 }
@@ -85,7 +87,7 @@ namespace Game.Weapons
         {
             if (_inUse)
             {
-                foreach(var attack in attacks)
+                foreach(var attack in attackMode.ChooseAttacks(attacks, true))
                 {
                     attack.UseEnd(player, aimDirection, stats);
                 }

@@ -107,4 +107,5 @@ MonoBehaviour:
     owner: {fileID: 0}
     attacks:
     - {fileID: 11400000, guid: 8c356c60636ab664c90ba321762ce1cf, type: 2}
+    - {fileID: 11400000, guid: 718065ad30bccd4499e096bc0b68f0d8, type: 2}
   selfReference: {fileID: 11400000, guid: 03e4372e4d26fef4db260cd2df4f4a55, type: 2}
