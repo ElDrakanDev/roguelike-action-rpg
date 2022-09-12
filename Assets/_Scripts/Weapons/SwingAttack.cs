@@ -11,17 +11,17 @@ namespace Game.Weapons
         [SerializeField] float margin = 0.5f;
         [SerializeField] float arc = 60f;
 
-        public override void Use(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
+        public override void Use(Player owner, Vector2 direction, WeaponStats stats)
         {
-            Swing(owner, direction, damage, type, speed, useTime);
+            Swing(owner, direction, stats);
         }
-        public override void UseBegin(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
+        public override void UseBegin(Player owner, Vector2 direction, WeaponStats stats)
         {
-            Swing(owner, direction, damage, type, speed, useTime);
+            Swing(owner, direction, stats);
         }
-        public override void UseEnd(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime) { }
+        public override void UseEnd(Player owner, Vector2 direction, WeaponStats stats) { }
 
-        void Swing(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
+        void Swing(Player owner, Vector2 direction, WeaponStats stats)
         {
             float rotation = Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x);
             bool flipY = rotation > 90 || rotation < -90 ? true : false;
@@ -38,10 +38,10 @@ namespace Game.Weapons
             if (flipY)
             {
                 newSword.transform.localScale = new Vector3(newSword.transform.localScale.x, -newSword.transform.localScale.y, 0);
-                DOVirtual.Float(rotation - arc, rotation + arc, useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => Destroy(newSword));
+                DOVirtual.Float(rotation - arc, rotation + arc, stats.useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => Destroy(newSword));
                 return;
             }
-            DOVirtual.Float(rotation + arc, rotation - arc, useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => Destroy(newSword));
+            DOVirtual.Float(rotation + arc, rotation - arc, stats.useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => Destroy(newSword));
         }
     }
 }

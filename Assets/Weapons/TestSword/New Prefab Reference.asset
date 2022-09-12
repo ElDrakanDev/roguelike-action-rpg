@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3557f523501fa4c428981cbfc336e749, type: 3}
-  m_Name: TestSword
+  m_Script: {fileID: 11500000, guid: 2e36fd3441da6ba418b7a8e4faad0208, type: 3}
+  m_Name: New Prefab Reference
   m_EditorClassIdentifier: 
-  sword: {fileID: 2979762987393306513, guid: 6212d732e38aeb145bb241d8ba52a74d, type: 3}
-  margin: 1
-  arc: 90
+  prefab: {fileID: 2395676718592106382, guid: e44a5a7d993dd754fb643295dd6f57f4, type: 3}

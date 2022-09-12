@@ -7,18 +7,14 @@ namespace Game.Weapons
 {
     public enum WeaponType { Melee, Ranged, Magic }
 
-    [RequireComponent(typeof(Collider2D))]
     [System.Serializable]
-    public class WeaponData : IWeapon
+    public class Weapon : IWeapon
     {
         public string title = "Weapon Title";
         public string description = "Weapon Description";
         Vector2 aimDirection;
-        [SerializeField] WeaponType type;
-        [SerializeField] float damage = 1;
-        [SerializeField] float useTime = 1;
-        [SerializeField] float speed = 1;
-        [SerializeField] bool autoUse = true;
+        public WeaponStats stats;
+        [HideInInspector] public GameObject containerPrefab;
         [HideInInspector] public Sprite sprite;
         [HideInInspector] public Player player;
         [HideInInspector] public GameObject owner;
@@ -26,15 +22,12 @@ namespace Game.Weapons
         float _cooldown = 0;
         bool _inUse = false;
 
-        public WeaponData(string title, string description, float damage, float useTime, WeaponType type, Sprite sprite = null, GameObject owner = null)
+        public Weapon(string title, string description, Sprite sprite = null, GameObject owner = null)
         {
             this.owner = owner;
             this.title = title;
             this.description = description;
             this.sprite = sprite;
-            this.damage = damage;
-            this.type = type;
-            this.useTime = useTime;
 
             if (owner) PickUp(owner);
         }
@@ -48,16 +41,8 @@ namespace Game.Weapons
         {
             if (player.weapon == this)
             {
-                var newWeaponGameObject = new GameObject(title);
-                newWeaponGameObject.transform.position = player.transform.position;
-                var renderer = newWeaponGameObject.AddComponent<SpriteRenderer>();
-                renderer.sprite = sprite;
-                var collider = newWeaponGameObject.AddComponent<BoxCollider2D>();
-                collider.isTrigger = true;
-                var weaponContainer = newWeaponGameObject.AddComponent<WeaponContainer>();
-                weaponContainer.data = this;
-                newWeaponGameObject.layer = LayerMask.NameToLayer("Interactable");
-                newWeaponGameObject.tag = "Interactable";
+                Vector3 randomRotation = new Vector3(0, 0, Random.Range(0, 361));
+                GameObject.Instantiate(containerPrefab, player.transform.position, Quaternion.Euler(randomRotation));
                 player.weapon = null;
                 owner = null;
             }
@@ -77,32 +62,32 @@ namespace Game.Weapons
         {
             if(_cooldown < 0)
             {
-                foreach (var effect in attacks)
+                foreach (var attack in attacks)
                 {
-                    effect.UseBegin(player, aimDirection, damage, type, speed, useTime);
+                    attack.UseBegin(player, aimDirection, stats);
                 }
-                _cooldown = useTime;
+                _cooldown = stats.useTime;
                 _inUse = true;
             }
         }
         public void Use()
         {
-            if (autoUse && _cooldown < 0)
+            if (stats.autoUse && _cooldown < 0)
             {
-                foreach (var effect in attacks)
+                foreach (var attack in attacks)
                 {
-                    effect.Use(player, aimDirection, damage, type, speed, useTime);
+                    attack.Use(player, aimDirection, stats);
                 }
-                _cooldown = useTime;
+                _cooldown = stats.useTime;
             }
         }
         public void UseEnd()
         {
             if (_inUse)
             {
-                foreach(var effect in attacks)
+                foreach(var attack in attacks)
                 {
-                    effect.UseEnd(player, aimDirection, damage, type, speed, useTime);
+                    attack.UseEnd(player, aimDirection, stats);
                 }
             }
         }

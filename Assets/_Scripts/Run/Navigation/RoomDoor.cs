@@ -16,7 +16,7 @@ namespace Game.Run
         {
             controls = new PlayerActionsControls();
         }
-        public void Hover()
+        public void Inspect()
         {
             throw new System.NotImplementedException();
         }

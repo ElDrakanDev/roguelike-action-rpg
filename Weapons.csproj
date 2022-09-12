@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Weapons\Weapon.cs" />
+    <Compile Include="Assets\_Scripts\Weapons\WeaponStats.cs" />
     <Compile Include="Assets\_Scripts\Weapons\ShootAttack.cs" />
     <Compile Include="Assets\_Scripts\Weapons\WeaponContainer.cs" />
     <Compile Include="Assets\_Scripts\Weapons\WeaponAttack.cs" />
@@ -759,6 +760,10 @@
     <ProjectReference Include="DOTween.Modules.csproj">
       <Project>{A04B74DF-427E-49EC-DDB9-0BB79DE35404}</Project>
       <Name>DOTween.Modules</Name>
+    </ProjectReference>
+    <ProjectReference Include="Utils.csproj">
+      <Project>{9C54C169-DFD2-3195-454A-6A4B08C11B94}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

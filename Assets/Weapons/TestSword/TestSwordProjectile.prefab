@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4965735578764245127}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TestSwordProjectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 5072352357920101139}
   - component: {fileID: 252167406143852541}
   - component: {fileID: 1857758334510052541}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TestSword
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -25,32 +25,32 @@ namespace Game.Weapons
         [SerializeField] GameObject gun;
         [SerializeField] float gunMargin = 0.5f;
         Dictionary<Player, ShootData> shotsDict = new Dictionary<Player, ShootData>();
-        public override void Use(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
+        public override void Use(Player owner, Vector2 direction, WeaponStats stats)
         {
-            Shoot(owner, direction, damage, type, speed);
+            Shoot(owner, direction, stats);
         }
-        public override void UseBegin(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
+        public override void UseBegin(Player owner, Vector2 direction, WeaponStats stats)
         {
-            Shoot(owner, direction, damage, type, speed);
+            Shoot(owner, direction, stats);
         }
-        public override void UseEnd(Player owner, Vector2 direction, float damage, WeaponType type, float speed, float useTime)
+        public override void UseEnd(Player owner, Vector2 direction, WeaponStats stats)
         {
             RemoveGun(owner);
         }
-        void Shoot(Player owner, Vector2 direction, float damage, WeaponType type, float speed)
+        void Shoot(Player owner, Vector2 direction, WeaponStats stats)
         {
             float zRotation = Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x);
 
             if (shotsDict.TryGetValue(owner, out ShootData data))
             {
-                ShootWithData(data, owner, direction, zRotation, speed);
+                ShootWithData(data, owner, direction, zRotation, stats.projectileSpeed);
                 return;
             }
             var newGun = Instantiate(gun);
             newGun.transform.SetParent(owner.transform);
             data = new ShootData(newGun);
             shotsDict.Add(owner, data);
-            ShootWithData(data, owner, direction, zRotation, speed);
+            ShootWithData(data, owner, direction, zRotation, stats.projectileSpeed);
         }
         void ShootWithData(ShootData data, Player owner, Vector2 direction, float zRotation, float speed)
         {

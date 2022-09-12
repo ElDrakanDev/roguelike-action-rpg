@@ -57,8 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\UI\Minimap.cs" />
-    <Compile Include="Assets\_Scripts\UI\MinimapRoom.cs" />
     <Compile Include="Assets\_Scripts\UI\FpsCounter.cs" />
+    <Compile Include="Assets\_Scripts\UI\MinimapRoom.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\UI\UI.asmdef" />
