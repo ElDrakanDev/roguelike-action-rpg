@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3557f523501fa4c428981cbfc336e749, type: 3}
-  m_Name: TestSword
+  m_Script: {fileID: 11500000, guid: 05670e1c9b2a4b3469f1058e3607d65c, type: 3}
+  m_Name: RandomStats
   m_EditorClassIdentifier: 
-  sword: {fileID: 2979762987393306513, guid: 6212d732e38aeb145bb241d8ba52a74d, type: 3}
-  margin: 1
-  arc: 90
-  attackDirection: 1
+  damage: 5
+  useTime: 0.3
+  type: 0
+  autoUse: 1
+  projectileSpeed: 1
+  attackMode: 1
