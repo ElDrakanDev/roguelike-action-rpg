@@ -56,8 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Scripts\General\ToggleOutline.cs" />
     <Compile Include="Assets\_Scripts\General\CameraFollow.cs" />
     <Compile Include="Assets\_Scripts\General\Singleton.cs" />
+    <Compile Include="Assets\_Scripts\General\InteractableOutline.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\General\General.asmdef" />
@@ -342,6 +344,9 @@
     <Reference Include="Unity.Burst.Cecil">
       <HintPath>Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
     </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\DOTween_1_2_632\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.18\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -353,6 +358,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\DOTween_1_2_632\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.6f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
@@ -742,6 +750,14 @@
     <ProjectReference Include="Generation.csproj">
       <Project>{0671B5FC-F0ED-0EA8-8D33-185C2A36D5D0}</Project>
       <Name>Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.PixelPerfect.csproj">
+      <Project>{224F2293-7F0F-9270-563B-3A930392F4A5}</Project>
+      <Name>Unity.2D.PixelPerfect</Name>
+    </ProjectReference>
+    <ProjectReference Include="Interfaces.csproj">
+      <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
+      <Name>Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

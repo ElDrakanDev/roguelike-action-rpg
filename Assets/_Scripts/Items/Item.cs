@@ -17,7 +17,7 @@ namespace Game.Items
             data.PickUp(other);
             Destroy(gameObject);
         }
-        public void Hover()
+        public void Inspect()
         {
             Debug.Log($"{data.title} : {data.description}");
         }

@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MainAttack",
+                    "type": "Button",
+                    "id": "2e7a5577-b930-4e24-bab8-fb4589c2f611",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -172,6 +181,28 @@
                     "processors": "",
                     "groups": "Joystick",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0aae3a09-2029-458d-a11d-822891862a66",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MainAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9944c63f-dbd0-409e-8d53-d2d3d74079ed",
+                    "path": "<HID::Microntek              USB Joystick          >/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "MainAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

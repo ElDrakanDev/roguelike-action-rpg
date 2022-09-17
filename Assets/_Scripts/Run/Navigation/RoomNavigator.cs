@@ -38,12 +38,14 @@ namespace Game.Run
             this.controls = controls;
 
             EventManager.onDoorEnter += OnDoorEnter;
+            EventManager.onRoomChange += OnRoomChange;
             //EventManager.onDoorExit += OnDoorExit;
             controls.Enable();
         }
         ~RoomNavigator()
         {
             EventManager.onDoorEnter -= OnDoorEnter;
+            EventManager.onRoomChange -= OnRoomChange;
             //EventManager.onDoorExit -= OnDoorExit;
             controls.Disable();
         }
@@ -116,7 +118,6 @@ namespace Game.Run
         {
             var vec2Dir = context.ReadValue<Vector2>();
             _inputDir = new Vector2Int(Mathf.RoundToInt(vec2Dir.x), Mathf.RoundToInt(vec2Dir.y));
-            Debug.Log($"Reading room move. {_inputDir}");
             if(_inputDir != Vector2Int.zero && _inputDir.magnitude <= 1)
             {
                 if (Move(_inputDir))
@@ -145,6 +146,34 @@ namespace Game.Run
         }
 
         void OnDoorEnter() => HandleRoomMovement();
+        void OnRoomChange()
+        {
+            Vector3 doorPos;
+            foreach (var interactable in GameObject.FindGameObjectsWithTag("Interactable"))
+            {
+                if (interactable.TryGetComponent(out RoomDoor roomDoor))
+                {
+                    doorPos = interactable.transform.position;
+                    float doorOffset = interactable.GetComponent<SpriteRenderer>().bounds.size.y * 0.5f;
+                    Vector3 groundPos = Physics2D.Raycast(doorPos, Vector2.down, float.MaxValue, LayerMask.GetMask("Ground", "Platform")).point;
+                    foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+                    {
+                        float playerOffset = 0;
+                        if (player.TryGetComponent<BoxCollider2D>(out var playerCollider))
+                            playerOffset = playerCollider.bounds.size.y * 0.5f;
+                        if(groundPos != null)
+                            player.transform.position = new Vector3(groundPos.x, groundPos.y + playerOffset, 0);
+                        else
+                        {
+                            float yPos = doorPos.y;
+                            if (playerOffset > -0.01f && playerOffset < 0.01f && doorOffset > -0.01f && doorOffset < 0.01f) yPos += -doorOffset + playerOffset;
+                            player.transform.position = new Vector3(doorPos.x, yPos, 0);
+                        }
+                    }
+                    return;
+                }
+            }
+        }
         //void OnDoorExit() => HandleRoomMovement(false);
     }
 }

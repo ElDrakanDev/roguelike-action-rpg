@@ -1,6 +1,6 @@
 using UnityEngine;
 using Game.States;
-using Game.Stats;
+using Game.Events;
 using UnityEngine.InputSystem;
 using Game.Interfaces;
 
@@ -11,22 +11,23 @@ namespace Game.Players
         readonly GameObject gameObject;
         readonly Player player;
         readonly BoxCollider2D collider;
-        //Vector2 direction;
+        Vector2 direction;
         LayerMask interactableLayer;
         public Vector2 point, size;
+        bool usingWeapon = false;
+        GameObject closestInteractable;
 
-        public new ControllerState Current 
-        { 
-            get 
+        public new ControllerState Current
+        {
+            get
             {
-                if(_current is null)
+                if (_current is null)
                     _current = new GroundedMoveState(gameObject, player);
                 return _current;
             }
             protected set => _current = value;
         }
-
-        public PlayerController(ControllerState state, Player player, GameObject gameObject) : base(state) 
+        public PlayerController(ControllerState state, Player player, GameObject gameObject) : base(state)
         {
             this.gameObject = gameObject;
             this.player = player;
@@ -34,18 +35,51 @@ namespace Game.Players
             collider = gameObject.GetComponent<BoxCollider2D>();
             if (state is null) Current = new GroundedMoveState(gameObject, player);
         }
+        public void Move(InputAction.CallbackContext context)
+        {
+            direction = context.ReadValue<Vector2>();
+            Current.ReadMovement(context);
+        }
         public void Jump(InputAction.CallbackContext context) => Current.Jump(context);
-        public void Move(InputAction.CallbackContext context) => Current.ReadMovement(context);
-        public void Update() => Current.Update();
-        public void FixedUpdate() => Current.FixedUpdate();
+        public void Update()
+        {
+            Current.Update();
+            if (usingWeapon) player.weapon?.Use();
+            player.weapon?.Aim(direction);
+        }
+        public void FixedUpdate()
+        {
+            Current.FixedUpdate();
+            CheckInteractables();
+        }
 
         public void Dash(InputAction.CallbackContext context) => Current.Dash(context);
+        public void MainAttack(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                player.weapon?.UseBegin();
+                usingWeapon = true;
+            }
+            else if (context.canceled)
+            {
+                usingWeapon = false;
+                player.weapon?.UseEnd();
+            }
+        }
         public void Interact(InputAction.CallbackContext context)
         {
-            if (!context.started) return;
+            if (!context.started || closestInteractable is null) return;
 
+            foreach (var interactable in closestInteractable.GetComponents<IInteractable>())
+            {
+                interactable.Interact(gameObject);
+            }
+        }
+
+        void CheckInteractables()
+        {
             Collider2D[] interactableColliders = Physics2D.OverlapBoxAll(collider.transform.position, collider.bounds.size, collider.transform.rotation.z, interactableLayer);
-            
             if (interactableColliders != null && interactableColliders.Length > 0)
             {
                 float closestDist = float.MaxValue;
@@ -56,17 +90,16 @@ namespace Game.Players
                     var interactableGameObject = col.gameObject;
                     float distance = Vector2.Distance(interactableGameObject.transform.position, gameObject.transform.position);
 
-                    if(distance <= closestDist)
+                    if (distance <= closestDist)
                     {
                         closest = interactableGameObject;
                     }
                 }
 
-                foreach(var interactable in closest.GetComponents<IInteractable>())
-                {
-                    interactable.Interact(gameObject);
-                }
+                closestInteractable = closest;
             }
+            else closestInteractable = null;
+            EventManager.OnInteractableInspect(gameObject, closestInteractable);
         }
     }
 }

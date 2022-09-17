@@ -25,6 +25,8 @@ namespace Game.Events
         public static void OnDoorEnter() => onDoorEnter?.Invoke();
         public static event Action onFinishGeneration;
         public static void OnFinishGeneration() => onFinishGeneration?.Invoke();
+        public static event Action<GameObject, GameObject> onInteractableInspect;
+        public static void OnInteractableInspect(GameObject inspector, GameObject inspected) => onInteractableInspect?.Invoke(inspector, inspected);
         public static event Action onNavigationExit;
         public static void OnNavigationExit() => onNavigationExit?.Invoke();
         public static event Action<GameObject> onPlayerSpawn;

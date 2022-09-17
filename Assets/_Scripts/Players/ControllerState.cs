@@ -50,10 +50,8 @@ namespace Game.Players
 
         void SetPlatformIgnore(bool ignore)
         {
-            Debug.Log($"IgnoreLayer: {platformLayerValue}");
             foreach (var platformCollider in ActiveRoomGO.GetComponentsInChildren<Collider2D>())
             {
-                Debug.Log($"{platformCollider} layer: {platformCollider.gameObject.layer}. Affected = {platformCollider.gameObject.layer == platformLayerValue}. Ignore = {ignore}");
                 if (platformCollider.gameObject.layer == platformLayerValue)
                 {
                     Physics2D.IgnoreCollision(collider, platformCollider, ignore);

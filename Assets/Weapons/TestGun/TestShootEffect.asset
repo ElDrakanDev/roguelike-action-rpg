@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208b75c70c8c80143acf835ed9204a7f, type: 3}
+  m_Name: TestShootEffect
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 6774924309079741391, guid: c2f33618354bff04999f6f5084cf396f, type: 3}
+  gun: {fileID: 2781631102103764473, guid: 62162df99e552774aa583c0e09a58af5, type: 3}
+  gunMargin: 2
