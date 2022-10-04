@@ -849,6 +849,10 @@
       <Project>{0D6D916C-A73A-B2AB-F44C-3706796E53F4}</Project>
       <Name>Unity.VisualScripting.SettingsProvider.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unlocks.csproj">
+      <Project>{747E1FA9-8DFA-EDE7-9435-31B3724D9F85}</Project>
+      <Name>Unlocks</Name>
+    </ProjectReference>
     <ProjectReference Include="Helpers.csproj">
       <Project>{941DF200-BDF5-A3A9-0E80-B5891AD8BCFC}</Project>
       <Name>Helpers</Name>
