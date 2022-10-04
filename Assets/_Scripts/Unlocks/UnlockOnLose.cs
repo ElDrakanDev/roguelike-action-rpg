@@ -12,14 +12,16 @@ namespace Game.Unlocks
 
         protected override void OnDisable()
         {
-            EventManager.onPlayerLose -= UpdateUnlock;
+            base.OnDisable();
+            EventManager.onPlayerLose -= AutoUnlock;
         }
         protected override void OnEnable()
         {
-            EventManager.onPlayerLose += UpdateUnlock;
+            base.OnEnable();
+            EventManager.onPlayerLose += AutoUnlock;
         }
 
-        void UpdateUnlock()
+        void AutoUnlock()
         {
             if(UnlockManager.Instance.saveFileData.stats.deaths >= minLosses) SetUnlocked(true);
         }

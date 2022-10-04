@@ -20,11 +20,13 @@ namespace Game.Unlocks
         protected virtual void OnEnable()
         {
             EventManager.onUnlockLoad += UpdateUnlock;
+            EventManager.onUnlock += ShowUnlock;
         }
 
         protected virtual void OnDisable()
         {
             EventManager.onUnlockLoad -= UpdateUnlock;
+            EventManager.onUnlock -= ShowUnlock;
         }
 
         public void SetUnlocked(bool unlocked = true)
@@ -36,6 +38,14 @@ namespace Game.Unlocks
         void UpdateUnlock()
         {
             unlocked = UnlockManager.Instance.IsUnlocked(unlockName);
+        }
+
+        void ShowUnlock(string unlockedName)
+        {
+            if(unlockName == unlockedName)
+            {
+                Debug.Log($"{unlockName} desbloqueado.");
+            }
         }
     }
 }
