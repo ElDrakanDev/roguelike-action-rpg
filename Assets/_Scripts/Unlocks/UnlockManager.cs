@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 using Game.Events;
+using Game.Utils;
 
 namespace Game.Unlocks
 {
@@ -31,6 +32,7 @@ namespace Game.Unlocks
             try
             {
                 string content = File.ReadAllText(savePath);
+                content = Encryption.Decrypt(content);
                 saveFileData = JsonConvert.DeserializeObject<UnlockData>(content);
                 Debug.Log("Desbloqueos cargados exitosamente.");
                 EventManager.OnUnlockLoad();
@@ -46,9 +48,9 @@ namespace Game.Unlocks
         }
         public void Save()
         {
-            string jsonContent = JsonConvert.SerializeObject(saveFileData, Formatting.Indented);
-            Debug.Log(jsonContent);
-            File.WriteAllText(SavePath, jsonContent);
+            string content = JsonConvert.SerializeObject(saveFileData, Formatting.Indented);
+            content = Encryption.Encrypt(content);
+            File.WriteAllText(SavePath, content);
             Debug.Log($"Se guardaron los datos exitosamente en {savePath}.");
         }
         public void SetUnlock(string unlockName, bool value)
@@ -72,16 +74,6 @@ namespace Game.Unlocks
         }
         public string GetSavePath()
         {
-            #if !UNITY_EDITOR && (UNITY_IOS || UNITY_ANDROID)
-                try
-                {
-                    Directory.CreateDirectory(Application.persistentDataPath);
-                }
-                catch (Exception)
-                {
-                }
-                return Application.persistentDataPath + "/LevelScrambled.json";
-            #else
             try
             {
                 Directory.CreateDirectory(Application.streamingAssetsPath);
@@ -90,8 +82,7 @@ namespace Game.Unlocks
             {
                 Debug.LogError(ex);
             }
-            return $"{Application.streamingAssetsPath}/sav_{saveSlot}.json";
-            #endif
+            return $"{Application.streamingAssetsPath}/rglksvdt_{saveSlot}.dat";
         } 
     }
 }

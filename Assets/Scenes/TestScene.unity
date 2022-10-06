@@ -619,8 +619,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfbd965c78fb97a408888b14693bf59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlocks:
+    saveFileData:
+      stats:
+        deaths: 0
+        wins: 0
   saveSlot: 1
-  unlock: {fileID: 11400000, guid: ab2bc45faa844854ab48dcc5bc820965, type: 2}
+  unlock: {fileID: 11400000, guid: f08d94ff92b22da498df1b98fd1bf048, type: 2}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

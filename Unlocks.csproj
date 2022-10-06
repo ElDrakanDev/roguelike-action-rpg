@@ -59,8 +59,8 @@
     <Compile Include="Assets\_Scripts\Unlocks\UnlockTester.cs" />
     <Compile Include="Assets\_Scripts\Unlocks\UnlockData.cs" />
     <Compile Include="Assets\_Scripts\Unlocks\UnlockScriptableObject.cs" />
-    <Compile Include="Assets\_Scripts\Unlocks\UnlockManager.cs" />
     <Compile Include="Assets\_Scripts\Unlocks\UnlockOnLose.cs" />
+    <Compile Include="Assets\_Scripts\Unlocks\UnlockManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Unlocks\Unlocks.asmdef" />

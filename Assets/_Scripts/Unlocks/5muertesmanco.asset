@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 5muertesmanco
   m_EditorClassIdentifier: 
   unlockName: 5muertesmancoculiao
-  unlocked: 0
+  unlocked: 1
   minLosses: 5

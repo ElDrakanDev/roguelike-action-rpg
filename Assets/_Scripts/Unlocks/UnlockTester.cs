@@ -27,9 +27,7 @@ namespace Game.Unlocks
             }
             else if (current.cKey.wasPressedThisFrame)
             {
-                unlocks.saveFileData.stats.deaths = 0;
                 unlock.SetUnlocked(false);
-                unlocks.Save();
             }
             else if (current.mKey.wasPressedThisFrame)
             {
@@ -38,7 +36,7 @@ namespace Game.Unlocks
             }
             else if (current.bKey.wasPressedThisFrame)
             {
-                unlocks.saveFileData.stats.deaths++;
+                unlock.SetUnlocked(true);
                 EventManager.OnPlayerLose();
             }
         }
