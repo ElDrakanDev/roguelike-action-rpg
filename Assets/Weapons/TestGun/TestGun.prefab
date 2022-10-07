@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2781631102103764477}
   - component: {fileID: 2781631102103764478}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TestGun
-  m_TagString: Interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

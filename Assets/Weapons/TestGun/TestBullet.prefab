@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7299978542016688701}
   - component: {fileID: 2054059056640161958}
   - component: {fileID: -3978142848323383114}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TestBullet
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,3 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7299978542016688701}
+  _stats:
+    damage: 0
+    lifeTime: 0
+    speed: 0
+    state: 0

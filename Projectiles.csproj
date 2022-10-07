@@ -59,6 +59,7 @@
     <Compile Include="Assets\_Scripts\Projectiles\Projectile.cs" />
     <Compile Include="Assets\_Scripts\Projectiles\ProjectileDataSO.cs" />
     <Compile Include="Assets\_Scripts\Projectiles\ProjectileStatsSO.cs" />
+    <Compile Include="Assets\_Scripts\Projectiles\SwingProjectile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Projectiles\Projectiles.asmdef" />
