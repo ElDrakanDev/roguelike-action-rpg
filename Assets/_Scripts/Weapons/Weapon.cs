@@ -5,49 +5,48 @@ using Game.Players;
 namespace Game.Weapons
 {
     public enum WeaponType { Melee, Ranged, Magic }
-
-    [System.Serializable]
-    public class Weapon : IWeapon
+    public class Weapon : MonoBehaviour, IWeapon
     {
-        public string title = "Weapon Title";
-        public string description = "Weapon Description";
         Vector2 aimDirection;
         public WeaponStats stats;
-        [HideInInspector] public GameObject containerPrefab;
-        [HideInInspector] public Sprite sprite;
-        [HideInInspector] public Player player;
-        [HideInInspector] public GameObject owner;
-        public WeaponAttack[] attacks;
+        WeaponDataSO weaponData;
+        public Player Owner { get => _owner; protected set => _owner = value; }
+        Player _owner;
         WeaponAttackMode attackMode;
         float _cooldown = 0;
         bool _inUse = false;
+        WeaponAttack[] Attacks { get => weaponData.attacks; }
 
-        public Weapon(string title, string description, Sprite sprite = null, GameObject owner = null)
+        void Awake()
         {
-            this.owner = owner;
-            this.title = title;
-            this.description = description;
-            this.sprite = sprite;
-            attackMode = WeaponAttackMode.FromEnum(stats.attackMode);
+            if(TryGetComponent(out _owner) && weaponData is not null)
+            {
+                Initialize(weaponData);
+            }
+        }
 
-            if (owner) PickUp(owner);
-        }
-        public void PickUp(GameObject origin)
+        /// <summary>
+        /// Inicializa el arma y sus datos, asumiendo que fue agregado a un jugador
+        /// </summary>
+        /// <param name="weaponData">Los datos del arma agarrada</param>
+        public void Initialize(WeaponDataSO weaponData)
         {
+            this.weaponData = weaponData;
+            stats = weaponData.statsScriptable.CreateStats();
             attackMode = WeaponAttackMode.FromEnum(stats.attackMode);
-            owner = origin;
-            player = owner.GetComponent<Player>();
-            player.weapon = this;
+            Owner = gameObject.GetComponent<Player>();
+            Owner.weapon?.Drop();
+            Owner.weapon = this;
         }
-        public void Drop()
+
+        public void Drop(bool spawnPickable = true)
         {
-            if (player.weapon == this)
+            if (spawnPickable)
             {
                 Vector3 randomRotation = new Vector3(0, 0, Random.Range(0, 361));
-                GameObject.Instantiate(containerPrefab, player.transform.position, Quaternion.Euler(randomRotation));
-                player.weapon = null;
-                owner = null;
+                Instantiate(weaponData.pickable, transform.position, Quaternion.Euler(randomRotation));
             }
+            Destroy(this);
         }
         public void Update()
         {
@@ -64,9 +63,9 @@ namespace Game.Weapons
         {
             if(_cooldown < 0)
             {
-                foreach (var attack in attackMode.ChooseAttacks(attacks))
+                foreach (var attack in attackMode.ChooseAttacks(Attacks))
                 {
-                    attack.UseBegin(player, aimDirection, stats);
+                    attack.UseBegin(Owner, aimDirection, stats);
                 }
                 _cooldown = stats.useTime;
                 _inUse = true;
@@ -76,9 +75,9 @@ namespace Game.Weapons
         {
             if (stats.autoUse && _cooldown < 0)
             {
-                foreach (var attack in attackMode.ChooseAttacks(attacks))
+                foreach (var attack in attackMode.ChooseAttacks(Attacks))
                 {
-                    attack.Use(player, aimDirection, stats);
+                    attack.Use(Owner, aimDirection, stats);
                 }
                 _cooldown = stats.useTime;
             }
@@ -87,9 +86,9 @@ namespace Game.Weapons
         {
             if (_inUse)
             {
-                foreach(var attack in attackMode.ChooseAttacks(attacks, true))
+                foreach(var attack in attackMode.ChooseAttacks(Attacks, true))
                 {
-                    attack.UseEnd(player, aimDirection, stats);
+                    attack.UseEnd(Owner, aimDirection, stats);
                 }
             }
         }

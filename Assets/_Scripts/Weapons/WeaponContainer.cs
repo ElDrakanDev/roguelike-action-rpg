@@ -1,22 +1,21 @@
 using Game.Events;
 using Game.Interfaces;
-using Game.Players;
-using Game.Utils;
 using UnityEngine;
 
 namespace Game.Weapons
 {
+    [RequireComponent(typeof(Weapon))]
     public class WeaponContainer : MonoBehaviour, IInteractable
     {
-        [SerializeField] public Weapon weapon;
-        [SerializeReference] PrefabReference selfReference;
-        public GameObject SelfPrefab { get => selfReference.prefab; }
+        [SerializeField] WeaponDataSO weaponData;
+        Weapon weapon;
+        public GameObject SelfPrefab { get => weaponData.pickable; }
 
-        void Start()
+        private void Awake()
         {
-            if (TryGetComponent(out BoxCollider2D collider) is false) collider = gameObject.AddComponent<BoxCollider2D>();
-            if (TryGetComponent(out Rigidbody2D rb) is false) rb = gameObject.AddComponent<Rigidbody2D>();
+            weapon = GetComponent<Weapon>();
         }
+
         void OnEnable()
         {
             EventManager.onInteractableInspect += CheckInspect;
@@ -27,17 +26,19 @@ namespace Game.Weapons
         }
         public void Interact(GameObject other)
         {
-            weapon.containerPrefab = SelfPrefab;
-            weapon.owner = other;
-            weapon.player = other.GetComponent<Player>();
-            weapon.player.weapon?.Drop();
-            weapon.sprite = GetComponent<SpriteRenderer>().sprite;
-            weapon.PickUp(other);
+            Weapon weaponComponent = (Weapon)other.AddComponent(weapon.GetType());
+            weaponComponent.Initialize(weaponData);
+            //weapon.containerPrefab = SelfPrefab;
+            //weapon.owner = other;
+            //weapon.player = other.GetComponent<Player>();
+            //weapon.player.weapon?.Drop();
+            //weapon.sprite = GetComponent<SpriteRenderer>().sprite;
+            //weapon.PickUp(other);
             Destroy(gameObject);
         }
         public void Inspect()
         {
-            Debug.Log($"{weapon.title} : {weapon.description}");
+            // Debug.Log($"{weaponData.Name} : {weaponData.Description}");
         }
 
         void CheckInspect(GameObject inspector, GameObject hovered)
