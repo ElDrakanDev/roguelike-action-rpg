@@ -1,6 +1,7 @@
 using Game.Players;
 using UnityEngine;
 using System.Collections.Generic;
+using Game.Projectiles;
 
 namespace Game.Weapons
 {
@@ -21,7 +22,7 @@ namespace Game.Weapons
             }
         }
 
-        [SerializeField] GameObject projectile;
+        [SerializeField] ProjectileDataSO projData;
         [SerializeField] GameObject gun;
         [SerializeField] float gunMargin = 0.5f;
         Dictionary<Player, ShootData> shotsDict = new Dictionary<Player, ShootData>();
@@ -39,29 +40,29 @@ namespace Game.Weapons
         }
         void Shoot(Player owner, Vector2 direction, WeaponStats stats)
         {
+            if (direction == Vector2.zero) return;
+
             float zRotation = Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x);
 
             if (shotsDict.TryGetValue(owner, out ShootData data))
             {
-                ShootWithData(data, owner, direction, zRotation, stats.projectileSpeed);
+                ShootWithData(data, owner, direction, zRotation, stats);
                 return;
             }
             var newGun = Instantiate(gun);
             newGun.transform.SetParent(owner.transform);
             data = new ShootData(newGun);
             shotsDict.Add(owner, data);
-            ShootWithData(data, owner, direction, zRotation, stats.projectileSpeed);
+            ShootWithData(data, owner, direction, zRotation, stats);
         }
-        void ShootWithData(ShootData data, Player owner, Vector2 direction, float zRotation, float speed)
+        void ShootWithData(ShootData data, Player owner, Vector2 direction, float zRotation, WeaponStats weaponStats)
         {
             Quaternion rotation = Quaternion.Euler(0, 0, zRotation);
             data.gun.transform.position = owner.transform.position + new Vector3(direction.x * gunMargin, direction.y * gunMargin, 0);
             data.gun.transform.rotation = rotation;
             data.gunRenderer.flipY = zRotation > 90 || zRotation < -90 ? true : false;
             Vector3 shootPos = data.gun.transform.position + new Vector3(direction.x * data.gunWidth * 0.8f, direction.y * data.gunWidth * 0.8f, 0);
-            var newProjectile = Instantiate(projectile, shootPos, rotation);
-            newProjectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
-            return;
+            Projectile.Create(owner, projData, weaponStats.damage, ProjectileStates.Friendly, shootPos, direction * weaponStats.projectileSpeed, rotation);
         }
         void RemoveGun(Player owner)
         {

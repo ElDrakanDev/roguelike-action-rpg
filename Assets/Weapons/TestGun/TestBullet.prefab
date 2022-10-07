@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 215827631276796077}
   - component: {fileID: 7299978542016688701}
   - component: {fileID: 2054059056640161958}
-  - component: {fileID: 7765152912471910013}
+  - component: {fileID: -3978142848323383114}
   m_Layer: 0
   m_Name: TestBullet
   m_TagString: Untagged
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.7472036}
   m_EdgeRadius: 0
---- !u!114 &7765152912471910013
+--- !u!114 &-3978142848323383114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6774924309079741391}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da8c1787c6dbd0941b8c702d4d3b5cb0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d590db01d1fd1c459f2aca0af7f489e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 3
+  rb: {fileID: 7299978542016688701}

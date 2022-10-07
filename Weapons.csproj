@@ -61,9 +61,9 @@
     <Compile Include="Assets\_Scripts\Weapons\ShootAttack.cs" />
     <Compile Include="Assets\_Scripts\Weapons\WeaponContainer.cs" />
     <Compile Include="Assets\_Scripts\Weapons\WeaponAttack.cs" />
+    <Compile Include="Assets\_Scripts\Weapons\WeaponDataSO.cs" />
     <Compile Include="Assets\_Scripts\Weapons\SwingAttack.cs" />
     <Compile Include="Assets\_Scripts\Weapons\WeaponAttackMode.cs" />
-    <Compile Include="Assets\_Scripts\Weapons\WeaponDataSO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Weapons\Weapons.asmdef" />
@@ -766,6 +766,10 @@
     <ProjectReference Include="Utils.csproj">
       <Project>{9C54C169-DFD2-3195-454A-6A4B08C11B94}</Project>
       <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="Projectiles.csproj">
+      <Project>{E1331F8C-FA84-806E-1E8B-14DC9B7BCB71}</Project>
+      <Name>Projectiles</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
