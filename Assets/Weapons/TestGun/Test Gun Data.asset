@@ -15,5 +15,6 @@ MonoBehaviour:
   damage: 10
   useTime: 0.5
   type: 1
-  autoUse: 0
-  projectileSpeed: 12
+  autoUse: 1
+  projectileSpeed: 1
+  attackMode: 0

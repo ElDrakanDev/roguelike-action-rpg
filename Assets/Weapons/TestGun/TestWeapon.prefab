@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 6514964328849142394}
   - component: {fileID: 6514964328849142393}
   - component: {fileID: 6514964328849142399}
+  - component: {fileID: 2986677814842581107}
+  - component: {fileID: -2834136590942944602}
+  - component: {fileID: -5706185239039759554}
   m_Layer: 8
   m_Name: TestWeapon
   m_TagString: Interactable
@@ -26,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6514964328849142398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.52, y: -2.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -97,14 +100,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b98fb3404c09a644a321c17d5b083b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon:
-    title: gun
-    description: gun
-    stats: {fileID: 11400000, guid: ef9cb158df2c2384e8d4aa92408f53cb, type: 2}
-    containerPrefab: {fileID: 6514964328849142398}
-    sprite: {fileID: 0}
-    player: {fileID: 0}
-    owner: {fileID: 0}
-    attacks:
-    - {fileID: 11400000, guid: 43caca1fcf427e94dbd6d6014cca933c, type: 2}
-  selfReference: {fileID: 11400000, guid: 3798920fda868ab47961af59438d477b, type: 2}
+  weaponData: {fileID: 11400000, guid: ddbdca11ba7709d48b5ab496cef06955, type: 2}
+--- !u!114 &2986677814842581107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514964328849142398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03b12388e30c054f8bab9095f166066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+    damage: 0
+    useTime: 0
+    type: 0
+    autoUse: 0
+    projectileSpeed: 0
+    attackMode: 0
+--- !u!50 &-2834136590942944602
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514964328849142398}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &-5706185239039759554
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514964328849142398}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5074184, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5074184, y: 1}
+  m_EdgeRadius: 0

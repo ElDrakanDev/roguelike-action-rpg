@@ -53,7 +53,7 @@
     <UnityVersion>2021.3.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\QuickSave\Core\Converters\Vector2Converter.cs" />
@@ -1024,6 +1024,10 @@
     <ProjectReference Include="UI.csproj">
       <Project>{67A83228-6674-C76E-3359-C7C347FC35D0}</Project>
       <Name>UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Projectiles.csproj">
+      <Project>{E1331F8C-FA84-806E-1E8B-14DC9B7BCB71}</Project>
+      <Name>Projectiles</Name>
     </ProjectReference>
     <ProjectReference Include="RNG.csproj">
       <Project>{5458B5D0-5606-6034-9445-4721D2D57E7C}</Project>

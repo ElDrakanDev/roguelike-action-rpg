@@ -1,6 +1,7 @@
 using UnityEngine;
 using Game.Players;
 using DG.Tweening;
+using Game.Projectiles;
 
 namespace Game.Weapons
 {
@@ -8,7 +9,7 @@ namespace Game.Weapons
     public class SwingAttack : WeaponAttack
     {
         enum SwingDirection { Forwards = 1, Backwards = -1}
-        [SerializeField] GameObject sword;
+        [SerializeField] ProjectileDataSO projData;
         [SerializeField] float margin = 0.5f;
         [SerializeField] float arc = 60f;
         [SerializeField] SwingDirection attackDirection = SwingDirection.Forwards;
@@ -28,23 +29,24 @@ namespace Game.Weapons
             bool flipY = rotation > 90 || rotation < -90 ? true : false;
             int swingDirection = (int)attackDirection;
 
-            var newSword = Instantiate(sword);
-            newSword.transform.SetParent(owner.transform);
-            newSword.transform.position = owner.transform.position + new Vector3(direction.x * margin, direction.y * margin, 0) * margin;
+            Projectile newProj = Projectile.Create(owner, projData, stats.damage, ProjectileState.Friendly, Vector2.zero, Vector2.zero);
+            Transform swordTransform = newProj.transform;
+            swordTransform.SetParent(owner.transform);
+            swordTransform.position = owner.transform.position + new Vector3(direction.x * margin, direction.y * margin, 0) * margin;
 
             void SwingWeapon(float currentRotation)
             {
-                newSword.transform.position = owner.transform.position + new Vector3(Mathf.Cos(currentRotation * Mathf.Deg2Rad) * margin, Mathf.Sin(currentRotation * Mathf.Deg2Rad) * margin, 0);
-                newSword.transform.rotation = Quaternion.Euler(0, 0, currentRotation);
+                swordTransform.position = owner.transform.position + new Vector3(Mathf.Cos(currentRotation * Mathf.Deg2Rad) * margin, Mathf.Sin(currentRotation * Mathf.Deg2Rad) * margin, 0);
+                swordTransform.rotation = Quaternion.Euler(0, 0, currentRotation);
             }
 
             if (flipY)
             {
-                newSword.transform.localScale = new Vector3(newSword.transform.localScale.x, -newSword.transform.localScale.y, 0);
-                DOVirtual.Float(rotation - arc * swingDirection, rotation + arc * swingDirection, stats.useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => Destroy(newSword));
+                swordTransform.localScale = new Vector3(swordTransform.transform.localScale.x, -swordTransform.transform.localScale.y, 0);
+                DOVirtual.Float(rotation - arc * swingDirection, rotation + arc * swingDirection, stats.useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => newProj.LifeTimeEnd());
                 return;
             }
-            DOVirtual.Float(rotation + arc * swingDirection, rotation - arc * swingDirection, stats.useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => Destroy(newSword));
+            DOVirtual.Float(rotation + arc * swingDirection, rotation - arc * swingDirection, stats.useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => newProj.LifeTimeEnd());
         }
     }
 }

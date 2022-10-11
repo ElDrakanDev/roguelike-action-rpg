@@ -42,7 +42,6 @@ namespace Game.Players
             else if (keyboard.numpadMinusKey.wasPressedThisFrame) stats.Add(new StatModifier(-0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
 
             controller.Update();
-            weapon?.Update();
         }
         private void FixedUpdate()
         {

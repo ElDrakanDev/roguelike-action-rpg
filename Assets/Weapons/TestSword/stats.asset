@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75ede5e8254e8cd4fb122deecf61e94f, type: 3}
-  m_Name: 5muertesmanco
+  m_Script: {fileID: 11500000, guid: 05670e1c9b2a4b3469f1058e3607d65c, type: 3}
+  m_Name: stats
   m_EditorClassIdentifier: 
-  unlockName: 5muertesmancoculiao
-  unlocked: 1
-  minLosses: 5
+  damage: 5
+  useTime: 0.5
+  type: 0
+  autoUse: 1
+  projectileSpeed: 1
+  attackMode: 0

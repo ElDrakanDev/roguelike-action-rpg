@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e36fd3441da6ba418b7a8e4faad0208, type: 3}
-  m_Name: New Prefab Reference
+  m_Script: {fileID: 11500000, guid: 7a5168c381fe3874c87e632095411b00, type: 3}
+  m_Name: BulletData
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6514964328849142398, guid: ae7a13fe343cc904f85cef430985487d, type: 3}
+  _prefab: {fileID: 6774924309079741391, guid: c2f33618354bff04999f6f5084cf396f, type: 3}
+  _stats: {fileID: 11400000, guid: 8c15b5da77e0f724bab22e447daed08f, type: 2}
