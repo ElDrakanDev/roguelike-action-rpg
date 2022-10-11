@@ -1025,6 +1025,10 @@
       <Project>{67A83228-6674-C76E-3359-C7C347FC35D0}</Project>
       <Name>UI</Name>
     </ProjectReference>
+    <ProjectReference Include="Projectiles.csproj">
+      <Project>{E1331F8C-FA84-806E-1E8B-14DC9B7BCB71}</Project>
+      <Name>Projectiles</Name>
+    </ProjectReference>
     <ProjectReference Include="RNG.csproj">
       <Project>{5458B5D0-5606-6034-9445-4721D2D57E7C}</Project>
       <Name>RNG</Name>
@@ -1040,10 +1044,6 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{B77ABF90-422F-48BC-A35B-9384E040E0B5}</Project>
       <Name>Unity.VisualScripting.State</Name>
-    </ProjectReference>
-    <ProjectReference Include="Projectiles.csproj">
-      <Project>{E1331F8C-FA84-806E-1E8B-14DC9B7BCB71}</Project>
-      <Name>Projectiles</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

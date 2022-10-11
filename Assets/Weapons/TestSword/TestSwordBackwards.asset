@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3557f523501fa4c428981cbfc336e749, type: 3}
   m_Name: TestSwordBackwards
   m_EditorClassIdentifier: 
-  sword: {fileID: 2979762987393306513, guid: 6212d732e38aeb145bb241d8ba52a74d, type: 3}
-  margin: 1
+  projData: {fileID: 11400000, guid: 3357eaf27030fdb4780daf7f378153d8, type: 2}
+  margin: 2
   arc: 90
   attackDirection: -1

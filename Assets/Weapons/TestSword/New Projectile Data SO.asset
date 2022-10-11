@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5168c381fe3874c87e632095411b00, type: 3}
   m_Name: New Projectile Data SO
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 0}
-  _stats: {fileID: 0}
+  _prefab: {fileID: 2979762987393306513, guid: 6212d732e38aeb145bb241d8ba52a74d, type: 3}
+  _stats: {fileID: 11400000, guid: 44962fe4080e35b43a057f92ab79910a, type: 2}
