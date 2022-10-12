@@ -2,6 +2,7 @@ using Game.Players;
 using UnityEngine;
 using System.Collections.Generic;
 using Game.Projectiles;
+using Game.Utils;
 
 namespace Game.Weapons
 {
@@ -62,7 +63,7 @@ namespace Game.Weapons
             data.gun.transform.rotation = rotation;
             data.gunRenderer.flipY = zRotation > 90 || zRotation < -90 ? true : false;
             Vector3 shootPos = data.gun.transform.position + new Vector3(direction.x * data.gunWidth * 0.8f, direction.y * data.gunWidth * 0.8f, 0);
-            Projectile.Create(owner, projData, weaponStats.damage, ProjectileState.Friendly, shootPos, direction * weaponStats.projectileSpeed, rotation);
+            Projectile.Create(owner, projData, weaponStats.damage, Team.Friendly, shootPos, direction * weaponStats.projectileSpeed, rotation);
         }
         void RemoveGun(Player owner)
         {

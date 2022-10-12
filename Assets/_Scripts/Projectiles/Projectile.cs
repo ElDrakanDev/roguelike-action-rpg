@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Utils;
+using Game.Interfaces;
 
 namespace Game.Projectiles
 {
@@ -18,12 +19,14 @@ namespace Game.Projectiles
         public object owner;
         [SerializeField] ProjectileStats _stats;
         public ProjectileStats Stats { get => _stats; protected set => _stats = value; }
-        public Vector3 Velocity { get => rb.velocity; set => rb.velocity = value; }
+        public virtual Vector3 Velocity { get => rb.velocity; set => rb.velocity = value; }
+        public Team Team { get => _stats.team; set => _stats.team = value; }
+        [SerializeField] List<Collider2D> hitColliders = new List<Collider2D>();
 
         #region Creation
 
         public static Projectile Create(
-            object owner, ProjectileDataSO data, float damage, ProjectileState state, Vector2 position, Vector2 velocity, float rotation = 0
+            object owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, float rotation = 0
         )
         {
             Quaternion quat = Quaternion.Euler(0, 0, rotation);
@@ -34,7 +37,7 @@ namespace Game.Projectiles
             return projectile;
         }
         public static Projectile Create(
-            object owner, ProjectileDataSO data, float damage, ProjectileState state, Vector2 position, Vector2 velocity, Quaternion rotation
+            object owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, Quaternion rotation
         )
         {
             GameObject gO = Instantiate(data.Prefab, position, rotation);
@@ -50,7 +53,7 @@ namespace Game.Projectiles
                 return projectile;
             return gO.GetComponentInChildren<Projectile>();
         }
-        protected virtual void Initialize(object owner, ProjectileDataSO data, float damage, ProjectileState state, Vector2 velocity)
+        protected virtual void Initialize(object owner, ProjectileDataSO data, float damage, Team state, Vector2 velocity)
         {
             this.owner = owner;
             Stats = data.Stats.CreateStats(damage, state);
@@ -87,49 +90,61 @@ namespace Game.Projectiles
         }
         protected virtual void AIUpdate() { }
         protected virtual void AIFixedUpdate() { }
+        protected virtual Vector2 GetKnockbackDirection() => Velocity.normalized;
         public virtual void Despawn()
         {
             onDespawn?.Invoke();
+            Destroy(gameObject);
         }
-
+        #region Collision
         private void OnTriggerEnter2D(Collider2D collision)
         {
             int collisionLayer = collision.gameObject.layer;
             if (collisionLayer == Layers.GROUND) OnEnterGround(collision);
             else if (collisionLayer == Layers.PLAYER) OnEnterPlayer(collision);
-            else if (collisionLayer == Layers.NPC) OnEnterNpc(collision);
+            else if (collisionLayer == Layers.ENTITY) OnEnterEntity(collision);
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
             int collisionLayer = collision.gameObject.layer;
             if (collisionLayer == Layers.GROUND) OnStayGround(collision);
             else if (collisionLayer == Layers.PLAYER) OnStayPlayer(collision);
-            else if (collisionLayer == Layers.NPC) OnStayNpc(collision);
+            else if (collisionLayer == Layers.ENTITY)
+            {
+                
+                OnStayEntity(collision);
+                if (hitColliders.Contains(collision) is false)
+                {
+                    collision.gameObject.GetComponent<IHittable>().Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
+                    hitColliders.Add(collision);
+                }
+            }
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
             int collisionLayer = collision.gameObject.layer;
             if (collisionLayer == Layers.GROUND) OnExitGround(collision);
             else if (collisionLayer == Layers.PLAYER) OnExitPlayer(collision);
-            else if (collisionLayer == Layers.NPC) OnExitNpc(collision);
+            else if (collisionLayer == Layers.ENTITY) OnExitEntity(collision);
         }
+        #endregion
 
         #region Events
         public event Action onDestroy;
-        public event Action<Collider2D> onEnterNpc;
-        protected void OnEnterNpc(Collider2D collision) => onEnterNpc?.Invoke(collision);
+        public event Action<Collider2D> onEnterEntity;
+        protected void OnEnterEntity(Collider2D collision) => onEnterEntity?.Invoke(collision);
         public event Action<Collider2D> onEnterGround;
         protected void OnEnterGround(Collider2D collision) => onEnterGround?.Invoke(collision);
         public event Action<Collider2D> onEnterPlayer;
         protected void OnEnterPlayer(Collider2D collision) => onEnterPlayer?.Invoke(collision);
-        public event Action<Collider2D> onStayNpc;
-        protected void OnStayNpc(Collider2D collision) => onStayNpc?.Invoke(collision);
+        public event Action<Collider2D> onStayEntity;
+        protected void OnStayEntity(Collider2D collision) => onStayEntity?.Invoke(collision);
         public event Action<Collider2D> onStayGround;
         protected void OnStayGround(Collider2D collision) => onStayGround?.Invoke(collision);
         public event Action<Collider2D> onStayPlayer;
         protected void OnStayPlayer(Collider2D collision) => onStayPlayer?.Invoke(collision);
-        public event Action<Collider2D> onExitNpc;
-        protected void OnExitNpc(Collider2D collision) => onExitNpc?.Invoke(collision);
+        public event Action<Collider2D> onExitEntity;
+        protected void OnExitEntity(Collider2D collision) => onExitEntity?.Invoke(collision);
         public event Action<Collider2D> onExitGround;
         protected void OnExitGround(Collider2D collision) => onExitGround?.Invoke(collision);
         public event Action<Collider2D> onExitPlayer;
@@ -140,7 +155,7 @@ namespace Game.Projectiles
         public event Action onDespawn;
         protected void OnDespawn() => onDespawn?.Invoke();
         #endregion
-        public static void Clear()
+        public static void ClearAll()
         {
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {

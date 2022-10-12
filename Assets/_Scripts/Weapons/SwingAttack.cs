@@ -2,6 +2,7 @@ using UnityEngine;
 using Game.Players;
 using DG.Tweening;
 using Game.Projectiles;
+using Game.Utils;
 
 namespace Game.Weapons
 {
@@ -29,7 +30,7 @@ namespace Game.Weapons
             bool flipY = rotation > 90 || rotation < -90 ? true : false;
             int swingDirection = (int)attackDirection;
 
-            Projectile newProj = Projectile.Create(owner, projData, stats.damage, ProjectileState.Friendly, Vector2.zero, Vector2.zero);
+            Projectile newProj = Projectile.Create(owner, projData, stats.damage, Team.Friendly, Vector2.zero, direction);
             Transform swordTransform = newProj.transform;
             swordTransform.SetParent(owner.transform);
             swordTransform.position = owner.transform.position + new Vector3(direction.x * margin, direction.y * margin, 0) * margin;

@@ -7,6 +7,6 @@ namespace Game.Utils
         public const int INTERACTABLE = 8;
         public const int PLATFORM = 9;
         public const int PROJECTILE = 10;
-        public const int NPC = 11;
+        public const int ENTITY = 11;
     }
 }

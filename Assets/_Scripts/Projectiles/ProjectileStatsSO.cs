@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Utils;
 
 namespace Game.Projectiles
 {
-    public enum ProjectileState { Friendly, Neutral, Enemy}
     [CreateAssetMenu(menuName = "Projectiles/Stats")]
     public class ProjectileStatsSO : ScriptableObject
     {
         public float speed;
         public float lifeTime;
+        public float knockback = 1;
 
-        public ProjectileStats CreateStats(float damage, ProjectileState state)
+        public ProjectileStats CreateStats(float damage, Team team)
         {
-            return new ProjectileStats(damage, lifeTime, speed, state);
+            return new ProjectileStats(damage, lifeTime, speed, team, knockback);
         }
     }
 
@@ -23,14 +24,15 @@ namespace Game.Projectiles
         public float damage;
         public float lifeTime;
         public float speed;
-        public ProjectileState state;
-
-        public ProjectileStats(float damage, float lifeTime, float speed, ProjectileState state)
+        public Team team;
+        public float knockback = 1;
+        public ProjectileStats(float damage, float lifeTime, float speed, Team team, float knockback)
         {
             this.damage = damage;
             this.lifeTime = lifeTime;
             this.speed = speed;
-            this.state = state;
+            this.team = team;
+            this.knockback = knockback;
         }
     }
 }
