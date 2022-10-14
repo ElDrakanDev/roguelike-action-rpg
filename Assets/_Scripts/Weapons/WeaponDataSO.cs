@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Stats;
 
 namespace Game.Weapons
 {
@@ -13,5 +14,6 @@ namespace Game.Weapons
         public GameObject pickable;
         public WeaponStatsSO statsScriptable;
         public WeaponAttack[] attacks;
+        public AttackMode attackMode = AttackMode.Sequence;
     }
 }

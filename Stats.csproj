@@ -58,8 +58,10 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Stats\StatID.cs" />
     <Compile Include="Assets\_Scripts\Stats\IStatComponent.cs" />
+    <Compile Include="Assets\_Scripts\Stats\WeaponStatsSO.cs" />
     <Compile Include="Assets\_Scripts\Stats\StatModifier.cs" />
     <Compile Include="Assets\_Scripts\Stats\StatStructs.cs" />
+    <Compile Include="Assets\_Scripts\Stats\ProjectileStatsSO.cs" />
     <Compile Include="Assets\_Scripts\Stats\Stat.cs" />
     <Compile Include="Assets\_Scripts\Stats\BaseStatObject.cs" />
     <Compile Include="Assets\_Scripts\Stats\CharacterStats.cs" />
@@ -745,6 +747,10 @@
     <ProjectReference Include="Interfaces.csproj">
       <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
       <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="Utils.csproj">
+      <Project>{9C54C169-DFD2-3195-454A-6A4B08C11B94}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

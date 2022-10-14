@@ -1,5 +1,6 @@
 using UnityEngine;
 using Game.Players;
+using Game.Stats;
 
 namespace Game.Weapons
 {

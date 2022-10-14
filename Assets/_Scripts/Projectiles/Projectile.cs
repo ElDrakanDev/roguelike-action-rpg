@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Utils;
 using Game.Interfaces;
+using Game.Stats;
 
 namespace Game.Projectiles
 {
@@ -26,23 +27,23 @@ namespace Game.Projectiles
         #region Creation
 
         public static Projectile Create(
-            object owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, float rotation = 0
+            object owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, float knockback, float rotation = 0
         )
         {
             Quaternion quat = Quaternion.Euler(0, 0, rotation);
             GameObject gO = Instantiate(data.Prefab, position, quat);
             Projectile projectile = GetProjectileComponent(gO);
-            projectile.Initialize(owner, data, damage, state, velocity);
+            projectile.Initialize(owner, data, damage, state, velocity, knockback);
 
             return projectile;
         }
         public static Projectile Create(
-            object owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, Quaternion rotation
+            object owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, Quaternion rotation, float knockback
         )
         {
             GameObject gO = Instantiate(data.Prefab, position, rotation);
             Projectile projectile = GetProjectileComponent(gO);
-            projectile.Initialize(owner, data, damage, state, velocity);
+            projectile.Initialize(owner, data, damage, state, velocity, knockback);
 
             return projectile;
         }
@@ -53,10 +54,10 @@ namespace Game.Projectiles
                 return projectile;
             return gO.GetComponentInChildren<Projectile>();
         }
-        protected virtual void Initialize(object owner, ProjectileDataSO data, float damage, Team state, Vector2 velocity)
+        protected virtual void Initialize(object owner, ProjectileDataSO data, float damage, Team state, Vector2 velocity, float knockback = 1)
         {
             this.owner = owner;
-            Stats = data.Stats.CreateStats(damage, state);
+            Stats = data.Stats.CreateStats(damage, state, knockback);
             Velocity = velocity;
         }
 
@@ -102,7 +103,15 @@ namespace Game.Projectiles
             int collisionLayer = collision.gameObject.layer;
             if (collisionLayer == Layers.GROUND) OnEnterGround(collision);
             else if (collisionLayer == Layers.PLAYER) OnEnterPlayer(collision);
-            else if (collisionLayer == Layers.ENTITY) OnEnterEntity(collision);
+            else if (collisionLayer == Layers.ENTITY)
+            {
+                OnEnterEntity(collision);
+                if (hitColliders.Contains(collision) is false)
+                {
+                    collision.gameObject.GetComponent<IHittable>().Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
+                    hitColliders.Add(collision);
+                }
+            }
         }
         private void OnTriggerStay2D(Collider2D collision)
         {
@@ -111,7 +120,6 @@ namespace Game.Projectiles
             else if (collisionLayer == Layers.PLAYER) OnStayPlayer(collision);
             else if (collisionLayer == Layers.ENTITY)
             {
-                
                 OnStayEntity(collision);
                 if (hitColliders.Contains(collision) is false)
                 {

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: stats
   m_EditorClassIdentifier: 
   damage: 5
-  useTime: 0.5
+  useTime: 0.3
   type: 0
   autoUse: 1
   projectileSpeed: 1
   attackMode: 0
+  knockback: 15

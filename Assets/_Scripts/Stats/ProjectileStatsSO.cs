@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Game.Utils;
 
-namespace Game.Projectiles
+namespace Game.Stats
 {
     [CreateAssetMenu(menuName = "Projectiles/Stats")]
     public class ProjectileStatsSO : ScriptableObject
     {
         public float speed;
         public float lifeTime;
-        public float knockback = 1;
 
-        public ProjectileStats CreateStats(float damage, Team team)
+        public ProjectileStats CreateStats(float damage, Team team, float knockback)
         {
             return new ProjectileStats(damage, lifeTime, speed, team, knockback);
         }

@@ -60,8 +60,8 @@
     <Compile Include="Assets\_Scripts\Utils\DictUtils.cs" />
     <Compile Include="Assets\_Scripts\Utils\PrefabReference.cs" />
     <Compile Include="Assets\_Scripts\Utils\Layers.cs" />
-    <Compile Include="Assets\_Scripts\Utils\Encryption.cs" />
     <Compile Include="Assets\_Scripts\Utils\Teams.cs" />
+    <Compile Include="Assets\_Scripts\Utils\Encryption.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Utils\Utils.asmdef" />

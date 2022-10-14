@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Game.Projectiles;
 using Game.Utils;
+using Game.Stats;
 
 namespace Game.Weapons
 {
@@ -56,14 +57,14 @@ namespace Game.Weapons
             shotsDict.Add(owner, data);
             ShootWithData(data, owner, direction, zRotation, stats);
         }
-        void ShootWithData(ShootData data, Player owner, Vector2 direction, float zRotation, WeaponStats weaponStats)
+        void ShootWithData(ShootData data, Player owner, Vector2 direction, float zRotation, WeaponStats stats)
         {
             Quaternion rotation = Quaternion.Euler(0, 0, zRotation);
             data.gun.transform.position = owner.transform.position + new Vector3(direction.x * gunMargin, direction.y * gunMargin, 0);
             data.gun.transform.rotation = rotation;
             data.gunRenderer.flipY = zRotation > 90 || zRotation < -90 ? true : false;
             Vector3 shootPos = data.gun.transform.position + new Vector3(direction.x * data.gunWidth * 0.8f, direction.y * data.gunWidth * 0.8f, 0);
-            Projectile.Create(owner, projData, weaponStats.damage, Team.Friendly, shootPos, direction * weaponStats.projectileSpeed, rotation);
+            Projectile.Create(owner, projData, stats.damage, Team.Friendly, shootPos, direction * stats.projectileSpeed, rotation, stats.knockback);
         }
         void RemoveGun(Player owner)
         {

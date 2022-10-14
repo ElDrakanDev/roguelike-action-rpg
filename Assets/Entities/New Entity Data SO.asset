@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981de2f3115d52b4891dd461d879a5da, type: 3}
   m_Name: New Entity Data SO
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 0}
+  _prefab: {fileID: 4596526033102975042, guid: bc6e2c79cd95447468c867cb4ed8d9e4, type: 3}
   _stats: {fileID: 0}

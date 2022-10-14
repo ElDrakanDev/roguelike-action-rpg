@@ -1,7 +1,9 @@
 using UnityEngine;
 
-namespace Game.Weapons
+namespace Game.Stats
 {
+    public enum WeaponType { Melee, Ranged, Magic }
+
     [CreateAssetMenu(menuName = "Weapons/Stats")]
     public class WeaponStatsSO : ScriptableObject
     {
@@ -10,11 +12,11 @@ namespace Game.Weapons
         public WeaponType type;
         public bool autoUse;
         public float projectileSpeed = 1;
-        public AttackModes attackMode = AttackModes.Sequence;
+        public float knockback = 1;
 
         public WeaponStats CreateStats()
         {
-            return new WeaponStats(damage, useTime, type, autoUse, projectileSpeed, attackMode);
+            return new WeaponStats(damage, useTime, type, autoUse, projectileSpeed, knockback);
         }
     }
 
@@ -26,10 +28,10 @@ namespace Game.Weapons
         public WeaponType type;
         public bool autoUse;
         public float projectileSpeed = 1;
-        public AttackModes attackMode;
+        public float knockback = 1;
 
         public WeaponStats(
-            float damage, float useTime, WeaponType type, bool autoUse, float projectileSpeed, AttackModes attackMode
+            float damage, float useTime, WeaponType type, bool autoUse, float projectileSpeed, float knockback
         )
         {
             this.damage = damage;
@@ -37,7 +39,7 @@ namespace Game.Weapons
             this.type = type;
             this.autoUse = autoUse;
             this.projectileSpeed = projectileSpeed;
-            this.attackMode = attackMode;
+            this.knockback = knockback;
         }
     }
 }

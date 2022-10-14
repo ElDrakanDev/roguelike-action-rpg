@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Test Gun Data
   m_EditorClassIdentifier: 
   damage: 10
-  useTime: 0.5
+  useTime: 0.15
   type: 1
   autoUse: 1
-  projectileSpeed: 1
+  projectileSpeed: 15
   attackMode: 0
+  knockback: 3

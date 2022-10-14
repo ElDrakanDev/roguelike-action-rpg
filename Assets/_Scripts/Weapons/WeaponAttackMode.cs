@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Weapons
 {
-    public enum AttackModes
+    public enum AttackMode
     {
         Sequence, Random
     }
@@ -12,12 +12,12 @@ namespace Game.Weapons
         public void Update() { }
         public abstract WeaponAttack[] ChooseAttacks(WeaponAttack[] attacks, bool canceled = false);
 
-        public static WeaponAttackMode FromEnum(AttackModes mode)
+        public static WeaponAttackMode FromEnum(AttackMode mode)
         {
-            Dictionary<AttackModes, WeaponAttackMode> modes = new Dictionary<AttackModes, WeaponAttackMode>()
+            Dictionary<AttackMode, WeaponAttackMode> modes = new Dictionary<AttackMode, WeaponAttackMode>()
             {
-                {AttackModes.Sequence, new SequenceAttackMode()},
-                {AttackModes.Random, new RandomAttackMode()}
+                {AttackMode.Sequence, new SequenceAttackMode()},
+                {AttackMode.Random, new RandomAttackMode()}
             };
             return modes[mode];
         }

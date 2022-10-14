@@ -826,6 +826,10 @@
       <Project>{0D6D916C-A73A-B2AB-F44C-3706796E53F4}</Project>
       <Name>Unity.VisualScripting.SettingsProvider.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Entities.csproj">
+      <Project>{4DBC774F-141F-0AFB-21CF-634FC6AF30E6}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="Unlocks.csproj">
       <Project>{747E1FA9-8DFA-EDE7-9435-31B3724D9F85}</Project>
       <Name>Unlocks</Name>
@@ -1021,10 +1025,6 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{B77ABF90-422F-48BC-A35B-9384E040E0B5}</Project>
       <Name>Unity.VisualScripting.State</Name>
-    </ProjectReference>
-    <ProjectReference Include="Entities.csproj">
-      <Project>{4DBC774F-141F-0AFB-21CF-634FC6AF30E6}</Project>
-      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

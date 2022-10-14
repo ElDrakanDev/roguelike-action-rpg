@@ -56,7 +56,6 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Scripts\Projectiles\ProjectileStatsSO.cs" />
     <Compile Include="Assets\_Scripts\Projectiles\SwingProjectile.cs" />
     <Compile Include="Assets\_Scripts\Projectiles\ProjectileDataSO.cs" />
     <Compile Include="Assets\_Scripts\Projectiles\Projectile.cs" />
@@ -746,6 +745,10 @@
     <ProjectReference Include="Interfaces.csproj">
       <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
       <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="Stats.csproj">
+      <Project>{93556C28-4650-FCDD-86E7-A4BD7BD10DE6}</Project>
+      <Name>Stats</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

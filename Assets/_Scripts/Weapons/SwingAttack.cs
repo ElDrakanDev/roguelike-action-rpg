@@ -3,6 +3,7 @@ using Game.Players;
 using DG.Tweening;
 using Game.Projectiles;
 using Game.Utils;
+using Game.Stats;
 
 namespace Game.Weapons
 {
@@ -30,7 +31,7 @@ namespace Game.Weapons
             bool flipY = rotation > 90 || rotation < -90 ? true : false;
             int swingDirection = (int)attackDirection;
 
-            Projectile newProj = Projectile.Create(owner, projData, stats.damage, Team.Friendly, Vector2.zero, direction);
+            Projectile newProj = Projectile.Create(owner, projData, stats.damage, Team.Friendly, Vector2.zero, direction, stats.knockback);
             Transform swordTransform = newProj.transform;
             swordTransform.SetParent(owner.transform);
             swordTransform.position = owner.transform.position + new Vector3(direction.x * margin, direction.y * margin, 0) * margin;

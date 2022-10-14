@@ -1,10 +1,10 @@
 using UnityEngine;
 using Game.Interfaces;
 using Game.Players;
+using Game.Stats;
 
 namespace Game.Weapons
 {
-    public enum WeaponType { Melee, Ranged, Magic }
     public class Weapon : MonoBehaviour, IWeapon
     {
         Vector2 aimDirection;
@@ -33,7 +33,7 @@ namespace Game.Weapons
         {
             this.weaponData = weaponData;
             stats = weaponData.statsScriptable.CreateStats();
-            attackMode = WeaponAttackMode.FromEnum(stats.attackMode);
+            attackMode = WeaponAttackMode.FromEnum(weaponData.attackMode);
             Owner = gameObject.GetComponent<Player>();
             Owner.weapon?.Drop();
             Owner.weapon = this;

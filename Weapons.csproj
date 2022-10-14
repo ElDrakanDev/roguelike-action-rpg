@@ -57,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Weapons\Weapon.cs" />
-    <Compile Include="Assets\_Scripts\Weapons\WeaponStatsSO.cs" />
     <Compile Include="Assets\_Scripts\Weapons\ShootAttack.cs" />
     <Compile Include="Assets\_Scripts\Weapons\WeaponContainer.cs" />
     <Compile Include="Assets\_Scripts\Weapons\WeaponAttack.cs" />

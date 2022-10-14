@@ -7,10 +7,10 @@ namespace Game.Projectiles
     {
         public override Vector3 Velocity { get; set; }
 
-        protected override void Initialize(object owner, ProjectileDataSO data, float damage, Team state, Vector2 velocity)
+        protected override void Initialize(object owner, ProjectileDataSO data, float damage, Team state, Vector2 velocity, float knockback = 1)
         {
             this.owner = owner;
-            Stats = data.Stats.CreateStats(damage, state);
+            Stats = data.Stats.CreateStats(damage, state, knockback);
             Stats.lifeTime = float.MaxValue;
             Velocity = velocity;
         }
