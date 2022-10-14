@@ -9,7 +9,7 @@ namespace Game.Entities
     [CreateAssetMenu(menuName = "Entities/Stats")]
     public class EntityStatsSO : ScriptableObject
     {
-        public readonly float maxHealth;
+        public float maxHealth;
         public float damage;
         public Team defaultTeam;
         public float baseSpeed;
@@ -28,8 +28,19 @@ namespace Game.Entities
     public class EntityStats
     {
         [SerializeField] float _health;
-        public float Health { get { return _health; } set { _health = value; } }
-        public readonly float _maxHealth;
+        public float Health 
+        {
+            get => _health;
+            set
+            {
+                bool overMax = value > maxHealth;
+                bool below0 = value < 0;
+                if (overMax) _health = maxHealth;
+                else if (below0) _health = 0;
+                else _health = value;
+            }
+        }
+        public float maxHealth;
         public float damage;
         public Team team;
         public float baseSpeed;
@@ -37,7 +48,7 @@ namespace Game.Entities
 
         public EntityStats(float maxHealth, float damage, Team team, float baseSpeed, float damageReduction)
         {
-            _maxHealth = maxHealth;
+            this.maxHealth = maxHealth;
             this.damage = damage;
             this.team = team;
             this.baseSpeed = baseSpeed;

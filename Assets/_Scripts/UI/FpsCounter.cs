@@ -19,6 +19,7 @@ namespace Game.UI
                 cooldown = 0;
                 frameCount = 0;
                 fpsText.enabled = !fpsText.enabled;
+                if(fpsText.enabled) fpsText.text = "-- FPS";
             }
 
             if (fpsText.enabled)

@@ -15,6 +15,7 @@ namespace Game.Entities
         [SerializeField] EntityStats _stats;
         public static List<Entity> entities = new List<Entity>();
         public EntityStats Stats { get => _stats; protected set => _stats = value; }
+        public float Health { get => _stats.Health; set => _stats.Health = value; }
         public Team Team { get => _stats.team; set => _stats.team = value; }
 
         #region Creation

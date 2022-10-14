@@ -59,6 +59,7 @@
     <Compile Include="Assets\_Scripts\Entities\Entity.cs" />
     <Compile Include="Assets\_Scripts\Entities\EntityStatsSO.cs" />
     <Compile Include="Assets\_Scripts\Entities\EntityDataSO.cs" />
+    <Compile Include="Assets\_Scripts\Entities\EntityInstantiate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Entities\Entities.asmdef" />
