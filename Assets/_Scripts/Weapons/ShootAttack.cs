@@ -64,7 +64,7 @@ namespace Game.Weapons
             data.gun.transform.rotation = rotation;
             data.gunRenderer.flipY = zRotation > 90 || zRotation < -90 ? true : false;
             Vector3 shootPos = data.gun.transform.position + new Vector3(direction.x * data.gunWidth * 0.8f, direction.y * data.gunWidth * 0.8f, 0);
-            Projectile.Create(owner, projData, stats.damage, Team.Friendly, shootPos, direction * stats.projectileSpeed, rotation, stats.knockback);
+            Projectile.Create(owner.gameObject, projData, stats.damage, Team.Friendly, shootPos, direction * stats.projectileSpeed, rotation, stats.knockback);
         }
         void RemoveGun(Player owner)
         {

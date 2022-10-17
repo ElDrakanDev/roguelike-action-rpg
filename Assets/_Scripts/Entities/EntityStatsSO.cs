@@ -49,6 +49,7 @@ namespace Game.Entities
         public EntityStats(float maxHealth, float damage, Team team, float baseSpeed, float damageReduction)
         {
             this.maxHealth = maxHealth;
+            _health = maxHealth;
             this.damage = damage;
             this.team = team;
             this.baseSpeed = baseSpeed;

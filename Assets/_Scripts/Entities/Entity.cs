@@ -11,18 +11,28 @@ namespace Game.Entities
     public class Entity : MonoBehaviour, IHittable
     {
         [SerializeField] Rigidbody2D rb;
-        [SerializeField] EntityDataSO data;
+        // [SerializeField] EntityDataSO data;
         [SerializeField] EntityStats _stats;
         public static List<Entity> entities = new List<Entity>();
         public EntityStats Stats { get => _stats; protected set => _stats = value; }
-        public float Health { get => _stats.Health; set => _stats.Health = value; }
+        public bool spawned = false;
+        public float Health
+        { 
+            get => _stats.Health;
+            set {
+                _stats.Health = value;
+                if (_stats.Health <= 0) Death();
+            } 
+        }
         public Team Team { get => _stats.team; set => _stats.team = value; }
 
         #region Creation
-        public static Entity Create(EntityDataSO data, Vector3 position)
+        public static Entity Create(EntityDataSO data, Vector3 position, Team team = Team.Enemy)
         {
             var instance = Instantiate(data.Prefab, position, Quaternion.identity);
-            return instance.GetComponent<Entity>();
+            var entity = instance.GetComponent<Entity>();
+            entity.Stats = data.Stats.CreateStats(team);
+            return entity;
         }
         #endregion
         private void OnEnable()
@@ -35,6 +45,11 @@ namespace Game.Entities
         }
         public virtual void Despawn()
         {
+            Destroy(gameObject);
+        }
+        public virtual void Death()
+        {
+            onDeath?.Invoke(this);
             Destroy(gameObject);
         }
         private void Update() => AIUpdate();
@@ -79,6 +94,8 @@ namespace Game.Entities
         protected void OnStayGround(Collider2D collision) => onStayGround?.Invoke(collision);
         public event Action<Collider2D> onStayPlayer;
         protected void OnStayPlayer(Collider2D collision) => onStayPlayer?.Invoke(collision);
+        public event Action<Entity> onDeath;
+        protected void OnDeath() => onDeath?.Invoke(this);
         public event Action<Collider2D> onExitEntity;
         protected void OnExitEntity(Collider2D collision) => onExitEntity?.Invoke(collision);
         public event Action<Collider2D> onExitGround;
@@ -104,12 +121,12 @@ namespace Game.Entities
 
         public float Hit(float damage)
         {
-            Stats.Health -= damage;
+            Health -= damage;
             return damage;
         }
         public float Hit(float damage, Vector2 direction, float knockback)
         {
-            Stats.Health -= damage;
+            Health -= damage;
             if (rb)
             {
                 rb.AddForce(direction * knockback, ForceMode2D.Impulse);

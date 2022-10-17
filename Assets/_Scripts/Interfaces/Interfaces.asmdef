@@ -1,7 +1,9 @@
 {
     "name": "Interfaces",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:e1e4e065194d4684eb6d1bb275a3aefe"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

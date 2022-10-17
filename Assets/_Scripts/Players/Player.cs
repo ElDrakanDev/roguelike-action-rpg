@@ -4,10 +4,11 @@ using Game.Input;
 using UnityEngine.InputSystem;
 using Game.Events;
 using Game.Interfaces;
+using Game.Utils;
 
 namespace Game.Players
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IHittable
     {
         public CharacterStats stats;
         public IWeapon weapon;
@@ -15,10 +16,13 @@ namespace Game.Players
         [SerializeField] PlayerInput input;
         PlayerController controller;
         PlayerActionsControls playerControls;
+        Team _;
+        public Team Team { get => Team.Friendly; set => _ = value; }
+        [SerializeField] float _health;
 
         private void Awake()
         {
-            stats = new CharacterStats(this, baseStats.baseStats);
+            stats = new CharacterStats(this, baseStats.baseStats, () => Destroy(gameObject));
             controller = new PlayerController(null, this, gameObject);
             playerControls = new PlayerActionsControls();
         }
@@ -37,9 +41,10 @@ namespace Game.Players
         }
         public void Update()
         {
-            Keyboard keyboard = Keyboard.current;
-            if (keyboard.numpadPlusKey.wasPressedThisFrame) stats.Add(new StatModifier(0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
-            else if (keyboard.numpadMinusKey.wasPressedThisFrame) stats.Add(new StatModifier(-0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
+            _health = stats.Health;
+            //Keyboard keyboard = Keyboard.current;
+            //if (keyboard.numpadPlusKey.wasPressedThisFrame) stats.Add(new StatModifier(0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
+            //else if (keyboard.numpadMinusKey.wasPressedThisFrame) stats.Add(new StatModifier(-0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
 
             controller.Update();
         }
@@ -56,5 +61,14 @@ namespace Game.Players
         public void MoveSkill(InputAction.CallbackContext context) => controller.Dash(context);
         public void Interact(InputAction.CallbackContext context) => controller.Interact(context);
         public void MainAttack(InputAction.CallbackContext context) => controller.MainAttack(context);
+
+        public float Hit(float damage)
+        {
+            return stats.Hit(damage);
+        }
+        public float Hit(float damage, Vector2 direction, float knockback)
+        {
+            return stats.Hit(damage, direction, knockback);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Game.Stats
         public readonly Dictionary<AttributeID, Stat> statsDict = new Dictionary<AttributeID, Stat>();
         public Dictionary<AttributeID, Stat>.KeyCollection Attributes { get => statsDict.Keys; }
         public Dictionary<AttributeID, Stat>.ValueCollection Stats { get => statsDict.Values; }
+        event Action onHealth0;
 
         public Stat this[AttributeID attribute]
         {
@@ -29,7 +31,23 @@ namespace Game.Stats
             }
         }
 
-        public CharacterStats(dynamic owner, BaseStatValue[] baseStats)
+        float _health;
+        public float Health 
+        { 
+            get => _health; 
+            set 
+            {
+                if (value < 0)
+                {
+                    _health = 0;
+                    onHealth0?.Invoke();
+                } 
+                else if (value > statsDict[AttributeID.MaxHealth].Value) _health = statsDict[AttributeID.MaxHealth].Value;
+                else _health = value;
+            } 
+        }
+
+        public CharacterStats(dynamic owner, BaseStatValue[] baseStats, Action onHealth0 = null)
         {
             foreach(var baseStat in baseStats)
             {
@@ -37,6 +55,8 @@ namespace Game.Stats
                     baseStat.attribute,
                     new Stat(baseStat.baseValue, owner, baseStat.minValue, baseStat.maxValue));
             }
+            _health = statsDict[AttributeID.MaxHealth].Value;
+            this.onHealth0 += onHealth0;
         }
 
         public void Add(StatModifier modifier, AttributeID attribute)
@@ -50,5 +70,13 @@ namespace Game.Stats
                 stat.RemoveFromSource(source);
             }
         }
+
+        public float Hit(float damage)
+        {
+            Health -= damage;
+            return damage;
+        }
+
+        public float Hit(float damage, Vector2 direction, float knockback) => Hit(damage);
     }
 }

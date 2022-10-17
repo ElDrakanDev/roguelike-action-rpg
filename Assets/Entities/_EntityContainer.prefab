@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 0e742c4a5b2bc7c449d353993eb6b024, type: 2}
-  effectDuration: 3
+  effectDuration: 1

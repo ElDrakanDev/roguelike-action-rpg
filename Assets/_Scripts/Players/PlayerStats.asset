@@ -33,3 +33,7 @@ MonoBehaviour:
     baseValue: 1
     minValue: 0.1
     maxValue: 3.4028235e+38
+  - attribute: 60
+    baseValue: 25
+    minValue: 1
+    maxValue: 3.4028235e+38

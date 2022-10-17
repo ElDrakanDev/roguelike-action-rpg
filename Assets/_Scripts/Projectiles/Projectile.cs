@@ -17,7 +17,7 @@ namespace Game.Projectiles
         [SerializeField] protected bool _destructible = true;
         public bool Destructible { get => _destructible; }
         [SerializeField] GameObject _container;
-        public object owner;
+        public GameObject owner;
         [SerializeField] ProjectileStats _stats;
         public ProjectileStats Stats { get => _stats; protected set => _stats = value; }
         public virtual Vector3 Velocity { get => rb.velocity; set => rb.velocity = value; }
@@ -27,7 +27,7 @@ namespace Game.Projectiles
         #region Creation
 
         public static Projectile Create(
-            object owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, float knockback, float rotation = 0
+            GameObject owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, float knockback, float rotation = 0
         )
         {
             Quaternion quat = Quaternion.Euler(0, 0, rotation);
@@ -38,7 +38,7 @@ namespace Game.Projectiles
             return projectile;
         }
         public static Projectile Create(
-            object owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, Quaternion rotation, float knockback
+            GameObject owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, Quaternion rotation, float knockback
         )
         {
             GameObject gO = Instantiate(data.Prefab, position, rotation);
@@ -54,7 +54,7 @@ namespace Game.Projectiles
                 return projectile;
             return gO.GetComponentInChildren<Projectile>();
         }
-        protected virtual void Initialize(object owner, ProjectileDataSO data, float damage, Team state, Vector2 velocity, float knockback = 1)
+        protected virtual void Initialize(GameObject owner, ProjectileDataSO data, float damage, Team state, Vector2 velocity, float knockback = 1)
         {
             this.owner = owner;
             Stats = data.Stats.CreateStats(damage, state, knockback);
@@ -102,14 +102,19 @@ namespace Game.Projectiles
         {
             int collisionLayer = collision.gameObject.layer;
             if (collisionLayer == Layers.GROUND) OnEnterGround(collision);
-            else if (collisionLayer == Layers.PLAYER) OnEnterPlayer(collision);
-            else if (collisionLayer == Layers.ENTITY)
-            {
-                OnEnterEntity(collision);
+            else
+            { 
                 if (hitColliders.Contains(collision) is false)
                 {
-                    collision.gameObject.GetComponent<IHittable>().Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
-                    hitColliders.Add(collision);
+                    var hittable = collision.gameObject.GetComponent<IHittable>();
+                    if (CanHit(hittable))
+                    {
+
+                        hittable.Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
+                        hitColliders.Add(collision);
+                        if(collisionLayer == Layers.PLAYER) OnEnterPlayer(collision);
+                        else if(collisionLayer == Layers.ENTITY) OnEnterEntity(collision);
+                    }
                 }
             }
         }
@@ -117,14 +122,19 @@ namespace Game.Projectiles
         {
             int collisionLayer = collision.gameObject.layer;
             if (collisionLayer == Layers.GROUND) OnStayGround(collision);
-            else if (collisionLayer == Layers.PLAYER) OnStayPlayer(collision);
-            else if (collisionLayer == Layers.ENTITY)
+            else
             {
-                OnStayEntity(collision);
                 if (hitColliders.Contains(collision) is false)
                 {
-                    collision.gameObject.GetComponent<IHittable>().Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
-                    hitColliders.Add(collision);
+                    var hittable = collision.gameObject.GetComponent<IHittable>();
+                    if (CanHit(hittable))
+                    {
+
+                        hittable.Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
+                        hitColliders.Add(collision);
+                        if (collisionLayer == Layers.PLAYER) OnStayPlayer(collision);
+                        else if (collisionLayer == Layers.ENTITY) OnStayEntity(collision);
+                    }
                 }
             }
         }
@@ -177,6 +187,13 @@ namespace Game.Projectiles
             {
                 projectiles[i].Despawn();
             }
+        }
+
+        bool CanHit(IHittable hittable)
+        {
+            if (hittable is null) return false;
+            if (Team == Team.Neutral || Team != hittable.Team) return true;
+            return false;            
         }
     }
 }

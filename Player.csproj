@@ -775,6 +775,10 @@
       <Project>{0671B5FC-F0ED-0EA8-8D33-185C2A36D5D0}</Project>
       <Name>Generation</Name>
     </ProjectReference>
+    <ProjectReference Include="Utils.csproj">
+      <Project>{9C54C169-DFD2-3195-454A-6A4B08C11B94}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>
