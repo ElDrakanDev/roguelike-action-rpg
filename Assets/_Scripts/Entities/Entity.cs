@@ -12,9 +12,6 @@ namespace Game.Entities
     [RequireComponent(typeof(Collider2D))]
     public class Entity : MonoBehaviour, IHittable
     {
-        [SerializeField] Rigidbody2D rb;
-        // [SerializeField] EntityDataSO data;
-        [SerializeField] EntityStats _stats;
         public static List<Entity> entities = new List<Entity>();
         public static Dictionary<Team, List<Entity>> entitiesByTeam = new Dictionary<Team, List<Entity>>()
         {
@@ -22,6 +19,9 @@ namespace Game.Entities
             {Team.Friendly, new List<Entity>()},
             {Team.Enemy, new List<Entity>() }
         };
+        [SerializeField] Rigidbody2D rb;
+        // [SerializeField] EntityDataSO data;
+        [SerializeField] EntityStats _stats;
         public EntityStats Stats { get => _stats; protected set => _stats = value; }
         public bool spawned = false;
         public GameObject attackTarget;
@@ -35,11 +35,12 @@ namespace Game.Entities
                 if (_stats.Health <= 0) Death();
             } 
         }
-        public Team Team { get => _stats.team; set => _stats.team = value; }
+        public Team Team { get => _stats.team; set { _stats.team = value; UpdateEntitiesLeft(); } }
 
         #region Creation
         public static Entity Create(EntityDataSO data, Vector3 position, Transform parent = null)
         {
+            if (!parent) parent = Generation.Room.ActiveRoom.transform;
             var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats();
@@ -47,36 +48,13 @@ namespace Game.Entities
         }
         public static Entity Create(EntityDataSO data, Vector3 position, Team team, Transform parent = null)
         {
+            if (!parent) parent = Generation.Room.ActiveRoom.transform;
             var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats(team);
             return entity;
         }
         #endregion
-        private void OnEnable()
-        {
-            entities.Add(this);
-            entitiesByTeam[Team].Add(this);
-        }
-        private void OnDisable()
-        {
-            entities.Remove(this);
-            entitiesByTeam[Team].Remove(this);
-        }
-        public virtual void Despawn()
-        {
-            Destroy(gameObject);
-        }
-        public virtual void Death()
-        {
-            onDeath?.Invoke(this);
-            Destroy(gameObject);
-        }
-        private void Update() => AIUpdate();
-        private void FixedUpdate() => AIFixedUpdate();
-        protected virtual void AIUpdate() { }
-        protected virtual void AIFixedUpdate() { }
-
         #region Collision
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -100,7 +78,6 @@ namespace Game.Entities
             else if (collisionLayer == Layers.ENTITY) OnExitEntity(collision);
         }
         #endregion
-
         #region Events
         public event Action<Collider2D> onEnterEntity;
         protected void OnEnterEntity(Collider2D collision) => onEnterEntity?.Invoke(collision);
@@ -123,21 +100,32 @@ namespace Game.Entities
         public event Action<Collider2D> onExitPlayer;
         protected void OnExitPlayer(Collider2D collision) => onExitPlayer?.Invoke(collision);
         #endregion
-        public static void Clear()
+        #region Instance Methods
+        private void OnEnable()
         {
-            for (int i = entities.Count - 1; i >= 0; i--)
-            {
-                entities[i].Despawn();
-            }
-            for (int i = entities.Count - 1; i >= 0; i--)
-            {
-                entities[i].Despawn();
-            }
-            for (int i = entities.Count - 1; i >= 0; i--)
-            {
-                entities[i].Despawn();
-            }
+            entities.Add(this);
+            entitiesByTeam[Team].Add(this);
+            UpdateEntitiesLeft();
         }
+        private void OnDisable()
+        {
+            entities.Remove(this);
+            entitiesByTeam[Team].Remove(this);
+            UpdateEntitiesLeft();
+        }
+        public virtual void Despawn()
+        {
+            Destroy(gameObject);
+        }
+        public virtual void Death()
+        {
+            onDeath?.Invoke(this);
+            Destroy(gameObject);
+        }
+        private void Update() => AIUpdate();
+        private void FixedUpdate() => AIFixedUpdate();
+        protected virtual void AIUpdate() { }
+        protected virtual void AIFixedUpdate() { }
         public virtual void SetAttackTarget(GameObject target) { attackTarget = target; if(target != null) attackTargetPos = target.transform.position; }
         protected virtual void UpdateAttackTarget()
         {
@@ -178,5 +166,27 @@ namespace Game.Entities
             }
             return damage;
         }
+        #endregion
+        #region Static Methods
+        public static void Clear()
+        {
+            for (int i = entities.Count - 1; i >= 0; i--)
+            {
+                entities[i].Despawn();
+            }
+            for (int i = entities.Count - 1; i >= 0; i--)
+            {
+                entities[i].Despawn();
+            }
+            for (int i = entities.Count - 1; i >= 0; i--)
+            {
+                entities[i].Despawn();
+            }
+        }
+        public static void UpdateEntitiesLeft()
+        {
+            Run.Run.instance.navigator.enemiesLeft = entitiesByTeam[Team.Enemy].Count > 0 || entitiesByTeam[Team.Neutral].Count > 0;
+        }
+        #endregion
     }
 }

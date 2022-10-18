@@ -15,6 +15,7 @@ namespace Game.Entities
 
         void InstantiateEntity(Vector3 position)
         {
+            Run.Run.instance.navigator.enemiesLeft = true;
             transform.position = position;
             transform.localScale = Vector3.zero;
             if(!TryGetComponent(out SpriteRenderer renderer))
@@ -25,7 +26,9 @@ namespace Game.Entities
             var targetScale = data.Prefab.transform.localScale;
             transform.DOScale(targetScale, effectDuration).OnComplete(
                 () => {
+
                     Entity.Create(data, position, parent: transform.parent);
+                    Entity.UpdateEntitiesLeft();
                     Destroy(gameObject);
                 }
             );

@@ -27,6 +27,10 @@ namespace Game.Run
         public Vector2Int Position { get => _position; set =>  _position = value; }
         LevelGenerator generator;
 
+        public bool enemiesLeft = false;
+        public bool trapsLeft = false;
+        public bool forceClosed = false;
+        public bool CanMove { get => !enemiesLeft && !trapsLeft && !forceClosed; }
         
         bool _isHandlingMovementInput = false;
         Vector2Int _inputDir = Vector2Int.zero;
@@ -118,34 +122,34 @@ namespace Game.Run
         {
             var vec2Dir = context.ReadValue<Vector2>();
             _inputDir = new Vector2Int(Mathf.RoundToInt(vec2Dir.x), Mathf.RoundToInt(vec2Dir.y));
-            if(_inputDir != Vector2Int.zero && _inputDir.magnitude <= 1)
+            if(CanMove is false || (
+                // Validaciones de input
+                _inputDir != Vector2Int.zero && _inputDir.magnitude <= 1 && Move(_inputDir)
+            ))
             {
-                if (Move(_inputDir))
-                {
-                    controls.UI.Direction.started -= ReadInputDirection;
-                    controls.UI.Exit.started -= ReadInputCancel;
-                    EventManager.OnNavigationExit();
-                    _isHandlingMovementInput = false;
-                    _inputDir = Vector2Int.zero;
-                }
+                CancelInput();
             }
         }
-
         public void ReadInputCancel(InputAction.CallbackContext context)
         {
             _inputCanceled = context.performed;
 
             if (_inputCanceled)
             {
-                _isHandlingMovementInput = false;
-                controls.UI.Direction.started -= ReadInputDirection;
-                controls.UI.Exit.started -= ReadInputCancel;
-                EventManager.OnNavigationExit();
-                _inputDir = Vector2Int.zero;
+                CancelInput();
             }
         }
 
-        void OnDoorEnter() => HandleRoomMovement();
+        void CancelInput()
+        {
+            _isHandlingMovementInput = false;
+            controls.UI.Direction.started -= ReadInputDirection;
+            controls.UI.Exit.started -= ReadInputCancel;
+            EventManager.OnNavigationExit();
+            _inputDir = Vector2Int.zero;
+        }
+
+        void OnDoorEnter() { if (CanMove) HandleRoomMovement(); else CancelInput(); }
         void OnRoomChange()
         {
             Vector3 doorPos;

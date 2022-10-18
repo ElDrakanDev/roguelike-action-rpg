@@ -16,5 +16,5 @@ MonoBehaviour:
   useTime: 0.15
   type: 1
   autoUse: 1
-  projectileSpeed: 15
+  projectileSpeed: 1
   knockback: 3

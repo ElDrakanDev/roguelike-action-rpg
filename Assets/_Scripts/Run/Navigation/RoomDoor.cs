@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Game.Interfaces;
-using System.Threading.Tasks;
 using Game.Input;
 using Game.Events;
 
@@ -23,7 +20,7 @@ namespace Game.Run
 
         public void Interact(GameObject interactor)
         {
-            EventManager.OnDoorEnter();
+            if(Run.instance.navigator.CanMove) EventManager.OnDoorEnter();
         }
     }
 }

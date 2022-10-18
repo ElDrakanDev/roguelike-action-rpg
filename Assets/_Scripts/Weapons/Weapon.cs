@@ -44,7 +44,7 @@ namespace Game.Weapons
             if (spawnPickable)
             {
                 Vector3 randomRotation = new Vector3(0, 0, Random.Range(0, 361));
-                Instantiate(weaponData.pickable, transform.position, Quaternion.Euler(randomRotation));
+                Instantiate(weaponData.pickable, transform.position, Quaternion.Euler(randomRotation), Run.Run.instance.ActiveRoom.gameObject.transform);
             }
             Destroy(this);
         }

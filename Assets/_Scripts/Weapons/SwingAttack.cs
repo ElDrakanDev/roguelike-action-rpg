@@ -31,10 +31,11 @@ namespace Game.Weapons
             bool flipY = rotation > 90 || rotation < -90 ? true : false;
             int swingDirection = (int)attackDirection;
 
-            Projectile newProj = Projectile.Create(owner.gameObject, projData, stats.damage, Team.Friendly, Vector2.zero, direction, stats.knockback);
+            Projectile newProj = Projectile.Create(
+                owner.gameObject, projData, stats.damage, Team.Friendly, new Vector3(999999, 999999, 100), direction, stats.knockback
+            );
             Transform swordTransform = newProj.transform;
             swordTransform.SetParent(owner.transform);
-            swordTransform.position = owner.transform.position + new Vector3(direction.x * margin, direction.y * margin, 0) * margin;
 
             void SwingWeapon(float currentRotation)
             {

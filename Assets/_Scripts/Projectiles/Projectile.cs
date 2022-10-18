@@ -4,6 +4,7 @@ using UnityEngine;
 using Game.Utils;
 using Game.Interfaces;
 using Game.Stats;
+using Game.Events;
 
 namespace Game.Projectiles
 {
@@ -25,7 +26,6 @@ namespace Game.Projectiles
         [SerializeField] List<Collider2D> hitColliders = new List<Collider2D>();
 
         #region Creation
-
         public static Projectile Create(
             GameObject owner, ProjectileDataSO data, float damage, Team state, Vector2 position, Vector2 velocity, float knockback, float rotation = 0
         )
@@ -58,22 +58,23 @@ namespace Game.Projectiles
         {
             this.owner = owner;
             Stats = data.Stats.CreateStats(damage, state, knockback);
-            Velocity = velocity;
+            Velocity = velocity * Stats.speed;
         }
 
         #endregion
         private void OnEnable()
         {
             projectiles.Add(this);
+            EventManager.onRoomChange += Despawn;
         }
         private void OnDisable()
         {
             projectiles.Remove(this);
+            EventManager.onRoomChange -= Despawn;
         }
         private void OnDestroy()
         {
             projectiles.Remove(this);
-            onDestroy?.Invoke();
             if (_container) Destroy(_container);
             else Destroy(gameObject);
         }
@@ -84,17 +85,22 @@ namespace Game.Projectiles
             AIUpdate();
         }
         private void FixedUpdate() => AIFixedUpdate();
-        public void LifeTimeEnd()
-        {
-            onLifeTimeEnd?.Invoke();
-            Destroy(gameObject);
-        }
         protected virtual void AIUpdate() { }
         protected virtual void AIFixedUpdate() { }
         protected virtual Vector2 GetKnockbackDirection() => Velocity.normalized;
+        public void LifeTimeEnd()
+        {
+            onLifeTimeEnd?.Invoke();
+            onKill?.Invoke();
+            Destroy(gameObject);
+        }
+        public virtual void Kill()
+        {
+            onKill?.Invoke();
+            Destroy(gameObject);
+        }
         public virtual void Despawn()
         {
-            onDespawn?.Invoke();
             Destroy(gameObject);
         }
         #region Collision
@@ -104,7 +110,7 @@ namespace Game.Projectiles
             if (collisionLayer == Layers.GROUND) OnEnterGround(collision);
             else
             { 
-                if (hitColliders.Contains(collision) is false)
+                if (collision.gameObject != owner && hitColliders.Contains(collision) is false)
                 {
                     var hittable = collision.gameObject.GetComponent<IHittable>();
                     if (CanHit(hittable))
@@ -124,7 +130,7 @@ namespace Game.Projectiles
             if (collisionLayer == Layers.GROUND) OnStayGround(collision);
             else
             {
-                if (hitColliders.Contains(collision) is false)
+                if (collision.gameObject != owner && hitColliders.Contains(collision) is false)
                 {
                     var hittable = collision.gameObject.GetComponent<IHittable>();
                     if (CanHit(hittable))
@@ -148,7 +154,6 @@ namespace Game.Projectiles
         #endregion
 
         #region Events
-        public event Action onDestroy;
         public event Action<Collider2D> onEnterEntity;
         protected void OnEnterEntity(Collider2D collision) => onEnterEntity?.Invoke(collision);
         public event Action<Collider2D> onEnterGround;
@@ -167,11 +172,11 @@ namespace Game.Projectiles
         protected void OnExitGround(Collider2D collision) => onExitGround?.Invoke(collision);
         public event Action<Collider2D> onExitPlayer;
         protected void OnExitPlayer(Collider2D collision) => onExitPlayer?.Invoke(collision);
+        public event Action onKill;
+        protected void OnKill() => onKill?.Invoke();
 
         public event Action onLifeTimeEnd;
         protected void OnLifeTimeEnd() => onLifeTimeEnd?.Invoke();
-        public event Action onDespawn;
-        protected void OnDespawn() => onDespawn?.Invoke();
         #endregion
         public static void ClearAll()
         {

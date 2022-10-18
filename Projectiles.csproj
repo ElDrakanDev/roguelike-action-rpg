@@ -750,6 +750,10 @@
       <Project>{93556C28-4650-FCDD-86E7-A4BD7BD10DE6}</Project>
       <Name>Stats</Name>
     </ProjectReference>
+    <ProjectReference Include="Events.csproj">
+      <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
+      <Name>Events</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>
