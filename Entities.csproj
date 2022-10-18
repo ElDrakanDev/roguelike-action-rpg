@@ -764,6 +764,10 @@
       <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="Player.csproj">
+      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
+      <Name>Player</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>

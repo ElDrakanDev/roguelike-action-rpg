@@ -15,7 +15,7 @@ MonoBehaviour:
   startRooms:
   - {fileID: 3484108826286510959, guid: 0e745f3ec5543414aa06ad7892d48a17, type: 3}
   normalRooms:
-  - {fileID: 3484108826286510959, guid: f3e4dc61480acc54fab5b3f57959d3f0, type: 3}
+  - {fileID: 3484108826286510959, guid: 50de822f821d0ab4c9499a60f865a574, type: 3}
   shopRooms:
   - {fileID: 3484108826286510959, guid: f3e4dc61480acc54fab5b3f57959d3f0, type: 3}
   treasureRooms:

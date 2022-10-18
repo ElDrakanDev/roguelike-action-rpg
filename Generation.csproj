@@ -751,6 +751,10 @@
       <Project>{5458B5D0-5606-6034-9445-4721D2D57E7C}</Project>
       <Name>RNG</Name>
     </ProjectReference>
+    <ProjectReference Include="Utils.csproj">
+      <Project>{9C54C169-DFD2-3195-454A-6A4B08C11B94}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>

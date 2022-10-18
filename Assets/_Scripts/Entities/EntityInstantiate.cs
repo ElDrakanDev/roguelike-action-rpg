@@ -19,11 +19,13 @@ namespace Game.Entities
             transform.localScale = Vector3.zero;
             if(!TryGetComponent(out SpriteRenderer renderer))
                 renderer = gameObject.AddComponent<SpriteRenderer>();
-            renderer.sprite = data.Prefab.GetComponent<SpriteRenderer>().sprite;
+            var prefabRenderer = data.Prefab.GetComponent<SpriteRenderer>();
+            renderer.sprite = prefabRenderer.sprite;
+            renderer.color = prefabRenderer.color;
             var targetScale = data.Prefab.transform.localScale;
             transform.DOScale(targetScale, effectDuration).OnComplete(
                 () => {
-                    Entity.Create(data, position);
+                    Entity.Create(data, position, parent: transform.parent);
                     Destroy(gameObject);
                 }
             );

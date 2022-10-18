@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 981de2f3115d52b4891dd461d879a5da, type: 3}
-  m_Name: New Entity Data SO
+  m_Script: {fileID: 11500000, guid: 7a3969d7f5a18014f9b55730b2be4165, type: 3}
+  m_Name: Enemy Stats
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 4596526033102975042, guid: bc6e2c79cd95447468c867cb4ed8d9e4, type: 3}
-  _stats: {fileID: 11400000, guid: 4169035257c93d6408925f09208b68bb, type: 2}
+  maxHealth: 10
+  damage: 5
+  defaultTeam: 2
+  baseSpeed: 1
+  damageReduction: 0

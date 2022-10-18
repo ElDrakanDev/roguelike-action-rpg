@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 using Game.Events;
 using Game.Interfaces;
 using Game.Utils;
+using System.Collections.Generic;
 
 namespace Game.Players
 {
     public class Player : MonoBehaviour, IHittable
     {
+        public static List<Player> players = new();
         public CharacterStats stats;
         public IWeapon weapon;
         [SerializeField] BaseStatObject baseStats;
@@ -29,10 +31,12 @@ namespace Game.Players
         private void OnEnable()
         {
             playerControls?.Enable();
+            players.Add(this);
         }
         private void OnDisable()
         {
             playerControls?.Disable();
+            players.Remove(this);
         }
 
         private void Start()

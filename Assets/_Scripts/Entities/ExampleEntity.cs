@@ -17,10 +17,10 @@ namespace Game.Entities
             if(shootCooldown < 0)
             {
                 shootCooldown = shootFrequency;
-                var closestPlayer = GameObject.FindGameObjectWithTag("Player");
-                if(closestPlayer != null)
+                UpdateAttackTarget();
+                if(attackTarget != null)
                 {
-                    Vector3 shootDirection = (closestPlayer.transform.position - transform.position).normalized;
+                    Vector3 shootDirection = (attackTargetPos - transform.position).normalized;
                     Projectile.Create(
                         gameObject,
                         projectile,

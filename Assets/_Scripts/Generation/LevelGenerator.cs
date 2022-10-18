@@ -1,43 +1,20 @@
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Game.Helpers;
+using System.Linq;
+using Game.Utils;
+
 namespace Game.Generation
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using Game.RNG;
-    using Game.Helpers;
-    using System.Linq;
 
-    class RandomCompare : IComparer
+    public class RandomCompare : IComparer
     {
         public int Compare(object x, object y)
         {
-            return RNG.roomRng.Range(-1, 2);
-        }
-    }
-    class DistanceCompare : IComparer<Vector2Int>
-    {
-        readonly Vector2Int _center;
-        readonly bool _closest;
-        public DistanceCompare(Vector2Int _centerToMeasure, bool _closestPos = true)
-        {
-            _center = _centerToMeasure;
-            _closest = _closestPos;
-        }
-        bool ByCompareMode(float xDist, float yDist)
-        {
-            if (_closest)
-                return xDist < yDist;
-            return xDist > yDist;
-        }
-        public int Compare(Vector2Int x, Vector2Int y)
-        {
-            var xDist = Vector2Int.Distance(x, _center);
-            var yDist = Vector2Int.Distance(y, _center);
-
-            if (ByCompareMode(xDist, yDist)) return -1;
-            return 1;
+            return RNG.RNG.roomRng.Range(-1, 2);
         }
     }
     public class LevelGenerator
@@ -70,7 +47,7 @@ namespace Game.Generation
 
         void Move()
         {
-            var moveDir = Directions.directionVectors[EnumHelpers.GetRandom<MoveDirection>(RNG.roomRng)];
+            var moveDir = Directions.directionVectors[EnumHelpers.GetRandom<MoveDirection>(RNG.RNG.roomRng)];
             _pos += moveDir;
             if (_level.ContainsKey(_pos))
             {
@@ -123,7 +100,7 @@ namespace Game.Generation
         {
             Vector2Int[] positions = _level.Keys.ToArray();
 
-            positions = positions.OrderByDescending(pos => pos, new DistanceCompare(Vector2Int.zero)).ToArray();
+            positions = positions.OrderByDescending(pos => pos, new VectorIntDistanceCompare(Vector2Int.zero)).ToArray();
 
             var directions = EnumHelpers.Values<MoveDirection>();
             Array.Sort(directions, new RandomCompare());
@@ -138,7 +115,7 @@ namespace Game.Generation
                 }
             }
 
-            finalPositions.Sort(new DistanceCompare(Vector2Int.zero, false));
+            finalPositions.Sort(new VectorIntDistanceCompare(Vector2Int.zero, false));
 
             foreach (var finalPos in finalPositions)
             {
@@ -162,7 +139,7 @@ namespace Game.Generation
         {
             for (int indexA = 0; indexA < rooms.Count; indexA++)
             {
-                int indexB = RNG.roomRng.Range(0, rooms.Count);
+                int indexB = RNG.RNG.roomRng.Range(0, rooms.Count);
                 var roomA = rooms[indexA];
                 var roomB = rooms[indexB];
 

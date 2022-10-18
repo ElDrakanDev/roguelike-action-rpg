@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Utils;
 using Game.Interfaces;
+using System.Linq;
+using Game.Players;
 
 namespace Game.Entities
 {
@@ -14,8 +16,17 @@ namespace Game.Entities
         // [SerializeField] EntityDataSO data;
         [SerializeField] EntityStats _stats;
         public static List<Entity> entities = new List<Entity>();
+        public static Dictionary<Team, List<Entity>> entitiesByTeam = new Dictionary<Team, List<Entity>>()
+        {
+            {Team.Neutral, new List<Entity>() },
+            {Team.Friendly, new List<Entity>()},
+            {Team.Enemy, new List<Entity>() }
+        };
         public EntityStats Stats { get => _stats; protected set => _stats = value; }
         public bool spawned = false;
+        public GameObject attackTarget;
+        public Vector3 attackTargetPos;
+        public Vector3 moveTarget;
         public float Health
         { 
             get => _stats.Health;
@@ -27,9 +38,16 @@ namespace Game.Entities
         public Team Team { get => _stats.team; set => _stats.team = value; }
 
         #region Creation
-        public static Entity Create(EntityDataSO data, Vector3 position, Team team = Team.Enemy)
+        public static Entity Create(EntityDataSO data, Vector3 position, Transform parent = null)
         {
-            var instance = Instantiate(data.Prefab, position, Quaternion.identity);
+            var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
+            var entity = instance.GetComponent<Entity>();
+            entity.Stats = data.Stats.CreateStats();
+            return entity;
+        }
+        public static Entity Create(EntityDataSO data, Vector3 position, Team team, Transform parent = null)
+        {
+            var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats(team);
             return entity;
@@ -38,10 +56,12 @@ namespace Game.Entities
         private void OnEnable()
         {
             entities.Add(this);
+            entitiesByTeam[Team].Add(this);
         }
         private void OnDisable()
         {
             entities.Remove(this);
+            entitiesByTeam[Team].Remove(this);
         }
         public virtual void Despawn()
         {
@@ -118,7 +138,32 @@ namespace Game.Entities
                 entities[i].Despawn();
             }
         }
-
+        public virtual void SetAttackTarget(GameObject target) { attackTarget = target; if(target != null) attackTargetPos = target.transform.position; }
+        protected virtual void UpdateAttackTarget()
+        {
+            List<GameObject> objects = new();
+            if(Team == Team.Friendly)
+            {
+                objects.AddRange(entitiesByTeam[Team.Enemy].Select(entity => entity.gameObject));
+                objects.AddRange(entitiesByTeam[Team.Neutral].Select(entity => entity.gameObject));
+            }
+            else if(Team == Team.Neutral)
+            {
+                objects.AddRange(entitiesByTeam[Team.Enemy].Select(entity => entity.gameObject));
+                objects.AddRange(entitiesByTeam[Team.Friendly].Select(entity => entity.gameObject));
+                objects.AddRange(entitiesByTeam[Team.Neutral].Select(entity => entity.gameObject));
+                objects.AddRange(Player.players.Select(player => player.gameObject));
+            }
+            else if(Team == Team.Enemy)
+            {
+                objects.AddRange(entitiesByTeam[Team.Friendly].Select(entity => entity.gameObject));
+                objects.AddRange(entitiesByTeam[Team.Neutral].Select(entity => entity.gameObject));
+                objects.AddRange(Player.players.Select(player => player.gameObject));
+            }
+            objects.Remove(gameObject);
+            SetAttackTarget(TargetChoose(objects));
+        }
+        protected virtual GameObject TargetChoose(IEnumerable<GameObject> objects) => objects.Closest(transform.position);
         public float Hit(float damage)
         {
             Health -= damage;

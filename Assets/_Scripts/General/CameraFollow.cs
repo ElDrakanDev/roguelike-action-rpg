@@ -74,7 +74,19 @@ namespace Game.General
                 _min = tilemap.transform.TransformPoint(tilemap.localBounds.min + tilemap.tileAnchor - new Vector3(0.5f, 0.5f, 0));
                 _max = tilemap.transform.TransformPoint(tilemap.localBounds.max + tilemap.tileAnchor - new Vector3(0.5f, 0.5f, 0));
                 _min.x += halfWidth; _max.x -= halfWidth;
+                if(_min.x > _max.x)
+                {
+                    float min = _min.x;
+                    _min.x = _max.x;
+                    _max.x = min;
+                }
                 _min.y += halfHeight; _max.y -= halfHeight;
+                if (_min.y > _max.y)
+                {
+                    float min = _min.y;
+                    _min.y = _max.y;
+                    _max.y = min;
+                }
 
                 return;
             }
