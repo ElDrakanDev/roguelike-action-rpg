@@ -24,6 +24,8 @@ namespace Game.Projectiles
         public virtual Vector3 Velocity { get => rb.velocity; set => rb.velocity = value; }
         public Team Team { get => _stats.team; set => _stats.team = value; }
         [SerializeField] List<Collider2D> hitColliders = new List<Collider2D>();
+        public int Pierces { get => _stats.pierces; set { _stats.pierces = value; if (value == 0) Kill(); } }
+        public int Bounces { get => _stats.bounces; set { _stats.bounces = value; if (value == 0) Kill(); } }
 
         #region Creation
         public static Projectile Create(
@@ -62,6 +64,86 @@ namespace Game.Projectiles
         }
 
         #endregion
+        #region Collision
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            int collisionLayer = collision.gameObject.layer;
+            if (collisionLayer == Layers.GROUND) { 
+                OnEnterGround(collision);
+                Bounces--;
+            }
+            else
+            {
+                if (collision.gameObject != owner && hitColliders.Contains(collision) is false)
+                {
+                    var hittable = collision.gameObject.GetComponent<IHittable>();
+                    if (CanHit(hittable))
+                    {
+
+                        hittable.Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
+                        hitColliders.Add(collision);
+                        if (collisionLayer == Layers.PLAYER) OnEnterPlayer(collision);
+                        else if (collisionLayer == Layers.ENTITY) OnEnterEntity(collision);
+                        Pierces--;
+                    }
+                }
+            }
+        }
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            int collisionLayer = collision.gameObject.layer;
+            if (collisionLayer == Layers.GROUND) OnStayGround(collision);
+            else
+            {
+                if (collision.gameObject != owner && hitColliders.Contains(collision) is false)
+                {
+                    var hittable = collision.gameObject.GetComponent<IHittable>();
+                    if (CanHit(hittable))
+                    {
+
+                        hittable.Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
+                        hitColliders.Add(collision);
+                        if (collisionLayer == Layers.PLAYER) OnStayPlayer(collision);
+                        else if (collisionLayer == Layers.ENTITY) OnStayEntity(collision);
+                        Pierces--;
+                    }
+                }
+            }
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            int collisionLayer = collision.gameObject.layer;
+            if (collisionLayer == Layers.GROUND) OnExitGround(collision);
+            else if (collisionLayer == Layers.PLAYER) OnExitPlayer(collision);
+            else if (collisionLayer == Layers.ENTITY) OnExitEntity(collision);
+        }
+        #endregion
+        #region Events
+        public event Action<Collider2D> onEnterEntity;
+        protected void OnEnterEntity(Collider2D collision) => onEnterEntity?.Invoke(collision);
+        public event Action<Collider2D> onEnterGround;
+        protected void OnEnterGround(Collider2D collision) => onEnterGround?.Invoke(collision);
+        public event Action<Collider2D> onEnterPlayer;
+        protected void OnEnterPlayer(Collider2D collision) => onEnterPlayer?.Invoke(collision);
+        public event Action<Collider2D> onStayEntity;
+        protected void OnStayEntity(Collider2D collision) => onStayEntity?.Invoke(collision);
+        public event Action<Collider2D> onStayGround;
+        protected void OnStayGround(Collider2D collision) => onStayGround?.Invoke(collision);
+        public event Action<Collider2D> onStayPlayer;
+        protected void OnStayPlayer(Collider2D collision) => onStayPlayer?.Invoke(collision);
+        public event Action<Collider2D> onExitEntity;
+        protected void OnExitEntity(Collider2D collision) => onExitEntity?.Invoke(collision);
+        public event Action<Collider2D> onExitGround;
+        protected void OnExitGround(Collider2D collision) => onExitGround?.Invoke(collision);
+        public event Action<Collider2D> onExitPlayer;
+        protected void OnExitPlayer(Collider2D collision) => onExitPlayer?.Invoke(collision);
+        public event Action onKill;
+        protected void OnKill() => onKill?.Invoke();
+
+        public event Action onLifeTimeEnd;
+        protected void OnLifeTimeEnd() => onLifeTimeEnd?.Invoke();
+        #endregion
+        #region Instance Methods
         private void OnEnable()
         {
             projectiles.Add(this);
@@ -103,81 +185,14 @@ namespace Game.Projectiles
         {
             Destroy(gameObject);
         }
-        #region Collision
-        private void OnTriggerEnter2D(Collider2D collision)
+        bool CanHit(IHittable hittable)
         {
-            int collisionLayer = collision.gameObject.layer;
-            if (collisionLayer == Layers.GROUND) OnEnterGround(collision);
-            else
-            { 
-                if (collision.gameObject != owner && hitColliders.Contains(collision) is false)
-                {
-                    var hittable = collision.gameObject.GetComponent<IHittable>();
-                    if (CanHit(hittable))
-                    {
-
-                        hittable.Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
-                        hitColliders.Add(collision);
-                        if(collisionLayer == Layers.PLAYER) OnEnterPlayer(collision);
-                        else if(collisionLayer == Layers.ENTITY) OnEnterEntity(collision);
-                    }
-                }
-            }
-        }
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            int collisionLayer = collision.gameObject.layer;
-            if (collisionLayer == Layers.GROUND) OnStayGround(collision);
-            else
-            {
-                if (collision.gameObject != owner && hitColliders.Contains(collision) is false)
-                {
-                    var hittable = collision.gameObject.GetComponent<IHittable>();
-                    if (CanHit(hittable))
-                    {
-
-                        hittable.Hit(Stats.damage, GetKnockbackDirection(), Stats.knockback);
-                        hitColliders.Add(collision);
-                        if (collisionLayer == Layers.PLAYER) OnStayPlayer(collision);
-                        else if (collisionLayer == Layers.ENTITY) OnStayEntity(collision);
-                    }
-                }
-            }
-        }
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            int collisionLayer = collision.gameObject.layer;
-            if (collisionLayer == Layers.GROUND) OnExitGround(collision);
-            else if (collisionLayer == Layers.PLAYER) OnExitPlayer(collision);
-            else if (collisionLayer == Layers.ENTITY) OnExitEntity(collision);
+            if (hittable is null) return false;
+            if (Team == Team.Neutral || Team != hittable.Team) return true;
+            return false;            
         }
         #endregion
-
-        #region Events
-        public event Action<Collider2D> onEnterEntity;
-        protected void OnEnterEntity(Collider2D collision) => onEnterEntity?.Invoke(collision);
-        public event Action<Collider2D> onEnterGround;
-        protected void OnEnterGround(Collider2D collision) => onEnterGround?.Invoke(collision);
-        public event Action<Collider2D> onEnterPlayer;
-        protected void OnEnterPlayer(Collider2D collision) => onEnterPlayer?.Invoke(collision);
-        public event Action<Collider2D> onStayEntity;
-        protected void OnStayEntity(Collider2D collision) => onStayEntity?.Invoke(collision);
-        public event Action<Collider2D> onStayGround;
-        protected void OnStayGround(Collider2D collision) => onStayGround?.Invoke(collision);
-        public event Action<Collider2D> onStayPlayer;
-        protected void OnStayPlayer(Collider2D collision) => onStayPlayer?.Invoke(collision);
-        public event Action<Collider2D> onExitEntity;
-        protected void OnExitEntity(Collider2D collision) => onExitEntity?.Invoke(collision);
-        public event Action<Collider2D> onExitGround;
-        protected void OnExitGround(Collider2D collision) => onExitGround?.Invoke(collision);
-        public event Action<Collider2D> onExitPlayer;
-        protected void OnExitPlayer(Collider2D collision) => onExitPlayer?.Invoke(collision);
-        public event Action onKill;
-        protected void OnKill() => onKill?.Invoke();
-
-        public event Action onLifeTimeEnd;
-        protected void OnLifeTimeEnd() => onLifeTimeEnd?.Invoke();
-        #endregion
+        #region Static Methods
         public static void ClearAll()
         {
             for (int i = projectiles.Count - 1; i >= 0; i--)
@@ -193,13 +208,7 @@ namespace Game.Projectiles
                 projectiles[i].Despawn();
             }
         }
-
-        bool CanHit(IHittable hittable)
-        {
-            if (hittable is null) return false;
-            if (Team == Team.Neutral || Team != hittable.Team) return true;
-            return false;            
-        }
+        #endregion
     }
 }
 

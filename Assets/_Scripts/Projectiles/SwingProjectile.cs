@@ -12,6 +12,7 @@ namespace Game.Projectiles
             this.owner = owner;
             Stats = data.Stats.CreateStats(damage, state, knockback);
             Stats.lifeTime = float.MaxValue;
+            Stats.bounces = int.MaxValue;
             Velocity = velocity;
         }
     }

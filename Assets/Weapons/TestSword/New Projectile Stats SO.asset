@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   lifeTime: 0
-  knockback: 10
+  pierces: -1
+  bounces: 1

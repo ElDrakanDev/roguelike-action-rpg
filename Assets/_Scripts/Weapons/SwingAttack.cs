@@ -39,17 +39,28 @@ namespace Game.Weapons
 
             void SwingWeapon(float currentRotation)
             {
-                swordTransform.position = owner.transform.position + new Vector3(Mathf.Cos(currentRotation * Mathf.Deg2Rad) * margin, Mathf.Sin(currentRotation * Mathf.Deg2Rad) * margin, 0);
-                swordTransform.rotation = Quaternion.Euler(0, 0, currentRotation);
+                if (swordTransform)
+                {
+                    swordTransform.position = owner.transform.position + new Vector3(
+                        Mathf.Cos(currentRotation * Mathf.Deg2Rad) * margin,
+                        Mathf.Sin(currentRotation * Mathf.Deg2Rad) * margin,
+                        0
+                    );
+                    swordTransform.rotation = Quaternion.Euler(0, 0, currentRotation);
+                }
             }
 
             if (flipY)
             {
                 swordTransform.localScale = new Vector3(swordTransform.transform.localScale.x, -swordTransform.transform.localScale.y, 0);
-                DOVirtual.Float(rotation - arc * swingDirection, rotation + arc * swingDirection, stats.useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => newProj.LifeTimeEnd());
+                DOVirtual.Float(rotation - arc * swingDirection, rotation + arc * swingDirection, stats.useTime, SwingWeapon)
+                    .SetEase(Ease.OutFlash)
+                    .OnComplete(() => { if(newProj) newProj.LifeTimeEnd(); });
                 return;
             }
-            DOVirtual.Float(rotation + arc * swingDirection, rotation - arc * swingDirection, stats.useTime, SwingWeapon).SetEase(Ease.OutFlash).OnComplete(() => newProj.LifeTimeEnd());
+            DOVirtual.Float(rotation + arc * swingDirection, rotation - arc * swingDirection, stats.useTime, SwingWeapon)
+                .SetEase(Ease.OutFlash)
+                .OnComplete(() => { if (newProj) newProj.LifeTimeEnd(); });
         }
     }
 }
