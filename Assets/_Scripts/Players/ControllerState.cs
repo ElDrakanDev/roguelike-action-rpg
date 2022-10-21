@@ -17,6 +17,7 @@ namespace Game.Players
         protected LayerMask platformLayer;
         protected Vector2 inputDirection;
         bool ignoringPlatforms = false;
+        bool shouldIgnorePlatforms;
         int platformLayerValue;
         protected Vector3 Velocity { get => rb.velocity; set => rb.velocity = value; }
         protected Vector3 Position { get => gameObject.transform.position; set => gameObject.transform.position = value; }
@@ -36,14 +37,22 @@ namespace Game.Players
             platformLayer = LayerMask.GetMask("Platform");
             platformLayerValue = LayerMask.NameToLayer("Platform");
         }
-        public abstract void Update();
-        public abstract void FixedUpdate();
+        public virtual void Update() { }
+        public virtual void FixedUpdate() 
+        {
+            if (
+                ignoringPlatforms is true &&
+                shouldIgnorePlatforms is false &&
+                IsPlatformOverlapping() is false
+            )
+                SetPlatformIgnore(false);
+        }
         public void ReadMovement(InputAction.CallbackContext context)
         {
             inputDirection = context.ReadValue<Vector2>();
 
-            if (!ignoringPlatforms && inputDirection.y < 0) SetPlatformIgnore(true);
-            else if (ignoringPlatforms && inputDirection.y >= 0) SetPlatformIgnore(false);
+            if (ignoringPlatforms is false && inputDirection.y < 0) SetPlatformIgnore(true);
+            else if (ignoringPlatforms is true && inputDirection.y >= -0.1f) shouldIgnorePlatforms = false;
         }
         public abstract void Jump(InputAction.CallbackContext context);
         public abstract void Dash(InputAction.CallbackContext context);
@@ -58,6 +67,13 @@ namespace Game.Players
                 }
             }
             ignoringPlatforms = ignore;
+        }
+
+        bool IsPlatformOverlapping()
+        {
+            Transform t = gameObject.transform;
+            Vector2 size = new Vector2(collider.bounds.size.x, collider.bounds.size.y);
+            return Physics2D.OverlapBox(t.position, size, t.rotation.eulerAngles.z, platformLayer);
         }
     }
 }

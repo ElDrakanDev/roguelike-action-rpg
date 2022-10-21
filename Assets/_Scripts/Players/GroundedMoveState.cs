@@ -23,11 +23,13 @@ namespace Game.Players
 
         public override void Update()
         {
+            base.Update();
             dashSeconds -= Time.deltaTime;
             dashCooldown -= Time.deltaTime;
         }
         public override void FixedUpdate()
         {
+            base.FixedUpdate();
             if(dashSeconds < 0)
             {
                 float acceleration = Speed;
