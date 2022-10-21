@@ -55,9 +55,13 @@ PrefabInstance:
       propertyPath: _stats.team
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5262372173003345164, guid: ced85c4274ceedd4183434571aeed5c4, type: 3}
+      propertyPath: shootFrequency
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6544905282803545226, guid: ced85c4274ceedd4183434571aeed5c4, type: 3}
       propertyPath: m_Name
-      value: Gus Neutral
+      value: Gus Neutral Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9013490841733629758, guid: ced85c4274ceedd4183434571aeed5c4, type: 3}
       propertyPath: m_Color.b

@@ -26,9 +26,9 @@ namespace Game.Entities
             var targetScale = data.Prefab.transform.localScale;
             transform.DOScale(targetScale, effectDuration).OnComplete(
                 () => {
-
-                    Entity.Create(data, position, parent: transform.parent);
+                    Entity.Create(data, position);
                     Entity.UpdateEntitiesLeft();
+                    
                     Destroy(gameObject);
                 }
             );

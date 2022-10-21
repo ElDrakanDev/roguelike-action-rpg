@@ -46,6 +46,7 @@ namespace Game.Generation
 
         public void Enter()
         {
+            _activeRoom = gameObject;
             exploredState = ExploredState.Explored;
             gameObject?.SetActive(true);
         }

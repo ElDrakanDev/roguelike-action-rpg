@@ -38,17 +38,17 @@ namespace Game.Entities
         public Team Team { get => _stats.team; set { _stats.team = value; UpdateEntitiesLeft(); } }
 
         #region Creation
-        public static Entity Create(EntityDataSO data, Vector3 position, Transform parent = null)
+        public static Entity Create(EntityDataSO data, Vector3 position)
         {
-            if (!parent) parent = Generation.Room.ActiveRoom.transform;
+            Transform parent = Generation.Room.ActiveRoom.transform;
             var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats();
             return entity;
         }
-        public static Entity Create(EntityDataSO data, Vector3 position, Team team, Transform parent = null)
+        public static Entity Create(EntityDataSO data, Vector3 position, Team team)
         {
-            if (!parent) parent = Generation.Room.ActiveRoom.transform;
+            Transform parent = Generation.Room.ActiveRoom.transform;
             var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats(team);

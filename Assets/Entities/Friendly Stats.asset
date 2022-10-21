@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a3969d7f5a18014f9b55730b2be4165, type: 3}
   m_Name: Friendly Stats
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 3.402823e+38
   damage: 5
   defaultTeam: 0
   baseSpeed: 1
