@@ -9,7 +9,7 @@ namespace Game.Weapons
     {
         Vector2 aimDirection;
         public WeaponStats stats;
-        WeaponDataSO weaponData;
+        [SerializeField] WeaponDataSO weaponData;
         public Player Owner { get => _owner; protected set => _owner = value; }
         Player _owner;
         WeaponAttackMode attackMode;

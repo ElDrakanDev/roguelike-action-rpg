@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a3969d7f5a18014f9b55730b2be4165, type: 3}
   m_Name: Enemy Stats
   m_EditorClassIdentifier: 
-  maxHealth: 3.4028235e+38
+  maxHealth: 10
   damage: 5
   defaultTeam: 2
   baseSpeed: 1
