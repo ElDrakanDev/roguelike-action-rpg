@@ -14,10 +14,11 @@ GameObject:
   - component: {fileID: 1818466363995379213}
   - component: {fileID: 1818466363995379201}
   - component: {fileID: 1818466363995379200}
-  - component: {fileID: 3918861163214877595}
   - component: {fileID: 8802372422223504413}
+  - component: {fileID: 6619910359177354191}
+  - component: {fileID: -2861177223206925757}
   m_Layer: 7
-  m_Name: walter
+  m_Name: testPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1818466363995379214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.0963, y: -1.1483, z: 0}
-  m_LocalScale: {x: 0.21977134, y: 0.21977134, z: 0.21977134}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 26bc12ab6536e0342bd8b008f2a1b983, type: 3}
+  m_Sprite: {fileID: 736915865, guid: 378bb25226cc97e4db76333ea4ed6f07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,14 +108,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.5, y: 10}
+    oldSize: {x: 0.65625, y: 1.25}
     newSize: {x: 7.5, y: 10}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.5, y: 10}
+  m_Size: {x: 0.65625, y: 1.25}
   m_EdgeRadius: 0
 --- !u!50 &1818466363995379213
 Rigidbody2D:
@@ -152,6 +153,7 @@ MonoBehaviour:
   baseStats: {fileID: 11400000, guid: 08685232c9cb45249a6356c7532d541a, type: 2}
   input: {fileID: 1818466363995379200}
   _health: 0
+  hurtAnimation: {fileID: 11400000, guid: 97321e2f548965e40a0641ce8cf9ab4e, type: 2}
 --- !u!114 &1818466363995379200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,8 +181,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1818466363995379201}
-        m_TargetAssemblyTypeName: Game.Players.Player, Player
+      - m_Target: {fileID: 6619910359177354191}
+        m_TargetAssemblyTypeName: Game.Players.PlayerController, Player
         m_MethodName: Move
         m_Mode: 0
         m_Arguments:
@@ -196,7 +198,7 @@ MonoBehaviour:
       USB Joystick          /stick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1818466363995379201}
+      - m_Target: {fileID: 6619910359177354191}
         m_TargetAssemblyTypeName: Game.Players.Player, Player
         m_MethodName: Jump
         m_Mode: 0
@@ -213,9 +215,9 @@ MonoBehaviour:
       /button3]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1818466363995379201}
-        m_TargetAssemblyTypeName: Game.Players.Player, Player
-        m_MethodName: MoveSkill
+      - m_Target: {fileID: 6619910359177354191}
+        m_TargetAssemblyTypeName: Game.Players.PlayerController, Player
+        m_MethodName: Dash
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -230,8 +232,8 @@ MonoBehaviour:
       /button6]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1818466363995379201}
-        m_TargetAssemblyTypeName: Game.Players.Player, Player
+      - m_Target: {fileID: 6619910359177354191}
+        m_TargetAssemblyTypeName: Game.Players.PlayerController, Player
         m_MethodName: Interact
         m_Mode: 0
         m_Arguments:
@@ -247,8 +249,8 @@ MonoBehaviour:
       /button2]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1818466363995379201}
-        m_TargetAssemblyTypeName: Game.Players.Player, Player
+      - m_Target: {fileID: 6619910359177354191}
+        m_TargetAssemblyTypeName: Game.Players.PlayerController, Player
         m_MethodName: MainAttack
         m_Mode: 0
         m_Arguments:
@@ -306,19 +308,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3918861163214877595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818466363995379214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0c5ca33ca55ff547893c5df49af436e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items: []
 --- !u!114 &8802372422223504413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,3 +328,38 @@ MonoBehaviour:
     projectileSpeed: 0
     knockback: 0
   weaponData: {fileID: 11400000, guid: 068782a0f7207be499b319640a14a5d5, type: 2}
+--- !u!114 &6619910359177354191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818466363995379214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ace5d25e4935c6479a389b7ee1be944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  point: {x: 0, y: 0}
+  size: {x: 0, y: 0}
+  idleAnimation: {fileID: 11400000, guid: ecab561ff13eab84183212bd9d8aa6d4, type: 2}
+  runAnimation: {fileID: 11400000, guid: 91546f401a0cea24ba50dc8e3b18f955, type: 2}
+  airUpAnimation: {fileID: 11400000, guid: 2a28f2c3bad17e146b1709dc04e418dc, type: 2}
+  airDownAnimation: {fileID: 11400000, guid: 777dfb7f5f42c5941a5724910d17194c, type: 2}
+  runAnimationSpeedMultiplier: 0.15
+  minRunAnimationScale: 0.5
+  maxRunAnimationScale: 4
+--- !u!114 &-2861177223206925757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818466363995379214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e7c0d367be23cb46927be039ed25fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1818466363995379203}
+  currentAnimation: {fileID: 11400000, guid: ecab561ff13eab84183212bd9d8aa6d4, type: 2}

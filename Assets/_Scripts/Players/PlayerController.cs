@@ -1,23 +1,37 @@
 using UnityEngine;
-using Game.States;
 using Game.Events;
 using UnityEngine.InputSystem;
 using Game.Interfaces;
+using Game.Input;
+using Game.Utils;
 
 namespace Game.Players
 {
-    public class PlayerController : Context<ControllerState>
+    public class PlayerController : MonoBehaviour
     {
-        readonly GameObject gameObject;
-        readonly Player player;
-        readonly BoxCollider2D collider;
+        Rigidbody2D rb;
+        Player player;
+        BoxCollider2D boxCollider;
         Vector2 direction;
         LayerMask interactableLayer;
-        public Vector2 point, size;
+        [HideInInspector] public Vector2 point, size;
         bool usingWeapon = false;
+        bool facingRight;
         GameObject closestInteractable;
+        ControllerState _current;
+        PlayerActionsControls playerControls;
+        SpriteAnimator animator;
 
-        public new ControllerState Current
+        [Header("Animation")]
+        [SerializeField] SpriteAnimationSO idleAnimation;
+        [SerializeField] SpriteAnimationSO runAnimation;
+        [SerializeField] SpriteAnimationSO airUpAnimation;
+        [SerializeField] SpriteAnimationSO airDownAnimation;
+        [SerializeField] float runAnimationSpeedMultiplier = 0.4f;
+        [SerializeField] float minRunAnimationScale = 0.5f;
+        [SerializeField] float maxRunAnimationScale = 3;
+
+        public ControllerState Current
         {
             get
             {
@@ -27,32 +41,82 @@ namespace Game.Players
             }
             protected set => _current = value;
         }
-        public PlayerController(ControllerState state, Player player, GameObject gameObject) : base(state)
+        void Awake()
         {
-            this.gameObject = gameObject;
-            this.player = player;
+            rb = GetComponent<Rigidbody2D>();
+            player = GetComponent<Player>();
+            animator = GetComponent<SpriteAnimator>();
+            playerControls = new PlayerActionsControls();
             interactableLayer = LayerMask.GetMask("Interactable");
-            collider = gameObject.GetComponent<BoxCollider2D>();
-            if (state is null) Current = new GroundedMoveState(gameObject, player);
+            boxCollider = gameObject.GetComponent<BoxCollider2D>();
+            Current = new GroundedMoveState(gameObject, player);
+            facingRight = transform.localScale.x > 0;
         }
+        private void OnEnable() => playerControls?.Enable();
+        private void OnDisable() => playerControls?.Disable();
+        void Update()
+        {
+            Current.Update();
+            if (usingWeapon) player.weapon?.Use();
+            player.weapon?.Aim(direction);
+
+            UpdateAnimation();
+        }
+        void FixedUpdate()
+        {
+            Current.FixedUpdate();
+            CheckInteractables();
+        }
+        #region Animation
+        void UpdateAnimation()
+        {
+            Vector3 velocity = rb.velocity;
+            float timeScale;
+            if (velocity.y > 0.05f)
+            {
+                animator.SetAnimation(airUpAnimation, 1);
+            }
+            else if (velocity.y < -0.05f)
+            {
+                animator.SetAnimation(airDownAnimation, 1);
+            }
+            else if (direction.x > 0.05f)
+            {
+                timeScale = Mathf.Clamp(velocity.x * runAnimationSpeedMultiplier, minRunAnimationScale, maxRunAnimationScale);
+                animator.SetAnimation(runAnimation, timeScale);
+            }
+            else if (direction.x < -0.05f)
+            {
+                timeScale = Mathf.Clamp(-velocity.x * runAnimationSpeedMultiplier, minRunAnimationScale, maxRunAnimationScale);
+                animator.SetAnimation(runAnimation, timeScale);
+            }
+            else
+            {
+                animator.SetAnimation(idleAnimation, 1);
+            }
+            FaceDirection();
+        }
+        void FaceDirection()
+        {
+            if(
+                (direction.x > 0 && facingRight is false) ||
+                (direction.x < 0 && facingRight is true)
+            )
+            {
+                Vector3 scale = transform.localScale;
+                scale.x = -scale.x;
+                transform.localScale = scale;
+                facingRight = !facingRight;
+            }
+        }
+        #endregion
+        #region Controls
         public void Move(InputAction.CallbackContext context)
         {
             direction = context.ReadValue<Vector2>();
             Current.ReadMovement(context);
         }
         public void Jump(InputAction.CallbackContext context) => Current.Jump(context);
-        public void Update()
-        {
-            Current.Update();
-            if (usingWeapon) player.weapon?.Use();
-            player.weapon?.Aim(direction);
-        }
-        public void FixedUpdate()
-        {
-            Current.FixedUpdate();
-            CheckInteractables();
-        }
-
         public void Dash(InputAction.CallbackContext context) => Current.Dash(context);
         public void MainAttack(InputAction.CallbackContext context)
         {
@@ -76,10 +140,11 @@ namespace Game.Players
                 interactable.Interact(gameObject);
             }
         }
+        #endregion
 
         void CheckInteractables()
         {
-            Collider2D[] interactableColliders = Physics2D.OverlapBoxAll(collider.transform.position, collider.bounds.size, collider.transform.rotation.z, interactableLayer);
+            Collider2D[] interactableColliders = Physics2D.OverlapBoxAll(boxCollider.transform.position, boxCollider.bounds.size, boxCollider.transform.rotation.z, interactableLayer);
             if (interactableColliders != null && interactableColliders.Length > 0)
             {
                 float closestDist = float.MaxValue;

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e06398dc07d6de044a46bb995e966f4e, type: 3}
-  m_Name: SpriteAnimation2
+  m_Name: hurtAnimation
   m_EditorClassIdentifier: 
-  cycleSeconds: 0.3
-  looping: 1
+  cycleSeconds: 0.4
+  looping: 0
+  unskippable: 1
   sprites:
-  - {fileID: 21300000, guid: 8546b866ba528d04498dd330b3b377a5, type: 3}
-  - {fileID: 21300000, guid: a3f9afdf9dfbd1043a6c9a5003cf995a, type: 3}
-  nextAnimation: {fileID: 0}
+  - {fileID: -709639115, guid: 378bb25226cc97e4db76333ea4ed6f07, type: 3}
+  nextAnimation: {fileID: 11400000, guid: ecab561ff13eab84183212bd9d8aa6d4, type: 2}

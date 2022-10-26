@@ -7,7 +7,7 @@ namespace Game.Utils
         [SerializeField] SpriteRenderer spriteRenderer;
         [SerializeField] SpriteAnimationSO currentAnimation;
         public SpriteAnimationSO Current { get => currentAnimation; }
-        public float timeScale = 1f;
+        float timeScale = 1f;
         float cycleCounter = 0;
         int _frame = 0;
         int Frame {
@@ -30,6 +30,8 @@ namespace Game.Utils
         // Update is called once per frame
         void Update()
         {
+            if (currentAnimation is null) return;
+
             cycleCounter += Time.deltaTime * timeScale;
             if(cycleCounter > currentAnimation.cycleSeconds)
             {
@@ -37,15 +39,31 @@ namespace Game.Utils
             }
         }
 
-        public void SetAnimation(SpriteAnimationSO animation)
+        public void SetAnimation(SpriteAnimationSO animation, bool force = false)
         {
-            if(animation != currentAnimation)
+            if(
+                (animation != currentAnimation && currentAnimation.unskippable is false)
+                || force
+            )
             {
                 currentAnimation = animation;
                 Frame = 0;
                 spriteRenderer.sprite = animation.sprites[0];
-                Debug.Log(animation);
             }
+        }
+        public void SetAnimation(SpriteAnimationSO animation, float timeScale, bool force = false)
+        {
+            if (
+                (animation != currentAnimation && currentAnimation.unskippable is false)
+                || force
+            )
+            {
+                this.timeScale = timeScale;
+                currentAnimation = animation;
+                Frame = 0;
+                spriteRenderer.sprite = animation.sprites[0];
+            }
+            else if(animation == currentAnimation) this.timeScale = timeScale;
         }
 
         void NextFrame()
@@ -59,7 +77,7 @@ namespace Game.Utils
                 }
                 else if (currentAnimation.nextAnimation is not null)
                 {
-                    SetAnimation(currentAnimation.nextAnimation);
+                    SetAnimation(currentAnimation.nextAnimation, true);
                 }
                 else
                 {
