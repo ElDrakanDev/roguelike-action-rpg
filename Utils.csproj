@@ -57,9 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Utils\Lifetime.cs" />
+    <Compile Include="Assets\_Scripts\Utils\SpriteAnimator.cs" />
     <Compile Include="Assets\_Scripts\Utils\Comparers.cs" />
     <Compile Include="Assets\_Scripts\Utils\DictUtils.cs" />
     <Compile Include="Assets\_Scripts\Utils\PrefabReference.cs" />
+    <Compile Include="Assets\_Scripts\Utils\SpriteAnimationSO.cs" />
     <Compile Include="Assets\_Scripts\Utils\Layers.cs" />
     <Compile Include="Assets\_Scripts\Utils\GameObjectHelpers.cs" />
     <Compile Include="Assets\_Scripts\Utils\Teams.cs" />
