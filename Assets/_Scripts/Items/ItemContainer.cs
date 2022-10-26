@@ -1,20 +1,24 @@
-using System.Collections.Generic;
+using System;
+using Game.Interfaces;
 using UnityEngine;
 
 namespace Game.Items
 {
-    public class ItemContainer : MonoBehaviour
+    [RequireComponent(typeof(Collider2D))]
+    public class ItemContainer : MonoBehaviour, IInteractable
     {
-        [SerializeField] List<ItemData> items = new List<ItemData>();
-
-        public void Add(ItemData item)
+        public ItemDataSO data;
+        public void Interact(GameObject other)
         {
-            items.Add(item);
+            var item = GetComponent<Item>();
+            item = (Item)other.AddComponent(item.GetType());
+            item.data = data;
+            item.PickUp(other);
+            Destroy(gameObject);
         }
-
-        public void Remove(ItemData item)
+        public void Inspect()
         {
-            items.Remove(item);
+            Debug.Log($"{data.ItemName} : {data.ItemDescription}");
         }
     }
 }
