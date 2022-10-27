@@ -57,11 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Items\ItemContainer.cs" />
+    <Compile Include="Assets\_Scripts\Items\ItemDataSO.cs" />
     <Compile Include="Assets\_Scripts\Items\Item.cs" />
     <Compile Include="Assets\_Scripts\Items\StatsItem.cs" />
     <Compile Include="Assets\_Scripts\Items\ItemEffect.cs" />
     <Compile Include="Assets\_Scripts\Items\StatItemEffect.cs" />
-    <Compile Include="Assets\_Scripts\Items\ItemDataSO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Items\Items.asmdef" />

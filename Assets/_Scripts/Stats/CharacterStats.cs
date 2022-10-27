@@ -78,5 +78,38 @@ namespace Game.Stats
         }
 
         public float Hit(float damage, Vector2 direction, float knockback) => Hit(damage);
+
+        public float StatTotal(AttributeID attribute) => statsDict[attribute].Value;
+        public float StatTotal(IEnumerable<AttributeID> attributes)
+        {
+            float total = 0;
+            foreach (var attribute in attributes)
+            {
+                total += statsDict[attribute].Value;
+            }
+            return total;
+        }
+
+        public float StatTotal(StatType type, AttributeID attribute)
+        {
+            float total = 0;
+            foreach(var stat in statsDict[attribute][type])
+            {
+                total += stat.Value;
+            }
+            return total;
+        }
+        public float StatTotal(StatType type, IEnumerable<AttributeID> attributes)
+        {
+            float total = 0;
+            foreach(var attribute in attributes)
+            {
+                foreach (var stat in statsDict[attribute][type])
+                {
+                    total += stat.Value;
+                }
+            }
+            return total;
+        }
     }
 }

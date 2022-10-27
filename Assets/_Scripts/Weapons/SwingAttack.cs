@@ -15,6 +15,7 @@ namespace Game.Weapons
         [SerializeField] float margin = 0.5f;
         [SerializeField] float arc = 60f;
         [SerializeField] SwingDirection attackDirection = SwingDirection.Forwards;
+        [SerializeField] float swingDuration = 0.2f;
         public override void Use(Player owner, Vector2 direction, WeaponStats stats)
         {
             Swing(owner, direction, stats);
@@ -53,12 +54,12 @@ namespace Game.Weapons
             if (flipY)
             {
                 swordTransform.localScale = new Vector3(swordTransform.transform.localScale.x, -swordTransform.transform.localScale.y, 0);
-                DOVirtual.Float(rotation - arc * swingDirection, rotation + arc * swingDirection, stats.useTime, SwingWeapon)
+                DOVirtual.Float(rotation - arc * swingDirection, rotation + arc * swingDirection, swingDuration, SwingWeapon)
                     .SetEase(Ease.OutFlash)
                     .OnComplete(() => { if(newProj) newProj.LifeTimeEnd(); });
                 return;
             }
-            DOVirtual.Float(rotation + arc * swingDirection, rotation - arc * swingDirection, stats.useTime, SwingWeapon)
+            DOVirtual.Float(rotation + arc * swingDirection, rotation - arc * swingDirection, swingDuration, SwingWeapon)
                 .SetEase(Ease.OutFlash)
                 .OnComplete(() => { if (newProj) newProj.LifeTimeEnd(); });
         }

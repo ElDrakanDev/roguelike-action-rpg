@@ -7,6 +7,9 @@ namespace Game.Weapons
 {
     public class Weapon : MonoBehaviour, IWeapon
     {
+        const float MIN_ATTACK_SPEED_MULTIPLIER = 0.1f;
+
+
         Vector2 aimDirection;
         public WeaponStats stats;
         [SerializeField] WeaponDataSO weaponData;
@@ -16,6 +19,28 @@ namespace Game.Weapons
         float _cooldown = 0;
         bool _inUse = false;
         WeaponAttack[] Attacks { get => weaponData.attacks; }
+        
+        public float FlatBonus { get => Owner.stats.StatTotal(stats.flatAttributes); }
+        public float Multiplier { get => Owner.stats.StatTotal(stats.multAttributes); }
+        public float Damage {
+            get
+            {
+                float total = (stats.damage + FlatBonus) * Multiplier;
+                if (total < 1) return 1;
+                return total;
+            }
+            set => stats.damage = value;
+        }
+        public float AttackSpeedMultiplier
+        {
+            get
+            {
+                float multiplier = Owner is not null ? Owner.stats[AttributeID.Agility].Value : 0;
+                if (multiplier < MIN_ATTACK_SPEED_MULTIPLIER) return MIN_ATTACK_SPEED_MULTIPLIER;
+                return multiplier;
+            }
+        }
+        public float UseTime { get => stats.useTime / AttackSpeedMultiplier; set => stats.useTime = value; }
 
         void Awake()
         {
@@ -67,7 +92,7 @@ namespace Game.Weapons
                 {
                     attack.UseBegin(Owner, aimDirection, stats);
                 }
-                _cooldown = stats.useTime;
+                _cooldown = UseTime;
                 _inUse = true;
             }
         }
@@ -79,7 +104,7 @@ namespace Game.Weapons
                 {
                     attack.Use(Owner, aimDirection, stats);
                 }
-                _cooldown = stats.useTime;
+                _cooldown = UseTime;
             }
         }
         public void UseEnd()

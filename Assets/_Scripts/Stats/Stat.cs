@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System;
-using UnityEngine;
+using System.Linq;
 
 namespace Game.Stats
 {
@@ -33,14 +33,17 @@ namespace Game.Stats
         public Stat StatOwner { get; set; }
         public object Source { get; set; }
 
-        public readonly List<IStatComponent> stats = new List<IStatComponent>();
+        public readonly Dictionary<StatType, List<IStatComponent>> stats = new() {
+            { StatType.Flat, new List<IStatComponent>()},
+            {StatType.Mult, new List<IStatComponent>()},
+        };
         readonly float min;
         readonly float max;
         public readonly dynamic owner;
 
         public Stat(float baseValue, dynamic argOwner, float argMin = 1, float argMax = float.MaxValue, StatType type = StatType.Flat)
         {
-            stats.Add(new StatModifier(baseValue, this, this, StatType.Flat));
+            stats[StatType.Flat].Add(new StatModifier(baseValue, this, this, StatType.Flat));
             min = argMin;
             max = argMax;
             owner = argOwner;
@@ -52,13 +55,8 @@ namespace Game.Stats
             float flatStats = 0;
             float multStats = 1;
 
-            for (int i = 0; i < stats.Count; i++)
-            {
-                if (stats[i].Type == StatType.Flat)
-                    flatStats += stats[i].Value;
-                else if (stats[i].Type == StatType.Mult)
-                    multStats += stats[i].Value;
-            }
+            foreach(var modifier in stats[StatType.Flat]) flatStats += modifier.Value;
+            foreach (var modifier in stats[StatType.Mult]) multStats += modifier.Value;
 
             needUpdate = false;
             _value = (float)Math.Round(flatStats * multStats, 2);
@@ -68,29 +66,37 @@ namespace Game.Stats
 
         public void Add(IStatComponent stat)
         {
-            stats.Add(stat);
+            stats[stat.Type].Add(stat);
             needUpdate = true;
         }
 
         public bool RemoveComponent(IStatComponent component)
         {
-            return stats.Remove(component);
+            return stats[component.Type].Remove(component);
         }
 
         public void RemoveFromSource(dynamic source)
         {
-            stats.RemoveAll((stat) => {
-                try
-                {
-                    bool remove = stat.Source == source;
-                    return remove;
-                }
-                catch
-                {
-                    return false;
-                }
-            });
+            foreach(var statList in stats.Values.ToList())
+            {
+                statList.RemoveAll((stat) => {
+                    try
+                    {
+                        bool remove = stat.Source == source;
+                        return remove;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                });
+            }
             needUpdate = true;
+        }
+
+        public List<IStatComponent> this[StatType type]
+        {
+            get => stats[type];
         }
     }
 }
