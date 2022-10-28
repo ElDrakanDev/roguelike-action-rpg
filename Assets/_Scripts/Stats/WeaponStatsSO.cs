@@ -8,6 +8,12 @@ namespace Game.Stats
     [CreateAssetMenu(menuName = "Weapons/Stats")]
     public class WeaponStatsSO : ScriptableObject
     {
+        Dictionary<WeaponType, List<AttributeID>> defaultMultAttributeScalers = new Dictionary<WeaponType, List<AttributeID>>(){
+            {WeaponType.Melee, new List<AttributeID>() {AttributeID.Strength } },
+            {WeaponType.Ranged, new List<AttributeID>() {AttributeID.Accuracy} },
+            {WeaponType.Magic, new List<AttributeID>() {AttributeID.Intelligence} }
+        };
+
         public float damage = 5;
         public float useTime = 0.5f;
         public WeaponType type;
@@ -18,6 +24,11 @@ namespace Game.Stats
         public List<AttributeID> flatAttributes = new List<AttributeID>();
         public List<AttributeID> multAttributes = new List<AttributeID>();
 
+        private void OnEnable()
+        {
+            if (multAttributes.Count == 0) multAttributes = defaultMultAttributeScalers[type];
+        }
+
         public WeaponStats CreateStats()
         {
             return new WeaponStats(damage, useTime, type, autoUse, projectileSpeed, knockback, inaccuracy, flatAttributes, multAttributes);
@@ -27,11 +38,6 @@ namespace Game.Stats
     [System.Serializable]
     public class WeaponStats
     {
-        static Dictionary<WeaponType, List<AttributeID>> defaultMultAttributeScalers = new Dictionary<WeaponType, List<AttributeID>>(){
-            {WeaponType.Melee, new List<AttributeID>() {AttributeID.Strength } },
-            {WeaponType.Ranged, new List<AttributeID>() {AttributeID.Accuracy} },
-            {WeaponType.Magic, new List<AttributeID>() {AttributeID.Intelligence} }
-        };
         public float damage;
         public float useTime = 0.5f;
         public WeaponType type;
@@ -50,8 +56,8 @@ namespace Game.Stats
             float projectileSpeed,
             float knockback,
             float inaccuracy,
-            List<AttributeID> flatScalers = null,
-            List<AttributeID> multScalers = null
+            List<AttributeID> flatScalers,
+            List<AttributeID> multScalers
         )
         {
             this.damage = damage;
@@ -61,10 +67,8 @@ namespace Game.Stats
             this.projectileSpeed = projectileSpeed;
             this.knockback = knockback;
             this.inaccuracy = inaccuracy;
-            flatAttributes = flatScalers is not null ? flatScalers : new List<AttributeID>();
-            multAttributes = multScalers is not null ? multScalers : new List<AttributeID>();
-
-            if (multAttributes.Count > 0) multAttributes = defaultMultAttributeScalers[type];
+            flatAttributes = flatScalers;
+            multAttributes = multScalers;
         }
     }
 }

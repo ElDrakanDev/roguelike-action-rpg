@@ -10,7 +10,6 @@ namespace Game.Weapons
     {
         const float MIN_ATTACK_SPEED_MULTIPLIER = 0.1f;
         const float MIN_INACCURACY_DIVISOR = 0.1f;
-
         Vector2 _aimDirection;
         public WeaponStats stats;
         [SerializeField] WeaponDataSO weaponData;
@@ -20,7 +19,6 @@ namespace Game.Weapons
         float _cooldown = 0;
         bool _inUse = false;
         WeaponAttack[] Attacks { get => weaponData.attacks; }
-        
         public float FlatBonus { get => Owner.stats.StatTotal(stats.flatAttributes); }
         public float Multiplier { get => Owner.stats.StatTotal(stats.multAttributes); }
         public float Damage {
@@ -42,7 +40,8 @@ namespace Game.Weapons
             }
         }
         public float UseTime { get => stats.useTime / AttackSpeedMultiplier; set => stats.useTime = value; }
-        float Inaccuracy {
+        float Inaccuracy
+        {
             get
             {
                 float divisor = Owner is not null ? Owner.stats[AttributeID.Accuracy].Value : 0;
@@ -50,7 +49,6 @@ namespace Game.Weapons
                 return stats.inaccuracy / divisor;
             }
         }
-
         public Vector2 AimDirection {
             get
             {
@@ -60,7 +58,7 @@ namespace Game.Weapons
                 return Vector2Extension.DirectionFromAngle(angle);
             }
         }
-
+        WeaponAttackInfo AttackInfo { get => new WeaponAttackInfo(Owner, AimDirection, Damage, stats.knockback, stats.projectileSpeed, UseTime); }
         void Awake()
         {
             if(TryGetComponent(out _owner) && weaponData is not null)
@@ -109,7 +107,8 @@ namespace Game.Weapons
             {
                 foreach (var attack in attackMode.ChooseAttacks(Attacks))
                 {
-                    attack.UseBegin(Owner, AimDirection, stats);
+                    WeaponAttackInfo info = AttackInfo;
+                    attack.UseBegin(ref info);
                 }
                 _cooldown = UseTime;
                 _inUse = true;
@@ -121,7 +120,8 @@ namespace Game.Weapons
             {
                 foreach (var attack in attackMode.ChooseAttacks(Attacks))
                 {
-                    attack.Use(Owner, AimDirection, stats);
+                    WeaponAttackInfo info = AttackInfo;
+                    attack.Use(ref info);
                 }
                 _cooldown = UseTime;
             }
@@ -132,7 +132,8 @@ namespace Game.Weapons
             {
                 foreach(var attack in attackMode.ChooseAttacks(Attacks, true))
                 {
-                    attack.UseEnd(Owner, AimDirection, stats);
+                    WeaponAttackInfo info = AttackInfo;
+                    attack.UseEnd(ref info);
                 }
             }
         }

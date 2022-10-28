@@ -5,6 +5,7 @@ using Game.Events;
 using Game.Interfaces;
 using Game.Utils;
 using System.Collections.Generic;
+using System;
 
 namespace Game.Players
 {
@@ -42,8 +43,12 @@ namespace Game.Players
         {
             _health = stats.Health;
             Keyboard keyboard = Keyboard.current;
-            if (keyboard.numpadPlusKey.wasPressedThisFrame) stats.Add(new StatModifier(0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
-            else if (keyboard.numpadMinusKey.wasPressedThisFrame) stats.Add(new StatModifier(-0.1f, this, stats[AttributeID.Agility], StatType.Flat), AttributeID.Agility);
+            if (keyboard.numpadPlusKey.wasPressedThisFrame)
+                foreach(var attribute in Enum.GetValues(typeof(AttributeID)))
+                    stats.Add(new StatModifier(0.1f, this, stats[(AttributeID)attribute], StatType.Flat), (AttributeID)attribute);
+            else if (keyboard.numpadMinusKey.wasPressedThisFrame)
+                foreach (var attribute in Enum.GetValues(typeof(AttributeID)))
+                    stats.Add(new StatModifier(-0.1f, this, stats[(AttributeID)attribute], StatType.Flat), (AttributeID)attribute);
         }
 
         private void OnDestroy()

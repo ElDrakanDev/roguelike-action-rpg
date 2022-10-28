@@ -16,24 +16,26 @@ namespace Game.Weapons
         [SerializeField] float arc = 60f;
         [SerializeField] SwingDirection attackDirection = SwingDirection.Forwards;
         [SerializeField] float swingDuration = 0.2f;
-        public override void Use(Player owner, Vector2 direction, WeaponStats stats)
+        public override void Use(ref WeaponAttackInfo info)
         {
-            Swing(owner, direction, stats);
+            Swing(info);
         }
-        public override void UseBegin(Player owner, Vector2 direction, WeaponStats stats)
+        public override void UseBegin(ref WeaponAttackInfo info)
         {
-            Swing(owner, direction, stats);
+            Swing(info);
         }
-        public override void UseEnd(Player owner, Vector2 direction, WeaponStats stats) { }
+        public override void UseEnd(ref WeaponAttackInfo info) { }
 
-        void Swing(Player owner, Vector2 direction, WeaponStats stats)
+        void Swing(WeaponAttackInfo info)
         {
+            Vector2 direction = info.direction;
+            Player owner = info.owner;
             float rotation = Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x);
             bool flipY = rotation > 90 || rotation < -90 ? true : false;
             int swingDirection = (int)attackDirection;
 
             Projectile newProj = Projectile.Create(
-                owner.gameObject, projData, stats.damage, Team.Friendly, new Vector3(999999, 999999, 100), direction, stats.knockback
+                owner.gameObject, projData, info.damage, Team.Friendly, new Vector3(999999, 999999, 100), direction, info.knockback
             );
             Transform swordTransform = newProj.transform;
             swordTransform.SetParent(owner.transform);

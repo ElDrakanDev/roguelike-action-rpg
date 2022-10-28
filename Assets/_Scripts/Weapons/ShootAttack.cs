@@ -31,35 +31,36 @@ namespace Game.Weapons
         [SerializeField] GameObject gun;
         [SerializeField] float gunMargin = 0.5f;
         Dictionary<Player, ShootData> shotsDict = new Dictionary<Player, ShootData>();
-        public override void Use(Player owner, Vector2 direction, WeaponStats stats)
+        public override void Use(ref WeaponAttackInfo info)
         {
-            Shoot(owner, direction, stats);
+            Shoot(info);
         }
-        public override void UseBegin(Player owner, Vector2 direction, WeaponStats stats)
+        public override void UseBegin(ref WeaponAttackInfo info)
         {
-            Shoot(owner, direction, stats);
+            Shoot(info);
         }
-        public override void UseEnd(Player owner, Vector2 direction, WeaponStats stats)
+        public override void UseEnd(ref WeaponAttackInfo info)
         {
-            RemoveGun(owner);
+            RemoveGun(info.owner);
         }
-        void Shoot(Player owner, Vector2 direction, WeaponStats stats)
+        void Shoot(WeaponAttackInfo info)
         {
+            Vector2 direction = info.direction;
+            Player owner = info.owner;
             if (direction == Vector2.zero) return;
-
 
             if (shotsDict.TryGetValue(owner, out ShootData data))
             {
-                ShootWithData(data, owner, direction, stats);
+                ShootWithData(data, owner, direction, info);
                 return;
             }
             var newGun = Instantiate(gun);
             newGun.transform.SetParent(owner.transform);
             data = new ShootData(newGun);
             shotsDict.Add(owner, data);
-            ShootWithData(data, owner, direction, stats);
+            ShootWithData(data, owner, direction, info);
         }
-        void ShootWithData(ShootData data, Player owner, Vector2 direction, WeaponStats stats)
+        void ShootWithData(ShootData data, Player owner, Vector2 direction, WeaponAttackInfo info)
         {
             float zRotation = Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x);
             Quaternion rotation = Quaternion.Euler(0, 0, zRotation);
@@ -73,7 +74,7 @@ namespace Game.Weapons
             data.gunRenderer.flipY = gunFacingLeft ? true : false;
            
             Vector3 shootPos = data.gun.transform.position + new Vector3(direction.x * data.gunWidth * 0.8f, direction.y * data.gunWidth * 0.8f, 0);
-            Projectile.Create(owner.gameObject, projData, stats.damage, Team.Friendly, shootPos, direction * stats.projectileSpeed, rotation, stats.knockback);
+            Projectile.Create(owner.gameObject, projData, info.damage, Team.Friendly, shootPos, direction * info.speed, rotation, info.knockback);
         }
         void RemoveGun(Player owner)
         {
