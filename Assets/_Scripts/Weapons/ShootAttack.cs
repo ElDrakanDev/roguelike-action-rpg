@@ -15,12 +15,15 @@ namespace Game.Weapons
             public GameObject gun;
             public readonly float gunWidth;
             public readonly SpriteRenderer gunRenderer;
+            public readonly Vector3 gunScale;
 
             public ShootData(GameObject gun)
             {
                 this.gun = gun;
                 this.gunRenderer = gun.GetComponent<SpriteRenderer>();
                 this.gunWidth = gunRenderer.bounds.size.x;
+                gunScale = gun.transform.localScale;
+
             }
         }
 
@@ -44,25 +47,31 @@ namespace Game.Weapons
         {
             if (direction == Vector2.zero) return;
 
-            float zRotation = Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x);
 
             if (shotsDict.TryGetValue(owner, out ShootData data))
             {
-                ShootWithData(data, owner, direction, zRotation, stats);
+                ShootWithData(data, owner, direction, stats);
                 return;
             }
             var newGun = Instantiate(gun);
             newGun.transform.SetParent(owner.transform);
             data = new ShootData(newGun);
             shotsDict.Add(owner, data);
-            ShootWithData(data, owner, direction, zRotation, stats);
+            ShootWithData(data, owner, direction, stats);
         }
-        void ShootWithData(ShootData data, Player owner, Vector2 direction, float zRotation, WeaponStats stats)
+        void ShootWithData(ShootData data, Player owner, Vector2 direction, WeaponStats stats)
         {
+            float zRotation = Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x);
             Quaternion rotation = Quaternion.Euler(0, 0, zRotation);
-            data.gun.transform.position = owner.transform.position + new Vector3(direction.x * gunMargin, direction.y * gunMargin, 0);
-            data.gun.transform.rotation = rotation;
-            data.gunRenderer.flipY = zRotation > 90 || zRotation < -90 ? true : false;
+            bool gunFacingLeft = rotation.eulerAngles.z > 90 && rotation.eulerAngles.z < 270;
+
+            data.gun.transform.SetPositionAndRotation(owner.transform.position + new Vector3(direction.x * gunMargin, direction.y * gunMargin, 0), rotation);
+            Vector3 newScale = data.gunScale;
+            newScale.x *= owner.transform.localScale.x / Mathf.Abs(owner.transform.localScale.x);
+            data.gun.transform.localScale = newScale;
+            
+            data.gunRenderer.flipY = gunFacingLeft ? true : false;
+           
             Vector3 shootPos = data.gun.transform.position + new Vector3(direction.x * data.gunWidth * 0.8f, direction.y * data.gunWidth * 0.8f, 0);
             Projectile.Create(owner.gameObject, projData, stats.damage, Team.Friendly, shootPos, direction * stats.projectileSpeed, rotation, stats.knockback);
         }

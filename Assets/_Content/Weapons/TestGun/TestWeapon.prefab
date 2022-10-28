@@ -119,7 +119,11 @@ MonoBehaviour:
     type: 0
     autoUse: 0
     projectileSpeed: 0
-    attackMode: 0
+    knockback: 0
+    flatAttributes: 
+    multAttributes: 
+    inaccuracy: 0
+  weaponData: {fileID: 0}
 --- !u!50 &-2834136590942944602
 Rigidbody2D:
   serializedVersion: 4

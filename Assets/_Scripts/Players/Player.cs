@@ -20,7 +20,6 @@ namespace Game.Players
         [SerializeField] float _health;
         SpriteAnimator animator;
         [SerializeField] SpriteAnimationSO hurtAnimation;
-
         private void Awake()
         {
             animator = GetComponent<SpriteAnimator>();

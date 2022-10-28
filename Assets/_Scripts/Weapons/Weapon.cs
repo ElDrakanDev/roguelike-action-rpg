@@ -2,15 +2,16 @@ using UnityEngine;
 using Game.Interfaces;
 using Game.Players;
 using Game.Stats;
+using Game.Utils;
 
 namespace Game.Weapons
 {
     public class Weapon : MonoBehaviour, IWeapon
     {
         const float MIN_ATTACK_SPEED_MULTIPLIER = 0.1f;
+        const float MIN_INACCURACY_DIVISOR = 0.1f;
 
-
-        Vector2 aimDirection;
+        Vector2 _aimDirection;
         public WeaponStats stats;
         [SerializeField] WeaponDataSO weaponData;
         public Player Owner { get => _owner; protected set => _owner = value; }
@@ -41,6 +42,24 @@ namespace Game.Weapons
             }
         }
         public float UseTime { get => stats.useTime / AttackSpeedMultiplier; set => stats.useTime = value; }
+        float Inaccuracy {
+            get
+            {
+                float divisor = Owner is not null ? Owner.stats[AttributeID.Accuracy].Value : 0;
+                if (divisor <= MIN_INACCURACY_DIVISOR) divisor = MIN_INACCURACY_DIVISOR;
+                return stats.inaccuracy / divisor;
+            }
+        }
+
+        public Vector2 AimDirection {
+            get
+            {
+                float angle = _aimDirection.Angle();
+                float inaccuracy = Inaccuracy;
+                angle += Random.Range(-inaccuracy, inaccuracy);
+                return Vector2Extension.DirectionFromAngle(angle);
+            }
+        }
 
         void Awake()
         {
@@ -81,7 +100,7 @@ namespace Game.Weapons
         {
             if(direction != Vector2.zero)
             {
-                aimDirection = direction.normalized;
+                _aimDirection = direction.normalized;
             }
         }
         public void UseBegin()
@@ -90,7 +109,7 @@ namespace Game.Weapons
             {
                 foreach (var attack in attackMode.ChooseAttacks(Attacks))
                 {
-                    attack.UseBegin(Owner, aimDirection, stats);
+                    attack.UseBegin(Owner, AimDirection, stats);
                 }
                 _cooldown = UseTime;
                 _inUse = true;
@@ -102,7 +121,7 @@ namespace Game.Weapons
             {
                 foreach (var attack in attackMode.ChooseAttacks(Attacks))
                 {
-                    attack.Use(Owner, aimDirection, stats);
+                    attack.Use(Owner, AimDirection, stats);
                 }
                 _cooldown = UseTime;
             }
@@ -113,7 +132,7 @@ namespace Game.Weapons
             {
                 foreach(var attack in attackMode.ChooseAttacks(Attacks, true))
                 {
-                    attack.UseEnd(Owner, aimDirection, stats);
+                    attack.UseEnd(Owner, AimDirection, stats);
                 }
             }
         }

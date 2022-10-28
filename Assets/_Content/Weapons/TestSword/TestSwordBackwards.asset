@@ -16,3 +16,5 @@ MonoBehaviour:
   margin: 2
   arc: 90
   attackDirection: -1
+  swingDuration: 0.2
+  inaccuracy: 15

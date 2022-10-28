@@ -14,12 +14,13 @@ namespace Game.Stats
         public bool autoUse;
         public float projectileSpeed = 1;
         public float knockback = 1;
+        public float inaccuracy = 0;
         public List<AttributeID> flatAttributes = new List<AttributeID>();
         public List<AttributeID> multAttributes = new List<AttributeID>();
 
         public WeaponStats CreateStats()
         {
-            return new WeaponStats(damage, useTime, type, autoUse, projectileSpeed, knockback, flatAttributes, multAttributes);
+            return new WeaponStats(damage, useTime, type, autoUse, projectileSpeed, knockback, inaccuracy, flatAttributes, multAttributes);
         }
     }
 
@@ -39,6 +40,7 @@ namespace Game.Stats
         public float knockback = 1;
         public List<AttributeID> flatAttributes = new List<AttributeID>();
         public List<AttributeID> multAttributes = new List<AttributeID>();
+        public float inaccuracy = 0;
 
         public WeaponStats(
             float damage,
@@ -47,6 +49,7 @@ namespace Game.Stats
             bool autoUse,
             float projectileSpeed,
             float knockback,
+            float inaccuracy,
             List<AttributeID> flatScalers = null,
             List<AttributeID> multScalers = null
         )
@@ -57,6 +60,7 @@ namespace Game.Stats
             this.autoUse = autoUse;
             this.projectileSpeed = projectileSpeed;
             this.knockback = knockback;
+            this.inaccuracy = inaccuracy;
             flatAttributes = flatScalers is not null ? flatScalers : new List<AttributeID>();
             multAttributes = multScalers is not null ? multScalers : new List<AttributeID>();
 
