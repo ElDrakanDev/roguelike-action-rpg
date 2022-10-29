@@ -15,14 +15,12 @@ namespace Game.Weapons
             public GameObject gun;
             public readonly float gunWidth;
             public readonly SpriteRenderer gunRenderer;
-            public readonly Vector3 gunScale;
 
             public ShootData(GameObject gun)
             {
                 this.gun = gun;
                 this.gunRenderer = gun.GetComponent<SpriteRenderer>();
                 this.gunWidth = gunRenderer.bounds.size.x;
-                gunScale = gun.transform.localScale;
 
             }
         }
@@ -67,9 +65,6 @@ namespace Game.Weapons
             bool gunFacingLeft = rotation.eulerAngles.z > 90 && rotation.eulerAngles.z < 270;
 
             data.gun.transform.SetPositionAndRotation(owner.transform.position + new Vector3(direction.x * gunMargin, direction.y * gunMargin, 0), rotation);
-            Vector3 newScale = data.gunScale;
-            newScale.x *= owner.transform.localScale.x / Mathf.Abs(owner.transform.localScale.x);
-            data.gun.transform.localScale = newScale;
             
             data.gunRenderer.flipY = gunFacingLeft ? true : false;
            

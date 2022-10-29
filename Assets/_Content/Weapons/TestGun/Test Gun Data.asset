@@ -20,4 +20,4 @@ MonoBehaviour:
   knockback: 3
   inaccuracy: 10
   flatAttributes: 
-  multAttributes: 
+  multAttributes: 14000000

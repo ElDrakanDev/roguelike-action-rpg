@@ -16,11 +16,13 @@ namespace Game.Players
         LayerMask interactableLayer;
         [HideInInspector] public Vector2 point, size;
         bool usingWeapon = false;
-        bool facingRight;
         GameObject closestInteractable;
         ControllerState _current;
         PlayerActionsControls playerControls;
         SpriteAnimator animator;
+        SpriteRenderer spriteRenderer;
+        bool facingRightOnStart;
+        bool FacingRight { get => facingRightOnStart && !spriteRenderer.flipX; }
 
         [Header("Animation")]
         [SerializeField] SpriteAnimationSO idleAnimation;
@@ -50,7 +52,8 @@ namespace Game.Players
             interactableLayer = LayerMask.GetMask("Interactable");
             boxCollider = gameObject.GetComponent<BoxCollider2D>();
             Current = new GroundedMoveState(gameObject, player);
-            facingRight = transform.localScale.x > 0;
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            facingRightOnStart = spriteRenderer.flipX is false;
         }
         private void OnEnable() => playerControls?.Enable();
         private void OnDisable() => playerControls?.Disable();
@@ -99,15 +102,10 @@ namespace Game.Players
         void FaceDirection()
         {
             if(
-                (direction.x > 0 && facingRight is false) ||
-                (direction.x < 0 && facingRight is true)
+                (direction.x > 0 && FacingRight is false) ||
+                (direction.x < 0 && FacingRight is true)
             )
-            {
-                Vector3 scale = transform.localScale;
-                scale.x = -scale.x;
-                transform.localScale = scale;
-                facingRight = !facingRight;
-            }
+                spriteRenderer.flipX = !spriteRenderer.flipX;
         }
         #endregion
         #region Controls

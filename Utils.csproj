@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\Utils\Lifetime.cs" />
     <Compile Include="Assets\_Scripts\Utils\SpriteAnimator.cs" />
+    <Compile Include="Assets\_Scripts\Utils\Vector2Extension.cs" />
     <Compile Include="Assets\_Scripts\Utils\Comparers.cs" />
     <Compile Include="Assets\_Scripts\Utils\DictUtils.cs" />
     <Compile Include="Assets\_Scripts\Utils\PrefabReference.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="Assets\_Scripts\Utils\GameObjectHelpers.cs" />
     <Compile Include="Assets\_Scripts\Utils\Teams.cs" />
     <Compile Include="Assets\_Scripts\Utils\Encryption.cs" />
-    <Compile Include="Assets\_Scripts\Utils\Vector2Extension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Utils\Utils.asmdef" />
