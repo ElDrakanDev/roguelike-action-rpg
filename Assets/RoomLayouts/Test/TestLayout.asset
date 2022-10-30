@@ -19,7 +19,7 @@ MonoBehaviour:
   shopRooms:
   - {fileID: 3484108826286510959, guid: e42420d993c491c419e504c8b1ffbcc2, type: 3}
   treasureRooms:
-  - {fileID: 3484108826286510959, guid: f3e4dc61480acc54fab5b3f57959d3f0, type: 3}
+  - {fileID: 3484108826286510959, guid: ec6a2092015f1264e89ceb8cdc5d73c7, type: 3}
   nextRooms:
   - {fileID: 3484108826286510959, guid: f3e4dc61480acc54fab5b3f57959d3f0, type: 3}
   bossRooms:

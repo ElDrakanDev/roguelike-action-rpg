@@ -88,6 +88,11 @@ namespace Game.Weapons
                 Vector3 randomRotation = new Vector3(0, 0, Random.Range(0, 361));
                 Instantiate(weaponData.pickable, transform.position, Quaternion.Euler(randomRotation), Run.Run.instance.ActiveRoom.gameObject.transform);
             }
+            if (weaponData is not null && Attacks is not null)
+                foreach (var attack in Attacks) {
+                    var info = AttackInfo;
+                    attack.DropWeapon(ref info);
+                } 
             Destroy(this);
         }
         public void Update()

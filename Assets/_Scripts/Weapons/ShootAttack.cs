@@ -41,6 +41,10 @@ namespace Game.Weapons
         {
             RemoveGun(info.owner);
         }
+        public override void DropWeapon(ref WeaponAttackInfo info)
+        {
+            RemoveGun(info.owner);
+        }
         void Shoot(WeaponAttackInfo info)
         {
             Vector2 direction = info.direction;

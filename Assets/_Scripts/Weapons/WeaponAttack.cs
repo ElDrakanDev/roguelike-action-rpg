@@ -10,6 +10,7 @@ namespace Game.Weapons
         public abstract void UseBegin(ref WeaponAttackInfo info);
         public abstract void Use(ref WeaponAttackInfo info);
         public abstract void UseEnd(ref WeaponAttackInfo info);
+        public virtual void DropWeapon(ref WeaponAttackInfo info) { }
     }
     public struct WeaponAttackInfo
     {
