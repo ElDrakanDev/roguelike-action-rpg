@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: TestLayout
   m_EditorClassIdentifier: 
   startRooms:
-  - {fileID: 3484108826286510959, guid: 0e745f3ec5543414aa06ad7892d48a17, type: 3}
+  - {fileID: 2070765287613880969, guid: 503e0337e4d06824fba5a4be3b74eb6b, type: 3}
   normalRooms:
-  - {fileID: 3484108826286510959, guid: 50de822f821d0ab4c9499a60f865a574, type: 3}
+  - {fileID: 2070765287613880969, guid: b48fac4f25bdade4996086379fd158bb, type: 3}
   shopRooms:
-  - {fileID: 3484108826286510959, guid: e42420d993c491c419e504c8b1ffbcc2, type: 3}
+  - {fileID: 2070765287613880969, guid: c9f6d839fbe49534680b6457aa14e8ca, type: 3}
   treasureRooms:
-  - {fileID: 3484108826286510959, guid: ec6a2092015f1264e89ceb8cdc5d73c7, type: 3}
+  - {fileID: 2070765287613880969, guid: de4a2cb1eec9c4144856f58c9b10a3de, type: 3}
   nextRooms:
-  - {fileID: 3484108826286510959, guid: f3e4dc61480acc54fab5b3f57959d3f0, type: 3}
+  - {fileID: 2070765287613880969, guid: b87cb4bcc3a3f44439cc20a0f8103565, type: 3}
   bossRooms:
-  - {fileID: 3484108826286510959, guid: f3e4dc61480acc54fab5b3f57959d3f0, type: 3}
+  - {fileID: 2070765287613880969, guid: b87cb4bcc3a3f44439cc20a0f8103565, type: 3}
