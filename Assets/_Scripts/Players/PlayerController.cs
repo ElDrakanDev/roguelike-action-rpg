@@ -4,11 +4,14 @@ using UnityEngine.InputSystem;
 using Game.Interfaces;
 using Game.Input;
 using Game.Utils;
+using System.Collections.Generic;
+using System;
 
 namespace Game.Players
 {
     public class PlayerController : MonoBehaviour
     {
+        Dictionary<string, Action<InputAction.CallbackContext>> inputHandlers;
         Rigidbody2D rb;
         Player player;
         BoxCollider2D boxCollider;
@@ -18,11 +21,12 @@ namespace Game.Players
         bool usingWeapon = false;
         GameObject closestInteractable;
         ControllerState _current;
-        PlayerActionsControls playerControls;
+        //PlayerActionsControls playerControls;
         SpriteAnimator animator;
         SpriteRenderer spriteRenderer;
         bool facingRightOnStart;
         bool FacingRight { get => facingRightOnStart && !spriteRenderer.flipX; }
+        PlayerInput input;
 
         [Header("Animation")]
         [SerializeField] SpriteAnimationSO idleAnimation;
@@ -43,20 +47,31 @@ namespace Game.Players
             }
             protected set => _current = value;
         }
+        #region Initialization
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             player = GetComponent<Player>();
             animator = GetComponent<SpriteAnimator>();
-            playerControls = new PlayerActionsControls();
+            //playerControls = new PlayerActionsControls();
             interactableLayer = LayerMask.GetMask("Interactable");
             boxCollider = gameObject.GetComponent<BoxCollider2D>();
             Current = new GroundedMoveState(gameObject, player);
             spriteRenderer = GetComponent<SpriteRenderer>();
             facingRightOnStart = spriteRenderer.flipX is false;
+            input = GetComponent<PlayerInput>();
+            inputHandlers = new()
+            {
+                {"Movement", Move },
+                {"Jump", Jump },
+                {"MoveSkill", Dash },
+                {"Interact", Interact },
+                {"MainAttack", MainAttack }
+            };
         }
-        private void OnEnable() => playerControls?.Enable();
-        private void OnDisable() => playerControls?.Disable();
+        private void OnEnable() => input.onActionTriggered += HandleInput;
+        private void OnDisable() => input.onActionTriggered -= HandleInput;
+        #endregion
         void Update()
         {
             Current.Update();
@@ -109,14 +124,19 @@ namespace Game.Players
         }
         #endregion
         #region Controls
-        public void Move(InputAction.CallbackContext context)
+        void HandleInput(InputAction.CallbackContext context)
+        {
+            if (inputHandlers.TryGetValue(context.action.name, out var handler))
+                handler(context);
+        }
+        void Move(InputAction.CallbackContext context)
         {
             direction = context.ReadValue<Vector2>();
             Current.ReadMovement(context);
         }
-        public void Jump(InputAction.CallbackContext context) => Current.Jump(context);
-        public void Dash(InputAction.CallbackContext context) => Current.Dash(context);
-        public void MainAttack(InputAction.CallbackContext context)
+        void Jump(InputAction.CallbackContext context) => Current.Jump(context);
+        void Dash(InputAction.CallbackContext context) => Current.Dash(context);
+        void MainAttack(InputAction.CallbackContext context)
         {
             if (context.started)
             {
@@ -129,7 +149,7 @@ namespace Game.Players
                 player.weapon?.UseEnd();
             }
         }
-        public void Interact(InputAction.CallbackContext context)
+        void Interact(InputAction.CallbackContext context)
         {
             if (!context.started || closestInteractable is null) return;
 
@@ -139,7 +159,6 @@ namespace Game.Players
             }
         }
         #endregion
-
         void CheckInteractables()
         {
             Collider2D[] interactableColliders = Physics2D.OverlapBoxAll(boxCollider.transform.position, boxCollider.bounds.size, boxCollider.transform.rotation.z, interactableLayer);

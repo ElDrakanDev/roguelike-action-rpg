@@ -82,5 +82,5 @@ SpriteAtlas:
   - TilesetOrange_12
   - TilesetOrange_20
   m_RenderDataMap: {}
-  m_Tag: New Sprite Atlas
+  m_Tag: TilesetOrangeAtlas
   m_IsVariant: 0
