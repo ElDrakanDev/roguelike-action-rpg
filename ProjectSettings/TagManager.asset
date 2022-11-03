@@ -64,3 +64,6 @@ TagManager:
   - name: Entity
     uniqueID: 2436677485
     locked: 0
+  - name: PseudoUI
+    uniqueID: 1256014703
+    locked: 0

@@ -759,6 +759,10 @@
       <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="Utils.csproj">
+      <Project>{9C54C169-DFD2-3195-454A-6A4B08C11B94}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>
