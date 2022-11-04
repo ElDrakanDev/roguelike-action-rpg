@@ -483,6 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offscreenArrow: {fileID: 6875791543084363409, guid: 5626015c5309d35408f169250b1bb4fb, type: 3}
+  pointerMargin: 1.5
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0

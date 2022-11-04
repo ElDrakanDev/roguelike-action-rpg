@@ -5,7 +5,6 @@ using Game.Utils;
 using UnityEngine.Tilemaps;
 using System.Threading.Tasks;
 using System;
-using Codice.Client.BaseCommands;
 
 namespace Game.General
 {
@@ -80,11 +79,12 @@ namespace Game.General
                 else
                 {
                     pointer.SetActive(true);
-                    Vector2 pointerPos = Vector3.zero;
+                    Vector2 pointerPos = new Vector2(t.position.x, t.position.y);
                     Vector2 towardsTarget = (pos - pointerPos).normalized;
                     pointerPos.x = Mathf.Clamp(pos.x + towardsTarget.x, minXBoundary + pointerMargin, maxXBoundary - pointerMargin);
                     pointerPos.y = Mathf.Clamp(pos.y + towardsTarget.y, minYBoundary + pointerMargin, maxYBoundary - pointerMargin);
                     pointer.transform.position = pointerPos;
+                    towardsTarget = (pos - pointerPos).normalized;
                     pointer.transform.rotation = Quaternion.Euler(0, 0, Vector2Extension.AngleFromDirection(towardsTarget));
                 }
             }
