@@ -73,6 +73,15 @@ namespace Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""cecb4d0a-e5c3-4a1a-a86c-7c90a810ec41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -144,6 +153,17 @@ namespace Game.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""1dcf561e-3524-4742-9821-741bf157a3a4"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a55c185e-2203-4a0a-815d-d0d76ebb36d3"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -156,6 +176,17 @@ namespace Game.Input
                 {
                     ""name"": """",
                     ""id"": ""0800c01d-fe68-4377-bcbf-570b17120773"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ad20cf1-5713-46d0-bbc5-00d5c25d7020"",
                     ""path"": ""<HID::Microntek              USB Joystick          >/button3"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -188,6 +219,17 @@ namespace Game.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d1125816-bf71-4e7b-8aa9-642dcd238142"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""MoveSkill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""4c9795f6-2a89-44dc-9b9f-9d71ec1b9637"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -210,11 +252,22 @@ namespace Game.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""eeca8ded-cc0d-42d1-9bf9-8e887db4db54"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""0aae3a09-2029-458d-a11d-822891862a66"",
                     ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard Default"",
                     ""action"": ""MainAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -227,6 +280,50 @@ namespace Game.Input
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""MainAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7c29191-2a24-415b-b7c6-177148edad16"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""MainAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc0be399-312b-4f03-a7d6-84e0b06ef07a"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard Default"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""efb1f3a8-ea2c-4866-a451-1b655ed9bfac"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9dc213b7-b0e0-4b90-a643-40c7c81ecd40"",
+                    ""path"": ""<HID::Microntek              USB Joystick          >/button10"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -772,7 +869,12 @@ namespace Game.Input
             ""devices"": [
                 {
                     ""devicePath"": ""<HID::Microntek              USB Joystick          >"",
-                    ""isOptional"": false,
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": true,
                     ""isOR"": false
                 }
             ]
@@ -786,6 +888,7 @@ namespace Game.Input
             m_Player_MoveSkill = m_Player.FindAction("MoveSkill", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_MainAttack = m_Player.FindAction("MainAttack", throwIfNotFound: true);
+            m_Player_Start = m_Player.FindAction("Start", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Direction = m_UI.FindAction("Direction", throwIfNotFound: true);
@@ -862,6 +965,7 @@ namespace Game.Input
         private readonly InputAction m_Player_MoveSkill;
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_MainAttack;
+        private readonly InputAction m_Player_Start;
         public struct PlayerActions
         {
             private @PlayerActionsControls m_Wrapper;
@@ -871,6 +975,7 @@ namespace Game.Input
             public InputAction @MoveSkill => m_Wrapper.m_Player_MoveSkill;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @MainAttack => m_Wrapper.m_Player_MainAttack;
+            public InputAction @Start => m_Wrapper.m_Player_Start;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -895,6 +1000,9 @@ namespace Game.Input
                     @MainAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainAttack;
                     @MainAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainAttack;
                     @MainAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMainAttack;
+                    @Start.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
+                    @Start.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
+                    @Start.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStart;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -914,6 +1022,9 @@ namespace Game.Input
                     @MainAttack.started += instance.OnMainAttack;
                     @MainAttack.performed += instance.OnMainAttack;
                     @MainAttack.canceled += instance.OnMainAttack;
+                    @Start.started += instance.OnStart;
+                    @Start.performed += instance.OnStart;
+                    @Start.canceled += instance.OnStart;
                 }
             }
         }
@@ -1048,6 +1159,7 @@ namespace Game.Input
             void OnMoveSkill(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnMainAttack(InputAction.CallbackContext context);
+            void OnStart(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

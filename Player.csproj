@@ -60,6 +60,7 @@
     <Compile Include="Assets\_Scripts\Players\Player.cs" />
     <Compile Include="Assets\_Scripts\Players\ControllerState.cs" />
     <Compile Include="Assets\_Scripts\Players\PlayerController.cs" />
+    <Compile Include="Assets\_Scripts\Players\PlayerSelectSO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Players\Players.asmdef" />
@@ -778,6 +779,10 @@
     <ProjectReference Include="Utils.csproj">
       <Project>{9C54C169-DFD2-3195-454A-6A4B08C11B94}</Project>
       <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unlocks.csproj">
+      <Project>{747E1FA9-8DFA-EDE7-9435-31B3724D9F85}</Project>
+      <Name>Unlocks</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

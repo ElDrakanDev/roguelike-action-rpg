@@ -59,6 +59,11 @@
     <Compile Include="Assets\_Scripts\UI\Minimap.cs" />
     <Compile Include="Assets\_Scripts\UI\FpsCounter.cs" />
     <Compile Include="Assets\_Scripts\UI\MinimapRoom.cs" />
+    <Compile Include="Assets\_Scripts\UI\PlayerSelectionMenu.cs" />
+    <Compile Include="Assets\_Scripts\UI\PlayerSelectionPanel.cs" />
+    <Compile Include="Assets\_Scripts\UI\PlayerSelectionName.cs" />
+    <Compile Include="Assets\_Scripts\UI\PlayerSelectionDescription.cs" />
+    <Compile Include="Assets\_Scripts\UI\PlayerSelectionData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\UI\UI.asmdef" />
@@ -757,6 +762,14 @@
     <ProjectReference Include="Unity.InputSystem.csproj">
       <Project>{E1029596-0002-285C-9258-99EE3E672C6B}</Project>
       <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="Player.csproj">
+      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
+      <Name>Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="NewAssembly.csproj">
+      <Project>{84BADABC-5948-4A6B-63CB-360953822817}</Project>
+      <Name>NewAssembly</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

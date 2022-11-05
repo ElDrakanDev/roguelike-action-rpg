@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "cecb4d0a-e5c3-4a1a-a86c-7c90a810ec41",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -120,6 +129,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1dcf561e-3524-4742-9821-741bf157a3a4",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a55c185e-2203-4a0a-815d-d0d76ebb36d3",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -132,6 +152,17 @@
                 {
                     "name": "",
                     "id": "0800c01d-fe68-4377-bcbf-570b17120773",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ad20cf1-5713-46d0-bbc5-00d5c25d7020",
                     "path": "<HID::Microntek              USB Joystick          >/button3",
                     "interactions": "",
                     "processors": "",
@@ -164,6 +195,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d1125816-bf71-4e7b-8aa9-642dcd238142",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "MoveSkill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4c9795f6-2a89-44dc-9b9f-9d71ec1b9637",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -186,11 +228,22 @@
                 },
                 {
                     "name": "",
+                    "id": "eeca8ded-cc0d-42d1-9bf9-8e887db4db54",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "0aae3a09-2029-458d-a11d-822891862a66",
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard Default",
                     "action": "MainAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -203,6 +256,50 @@
                     "processors": "",
                     "groups": "Joystick",
                     "action": "MainAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f7c29191-2a24-415b-b7c6-177148edad16",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "MainAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc0be399-312b-4f03-a7d6-84e0b06ef07a",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard Default",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "efb1f3a8-ea2c-4866-a451-1b655ed9bfac",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9dc213b7-b0e0-4b90-a643-40c7c81ecd40",
+                    "path": "<HID::Microntek              USB Joystick          >/button10",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -748,7 +845,12 @@
             "devices": [
                 {
                     "devicePath": "<HID::Microntek              USB Joystick          >",
-                    "isOptional": false,
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]

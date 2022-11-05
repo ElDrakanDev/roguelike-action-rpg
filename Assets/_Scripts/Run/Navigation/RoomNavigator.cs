@@ -150,7 +150,7 @@ namespace Game.Run
         }
 
         void OnDoorEnter() { if (CanMove) HandleRoomMovement(); else CancelInput(); }
-        void OnRoomChange()
+        public void OnRoomChange()
         {
             Vector3 doorPos;
             foreach (var interactable in GameObject.FindGameObjectsWithTag("Interactable"))
