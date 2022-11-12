@@ -18,6 +18,7 @@ namespace Game.Weapons
         WeaponAttackMode attackMode;
         float _cooldown = 0;
         bool _inUse = false;
+        Transform _transform;
         WeaponAttack[] Attacks { get => weaponData.attacks; }
         public float FlatBonus { get => Owner.stats.StatTotal(stats.flatAttributes); }
         public float Multiplier { get => Owner.stats.StatTotal(stats.multAttributes); }
@@ -65,6 +66,7 @@ namespace Game.Weapons
             {
                 Initialize(weaponData);
             }
+            _transform = transform;
         }
 
         /// <summary>
@@ -86,7 +88,7 @@ namespace Game.Weapons
             if (spawnPickable)
             {
                 Vector3 randomRotation = new Vector3(0, 0, Random.Range(0, 361));
-                Instantiate(weaponData.pickable, transform.position, Quaternion.Euler(randomRotation), Run.Run.instance.ActiveRoom.gameObject.transform);
+                Instantiate(weaponData.pickable, _transform.position, Quaternion.Euler(randomRotation), Run.Run.instance.ActiveRoom.gameObject.transform);
             }
             if (weaponData is not null && Attacks is not null)
                 foreach (var attack in Attacks) {
@@ -115,6 +117,7 @@ namespace Game.Weapons
                     WeaponAttackInfo info = AttackInfo;
                     attack.UseBegin(ref info);
                 }
+                if (weaponData.beginAttackClip) SFXManager.Play(weaponData.beginAttackClip, _transform.position);
                 _cooldown = UseTime;
                 _inUse = true;
             }
@@ -128,6 +131,7 @@ namespace Game.Weapons
                     WeaponAttackInfo info = AttackInfo;
                     attack.Use(ref info);
                 }
+                if (weaponData.midAttackClip) SFXManager.Play(weaponData.midAttackClip, _transform.position);
                 _cooldown = UseTime;
             }
         }
@@ -140,6 +144,8 @@ namespace Game.Weapons
                     WeaponAttackInfo info = AttackInfo;
                     attack.UseEnd(ref info);
                 }
+                if(weaponData.endAttackClip) SFXManager.Play(weaponData.endAttackClip, _transform.position);
+                _inUse = false;
             }
         }
     }

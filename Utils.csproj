@@ -68,7 +68,7 @@
     <Compile Include="Assets\_Scripts\Utils\Teams.cs" />
     <Compile Include="Assets\_Scripts\Utils\Encryption.cs" />
     <Compile Include="Assets\_Scripts\Utils\BGMManager.cs" />
-    <Compile Include="Assets\_Scripts\Utils\BGMClip.cs" />
+    <Compile Include="Assets\_Scripts\Utils\SFXManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Utils\Utils.asmdef" />

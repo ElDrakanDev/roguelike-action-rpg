@@ -15,5 +15,9 @@ namespace Game.Weapons
         public WeaponStatsSO statsScriptable;
         public WeaponAttack[] attacks;
         public AttackMode attackMode = AttackMode.Sequence;
+        [Header("SFX")]
+        public AudioClip beginAttackClip;
+        public AudioClip midAttackClip;
+        public AudioClip endAttackClip;
     }
 }

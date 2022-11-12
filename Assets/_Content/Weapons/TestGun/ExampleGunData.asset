@@ -17,3 +17,6 @@ MonoBehaviour:
   attacks:
   - {fileID: 11400000, guid: 43caca1fcf427e94dbd6d6014cca933c, type: 2}
   attackMode: 0
+  beginAttackClip: {fileID: 8300000, guid: 5125b839eb0a06442bc68cd6f92950c6, type: 3}
+  midAttackClip: {fileID: 8300000, guid: 5125b839eb0a06442bc68cd6f92950c6, type: 3}
+  endAttackClip: {fileID: 0}
