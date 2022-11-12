@@ -838,10 +838,6 @@
       <Project>{941DF200-BDF5-A3A9-0E80-B5891AD8BCFC}</Project>
       <Name>Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="OdinSerializer.csproj">
-      <Project>{395DAEA2-902C-F7B1-417C-4286758A2260}</Project>
-      <Name>OdinSerializer</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.csproj">
       <Project>{4E217833-67CC-E5FC-A090-DFCDB7DB251D}</Project>
       <Name>Unity.RenderPipeline.Universal.ShaderLibrary</Name>
@@ -933,10 +929,6 @@
     <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
       <Project>{FD244123-380A-A007-FAF5-EB942FC38269}</Project>
       <Name>Unity.PlasticSCM.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="SerializableDictionary.csproj">
-      <Project>{A8652E24-098C-1FA6-B0F4-C52D428A38B7}</Project>
-      <Name>SerializableDictionary</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
       <Project>{975BEB29-E871-A71D-4DD5-36BB1FF037E9}</Project>
