@@ -67,6 +67,8 @@
     <Compile Include="Assets\_Scripts\Utils\GameObjectHelpers.cs" />
     <Compile Include="Assets\_Scripts\Utils\Teams.cs" />
     <Compile Include="Assets\_Scripts\Utils\Encryption.cs" />
+    <Compile Include="Assets\_Scripts\Utils\BGMManager.cs" />
+    <Compile Include="Assets\_Scripts\Utils\BGMClip.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Utils\Utils.asmdef" />

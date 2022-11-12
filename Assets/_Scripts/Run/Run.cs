@@ -4,6 +4,7 @@ namespace Game.Run
     using UnityEngine;
     using Game.RNG;
     using Game.Generation;
+    using Game.Events;
 
     public class Run : MonoBehaviour
     {
@@ -47,6 +48,7 @@ namespace Game.Run
             navigator = new RoomNavigator(new Game.Input.PlayerActionsControls());
             LevelContainer.GenerateLevel();
             navigator.CurrentLevel = LevelContainer.CurrentLevel;
+            EventManager.OnRoomChange();
         }
     }
 }

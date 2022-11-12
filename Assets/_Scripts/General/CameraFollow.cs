@@ -3,7 +3,6 @@ using UnityEngine;
 using Game.Events;
 using Game.Utils;
 using UnityEngine.Tilemaps;
-using System.Threading.Tasks;
 using System;
 
 namespace Game.General
@@ -16,6 +15,7 @@ namespace Game.General
         Camera cam;
         List<Transform> targets = new List<Transform>();
         Vector3 _min, _max;
+        Vector3 _minTilemap, _maxTilemap;
         Vector3 RoomCenter { get => (_min + _max) * 0.5f; }
         Dictionary<Transform, GameObject> offscreenPointers = new Dictionary<Transform, GameObject>();
         Transform t;
@@ -25,11 +25,11 @@ namespace Game.General
             cam = GetComponent<Camera>();
             t = transform;
         }
-        private async void Start()
-        {
-            while (Run.Run.instance.ActiveRoom == null) await Task.Delay(1);
-            UpdateBoundaries();
-        }
+        //private async void Start()
+        //{
+        //    while (Run.Run.instance.ActiveRoom == null) await Task.Delay(1);
+        //    UpdateBoundaries();
+        //}
         private void OnEnable()
         {
             EventManager.onPlayerSpawn += AddTarget;
@@ -127,7 +127,8 @@ namespace Game.General
                     _min.y = _max.y;
                     _max.y = min;
                 }
-
+                _minTilemap = tilemap.localBounds.min;
+                _maxTilemap = tilemap.localBounds.max;
                 return;
             }
 
@@ -138,6 +139,8 @@ namespace Game.General
             Gizmos.color = Color.blue;
             Gizmos.DrawWireCube(RoomCenter, new Vector3(_max.x - _min.x, _max.y - _min.y, 0));
             Gizmos.DrawSphere(RoomCenter, 0.5f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(RoomCenter, new Vector3(_maxTilemap.x - _minTilemap.x, _maxTilemap.y - _minTilemap.y, 0));
         }
 
         bool InView(Vector3 position)
