@@ -60,6 +60,7 @@
     <Compile Include="Assets\_Scripts\General\CameraFollow.cs" />
     <Compile Include="Assets\_Scripts\General\Singleton.cs" />
     <Compile Include="Assets\_Scripts\General\InteractableOutline.cs" />
+    <Compile Include="Assets\_Scripts\General\CameraTargetFollow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\General\General.asmdef" />
@@ -762,6 +763,10 @@
     <ProjectReference Include="Utils.csproj">
       <Project>{9C54C169-DFD2-3195-454A-6A4B08C11B94}</Project>
       <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="Cinemachine.csproj">
+      <Project>{26ABF08D-9B12-A085-F355-65325A19AA6D}</Project>
+      <Name>Cinemachine</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

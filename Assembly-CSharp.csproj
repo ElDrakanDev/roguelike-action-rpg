@@ -1026,6 +1026,14 @@
       <Project>{B77ABF90-422F-48BC-A35B-9384E040E0B5}</Project>
       <Name>Unity.VisualScripting.State</Name>
     </ProjectReference>
+    <ProjectReference Include="com.unity.cinemachine.editor.csproj">
+      <Project>{D25B7E66-00C3-E327-8ED6-6453E0642E04}</Project>
+      <Name>com.unity.cinemachine.editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Cinemachine.csproj">
+      <Project>{26ABF08D-9B12-A085-F355-65325A19AA6D}</Project>
+      <Name>Cinemachine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

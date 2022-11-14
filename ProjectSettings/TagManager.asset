@@ -9,6 +9,7 @@ TagManager:
   - Platform
   - Projectile
   - Entity
+  - Background
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Platform
   - Projectile
   - Entity
-  - 
+  - Background
   - 
   - 
   - 
