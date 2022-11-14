@@ -27,6 +27,8 @@ namespace Game.Entities
         public GameObject attackTarget;
         public Vector3 attackTargetPos;
         public Vector3 moveTarget;
+        protected AudioClip hitClip;
+        protected AudioClip deathClip;
         public float Health
         { 
             get => _stats.Health;
@@ -44,6 +46,8 @@ namespace Game.Entities
             var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats();
+            entity.hitClip = data.hitEffect;
+            entity.deathClip = data.deathEffect;
             return entity;
         }
         public static Entity Create(EntityDataSO data, Vector3 position, Team team)
@@ -52,6 +56,8 @@ namespace Game.Entities
             var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats(team);
+            entity.hitClip = data.hitEffect;
+            entity.deathClip = data.deathEffect;
             return entity;
         }
         #endregion
@@ -120,6 +126,7 @@ namespace Game.Entities
         public virtual void Death()
         {
             onDeath?.Invoke(this);
+            if (deathClip) SFXManager.Play(deathClip, transform.position);
             Destroy(gameObject);
         }
         private void Update() => AIUpdate();
@@ -155,11 +162,12 @@ namespace Game.Entities
         public float Hit(float damage)
         {
             Health -= damage;
+            if (hitClip) SFXManager.Play(hitClip, transform.position);
             return damage;
         }
         public float Hit(float damage, Vector2 direction, float knockback)
         {
-            Health -= damage;
+            Hit(damage);
             if (rb)
             {
                 rb.AddForce(direction * knockback, ForceMode2D.Impulse);

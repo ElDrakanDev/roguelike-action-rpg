@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Game.Stats;
 
 namespace Game.Entities
 {
@@ -12,5 +9,7 @@ namespace Game.Entities
         public GameObject Prefab { get => _prefab; }
         [SerializeField] EntityStatsSO _stats;
         public EntityStatsSO Stats { get => _stats; }
+        public AudioClip hitEffect;
+        public AudioClip deathEffect;
     }
 }

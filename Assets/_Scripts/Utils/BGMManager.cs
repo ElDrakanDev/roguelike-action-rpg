@@ -18,11 +18,11 @@ namespace Game.Utils
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             };
+            _source.priority = 0; // Max priority
         }
         private void Start()
         {
             Play(_testclips);
-            DOVirtual.DelayedCall(1, () => { Play(_testclips, true); });
         }
         public void Play(AudioClip[] clips, bool useFade = true)
         {

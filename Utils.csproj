@@ -56,19 +56,20 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Scripts\Utils\SFXManager.cs" />
     <Compile Include="Assets\_Scripts\Utils\Lifetime.cs" />
     <Compile Include="Assets\_Scripts\Utils\SpriteAnimator.cs" />
     <Compile Include="Assets\_Scripts\Utils\Vector2Extension.cs" />
     <Compile Include="Assets\_Scripts\Utils\Comparers.cs" />
     <Compile Include="Assets\_Scripts\Utils\DictUtils.cs" />
+    <Compile Include="Assets\_Scripts\Utils\BGMManager.cs" />
     <Compile Include="Assets\_Scripts\Utils\PrefabReference.cs" />
     <Compile Include="Assets\_Scripts\Utils\SpriteAnimationSO.cs" />
     <Compile Include="Assets\_Scripts\Utils\Layers.cs" />
     <Compile Include="Assets\_Scripts\Utils\GameObjectHelpers.cs" />
     <Compile Include="Assets\_Scripts\Utils\Teams.cs" />
     <Compile Include="Assets\_Scripts\Utils\Encryption.cs" />
-    <Compile Include="Assets\_Scripts\Utils\BGMManager.cs" />
-    <Compile Include="Assets\_Scripts\Utils\SFXManager.cs" />
+    <Compile Include="Assets\_Scripts\Utils\CoroutineUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Utils\Utils.asmdef" />
