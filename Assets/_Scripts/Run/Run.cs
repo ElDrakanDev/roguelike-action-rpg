@@ -6,6 +6,7 @@ namespace Game.Run
     using Game.Generation;
     using Game.Events;
     using Game.Unlocks;
+    using UnityEngine.InputSystem;
 
     public class Run : MonoBehaviour
     {
@@ -42,6 +43,15 @@ namespace Game.Run
         private void Start()
         {
             Initialize(Seed == 0 ? Random.Range(int.MinValue, int.MaxValue) : Seed);
+        }
+        private void Update()
+        {
+            Keyboard current = Keyboard.current;
+            if(current.escapeKey.wasPressedThisFrame is true)
+            {
+                _unlockManager.Save();
+                Application.Quit();
+            }
         }
         public void Initialize(int seed)
         {
