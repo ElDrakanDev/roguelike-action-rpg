@@ -24,7 +24,10 @@ namespace Game.Players
         private void Awake()
         {
             animator = GetComponent<SpriteAnimator>();
-            stats = new CharacterStats(this, baseStats.baseStats, () => Destroy(gameObject));
+            stats = new CharacterStats(this, baseStats.baseStats, () => {
+                if(players.Count == 1) EventManager.OnPlayerLose();
+                Destroy(gameObject); 
+            });
         }
         private void OnEnable()
         {

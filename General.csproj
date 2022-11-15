@@ -58,9 +58,9 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\General\ToggleOutline.cs" />
     <Compile Include="Assets\_Scripts\General\CameraFollow.cs" />
+    <Compile Include="Assets\_Scripts\General\CameraTargetFollow.cs" />
     <Compile Include="Assets\_Scripts\General\Singleton.cs" />
     <Compile Include="Assets\_Scripts\General\InteractableOutline.cs" />
-    <Compile Include="Assets\_Scripts\General\CameraTargetFollow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\General\General.asmdef" />

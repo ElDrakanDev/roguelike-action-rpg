@@ -8,9 +8,10 @@ namespace Game.Unlocks
     {
         protected bool alwaysHidden = false;
         public bool Hidden { get => alwaysHidden; }
-        [SerializeField] string unlockName;
         [SerializeField] bool unlocked;
-        public string Name { get => unlockName; }
+        [field:SerializeField] public string Name { get; protected set; }
+        [field:SerializeField] public string Description { get; protected set; }
+        [field:SerializeField] public Sprite Icon { get; protected set; }
         public virtual bool IsUnlocked()
         {
             UpdateUnlock();
@@ -19,32 +20,29 @@ namespace Game.Unlocks
         protected virtual void OnEnable()
         {
             EventManager.onUnlockLoad += UpdateUnlock;
-            EventManager.onUnlock += ShowUnlock;
+            EventManager.onUnlock += WasNewSelfUnlock;
         }
 
         protected virtual void OnDisable()
         {
             EventManager.onUnlockLoad -= UpdateUnlock;
-            EventManager.onUnlock -= ShowUnlock;
+            EventManager.onUnlock -= WasNewSelfUnlock;
         }
 
         public void SetUnlocked(bool unlocked = true)
         {
             this.unlocked = unlocked;
-            UnlockManager.Instance.SetUnlock(unlockName, unlocked);
+            UnlockManager.Instance.SetUnlock(Name, unlocked);
         }
 
         void UpdateUnlock()
         {
-            unlocked = UnlockManager.Instance.IsUnlocked(unlockName);
+            unlocked = UnlockManager.Instance.IsUnlocked(Name);
         }
 
-        void ShowUnlock(string unlockedName)
+        void WasNewSelfUnlock(string unlockedName)
         {
-            if(unlockName == unlockedName)
-            {
-                Debug.Log($"{unlockName} desbloqueado.");
-            }
+            if (Name == unlockedName) EventManager.OnUnlockShow(Name, Description, Icon);
         }
     }
 }

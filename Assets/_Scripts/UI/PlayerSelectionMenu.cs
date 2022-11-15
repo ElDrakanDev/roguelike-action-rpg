@@ -21,27 +21,31 @@ namespace Game.UI
         private void OnEnable()
         {
             controls.Enable();
-            controls.Player.Start.started += OpenSelectionIfUnpaired;
+            controls.Player.Start.started += OpenSelectionIfJoinConditionMet;
         }
         private void OnDisable()
         {
             controls.Disable();
-            controls.Player.Start.started -= OpenSelectionIfUnpaired;
+            controls.Player.Start.started -= OpenSelectionIfJoinConditionMet;
         }
 
-        void OpenSelectionIfUnpaired(InputAction.CallbackContext ctxt)
+        void OpenSelectionIfJoinConditionMet(InputAction.CallbackContext ctxt)
         {
-            if(
-                listeningToDevice is null &&    
-                PlayerInput.FindFirstPairedToDevice(ctxt.control.device) is null
-            )
+            if(JoinConditionMet(ctxt.control.device))
             {
                 listeningToDevice = ctxt.control.device;
                 selectionPanel.SetActive(true);
                 Time.timeScale = 0;
             }
         }
-
+        bool JoinConditionMet(InputDevice device)
+        {
+            return (
+                listeningToDevice is null &&
+                PlayerInput.FindFirstPairedToDevice(device) is null &&
+                Room.ActiveRoom.Type == RoomType.Start
+            );
+        }
         public void JoinPlayer(PlayerSelectSO selection)
         {
             Debug.Log($"{selection.characterName} joined");

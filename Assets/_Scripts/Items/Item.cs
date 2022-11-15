@@ -24,7 +24,7 @@ namespace Game.Items
         {
             Vector2 position = new Vector2(transform.position.x, transform.position.y);
             Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 361)));
-            Instantiate(data.ItemPrefab, position, rotation, Room.ActiveRoom.transform);
+            Instantiate(data.ItemPrefab, position, rotation, Room.ActiveRoomGameObject.transform);
             Destroy(this);
         }
         private void Update()

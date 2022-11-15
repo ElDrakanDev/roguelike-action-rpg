@@ -31,8 +31,8 @@ namespace Game.UI
                     image.sprite = selectablePlayer.sprite;
                     image.SetNativeSize();
                     selectable.GetComponentInChildren<PlayerSelectionData>().scriptable = selectablePlayer;
-                    selectable.GetComponentInChildren<PlayerSelectionName>().Text = selectablePlayer.characterName;
-                    selectable.GetComponentInChildren<PlayerSelectionDescription>().Text = selectablePlayer.characterDescription;
+                    selectable.GetComponentInChildren<UITextName>().Text = selectablePlayer.characterName;
+                    selectable.GetComponentInChildren<UITextDescription>().Text = selectablePlayer.characterDescription;
                     selectables.Add(selectable);
                     selectable.SetActive(false);
                 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class PlayerSelectionDescription : MonoBehaviour
+    public class UITextDescription : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI _textMeshPro;
         [SerializeField] float descriptionWriteInterval = 0.02f;

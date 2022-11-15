@@ -59,11 +59,12 @@
     <Compile Include="Assets\_Scripts\UI\PlayerSelectionData.cs" />
     <Compile Include="Assets\_Scripts\UI\Minimap.cs" />
     <Compile Include="Assets\_Scripts\UI\PlayerSelectionPanel.cs" />
-    <Compile Include="Assets\_Scripts\UI\PlayerSelectionDescription.cs" />
+    <Compile Include="Assets\_Scripts\UI\UITextDescription.cs" />
     <Compile Include="Assets\_Scripts\UI\FpsCounter.cs" />
     <Compile Include="Assets\_Scripts\UI\MinimapRoom.cs" />
     <Compile Include="Assets\_Scripts\UI\PlayerSelectionMenu.cs" />
-    <Compile Include="Assets\_Scripts\UI\PlayerSelectionName.cs" />
+    <Compile Include="Assets\_Scripts\UI\UITextName.cs" />
+    <Compile Include="Assets\_Scripts\UI\UnlockNotification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\UI\UI.asmdef" />
@@ -770,6 +771,10 @@
     <ProjectReference Include="NewAssembly.csproj">
       <Project>{84BADABC-5948-4A6B-63CB-360953822817}</Project>
       <Name>NewAssembly</Name>
+    </ProjectReference>
+    <ProjectReference Include="DOTween.Modules.csproj">
+      <Project>{A04B74DF-427E-49EC-DDB9-0BB79DE35404}</Project>
+      <Name>DOTween.Modules</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

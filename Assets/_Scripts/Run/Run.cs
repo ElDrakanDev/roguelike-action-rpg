@@ -5,11 +5,13 @@ namespace Game.Run
     using Game.RNG;
     using Game.Generation;
     using Game.Events;
+    using Game.Unlocks;
 
     public class Run : MonoBehaviour
     {
         [SerializeField] int _seed;
         [HideInInspector] public static Run instance;
+        [SerializeField] UnlockManager _unlockManager;
         RoomContainer _roomContainer;
         public RoomNavigator navigator;
         public int Seed { get => _seed; private set => _seed = value; }
@@ -35,6 +37,7 @@ namespace Game.Run
             {
                 Destroy(gameObject);
             }
+            _unlockManager = new UnlockManager();
         }
         private void Start()
         {

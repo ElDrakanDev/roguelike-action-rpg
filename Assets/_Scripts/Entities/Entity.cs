@@ -42,7 +42,7 @@ namespace Game.Entities
         #region Creation
         public static Entity Create(EntityDataSO data, Vector3 position)
         {
-            Transform parent = Generation.Room.ActiveRoom.transform;
+            Transform parent = Generation.Room.ActiveRoomGameObject.transform;
             var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats();
@@ -52,7 +52,7 @@ namespace Game.Entities
         }
         public static Entity Create(EntityDataSO data, Vector3 position, Team team)
         {
-            Transform parent = Generation.Room.ActiveRoom.transform;
+            Transform parent = Generation.Room.ActiveRoomGameObject.transform;
             var instance = Instantiate(data.Prefab, position, Quaternion.identity, parent);
             var entity = instance.GetComponent<Entity>();
             entity.Stats = data.Stats.CreateStats(team);

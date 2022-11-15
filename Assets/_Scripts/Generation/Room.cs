@@ -15,8 +15,8 @@ namespace Game.Generation
         public GameObject gameObject;
         public ExploredState exploredState = ExploredState.NotDiscovered;
         public readonly Vector2Int position;
-        static GameObject _activeRoom;
-        public static GameObject ActiveRoom { get => _activeRoom; }
+        public static GameObject ActiveRoomGameObject { get; protected set; }
+        public static Room ActiveRoom { get; protected set; }
 
 
         public Room(RoomType type, Vector2Int position)
@@ -46,7 +46,8 @@ namespace Game.Generation
 
         public void Enter()
         {
-            _activeRoom = gameObject;
+            ActiveRoomGameObject = gameObject;
+            ActiveRoom = this;
             exploredState = ExploredState.Explored;
             gameObject?.SetActive(true);
         }

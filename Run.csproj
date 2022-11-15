@@ -762,6 +762,10 @@
       <Project>{84BADABC-5948-4A6B-63CB-360953822817}</Project>
       <Name>NewAssembly</Name>
     </ProjectReference>
+    <ProjectReference Include="Unlocks.csproj">
+      <Project>{747E1FA9-8DFA-EDE7-9435-31B3724D9F85}</Project>
+      <Name>Unlocks</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>

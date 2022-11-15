@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class PlayerSelectionName : MonoBehaviour
+    public class UITextName : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI _textMeshPro;
         public string Text { get => _textMeshPro.text; set => _textMeshPro.text = value; }
