@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75ede5e8254e8cd4fb122deecf61e94f, type: 3}
-  m_Name: Test death unlock
+  m_Name: Test death unlock 2
   m_EditorClassIdentifier: 
   unlocked: 1
-  <Name>k__BackingField: Te moriste
-  <Description>k__BackingField: Sos re pete amigo
-  <Icon>k__BackingField: {fileID: 21300000, guid: c31e4197c16caec4c835666550a87e63, type: 3}
+  <Name>k__BackingField: necrofilia
+  <Description>k__BackingField: se han follado a tu cadaver
+  <Icon>k__BackingField: {fileID: 21300000, guid: 17fa84703485d314b8d6b5216987d4b1, type: 3}
   minLosses: 1

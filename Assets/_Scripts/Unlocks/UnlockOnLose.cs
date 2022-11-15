@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Game.Events;
+using System.Threading.Tasks;
 
 namespace Game.Unlocks
 {
@@ -9,21 +8,20 @@ namespace Game.Unlocks
     public class UnlockOnLose : UnlockScriptableObject
     {
         [SerializeField] int minLosses;
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            EventManager.onPlayerLose -= AutoUnlock;
-        }
         protected override void OnEnable()
         {
             base.OnEnable();
             EventManager.onPlayerLose += AutoUnlock;
         }
-
-        void AutoUnlock()
+        protected override void OnDisable()
         {
-            if(UnlockManager.Instance.saveFileData.stats.deaths >= minLosses) SetUnlocked(true);
+            base.OnDisable();
+            EventManager.onPlayerLose -= AutoUnlock;
+        }
+        async void AutoUnlock()
+        {
+            await Task.Delay(1);
+            if(UnlockManager.Instance.saveFileData.stats.deaths >= minLosses) SetUnlocked(true);  
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Game.Unlocks
         {
             this.unlocked = unlocked;
             UnlockManager.Instance.SetUnlock(Name, unlocked);
+            Debug.Log($"Unlocked {Name}");
         }
 
         void UpdateUnlock()

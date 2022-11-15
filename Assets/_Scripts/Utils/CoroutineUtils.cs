@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class CoroutineUtils
+namespace Game.Utils
 {
-    public static IEnumerator DelayedCall(float delay, Action callback)
+    public static class CoroutineUtils
     {
-        yield return new WaitForSeconds(delay);
-        callback();
+        public static IEnumerator DelayedCall(float delay, Action callback)
+        {
+            yield return new WaitForSeconds(delay);
+            callback();
+        }
     }
 }
