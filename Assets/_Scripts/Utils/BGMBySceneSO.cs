@@ -8,8 +8,8 @@ namespace Game.Utils
     [CreateAssetMenu(menuName = "Utils/SceneDefaultBGM")]
     public class BGMBySceneSO : ScriptableObject
     {
-        [field:SerializeField] Object _SceneObject { get; set; }
-        public Scene Scene { get => SceneManager.GetSceneByName(_SceneObject.name); }
+        [field:SerializeField] string _SceneName { get; set; }
+        public Scene Scene { get => SceneManager.GetSceneByName(_SceneName); }
         [field:SerializeField] public AudioClip[] normalRoomClips;
         [field: SerializeField] public AudioClip[] shopRoomClips;
         [field: SerializeField] public AudioClip[] treasureRoomClips;
