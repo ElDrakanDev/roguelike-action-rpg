@@ -7,9 +7,9 @@ namespace Game.Utils
     public class BGMManager : MonoBehaviour
     {
         public static BGMManager Instance { get; protected set; }
-        [SerializeField] float _fadeTime = 0.5f;
-        [SerializeField] AudioSource _source;
-        [SerializeField] AudioClip[] _testclips;
+        [SerializeField] float _fadeTime = 0.3f;
+        [field:SerializeField] public AudioSource Source { get; protected set; }
+        AudioClip[] currentClips;
 
         private void Awake()
         {
@@ -18,32 +18,31 @@ namespace Game.Utils
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             };
-            _source.priority = 0; // Max priority
+            Source.priority = 0; // Max priority
         }
-        private void Start()
-        {
-            Play(_testclips);
-        }
+
         public void Play(AudioClip[] clips, bool useFade = true)
         {
+            if (clips == currentClips) return;
             if(useFade is false)
             {
-                _source.Stop();
-                _source.loop = false;
+                Source.Stop();
+                Source.loop = false;
                 StopCoroutine("PlayClipSequence");
                 StartCoroutine(PlayClipSequence(clips));
             }
             else
             {
-                DOVirtual.Float(1, 0, _fadeTime * 0.5f, volume => _source.volume = volume)
+                DOVirtual.Float(1, 0, _fadeTime * 0.5f, volume => Source.volume = volume)
                     .OnComplete(() => {
                         StopCoroutine("PlayClipSequence");
-                        _source.Stop();
-                        _source.loop = false;
+                        Source.Stop();
+                        Source.loop = false;
                         StartCoroutine(PlayClipSequence(clips));
-                        DOVirtual.Float(0, 1, _fadeTime * 0.5f, volume => _source.volume = volume);
+                        DOVirtual.Float(0, 1, _fadeTime * 0.5f, volume => Source.volume = volume);
                     });
             }
+            currentClips = clips;
         }
 
         IEnumerator PlayClipSequence(AudioClip[] clips)
@@ -55,13 +54,13 @@ namespace Game.Utils
             while(true)
             {
                 //2.Assign current AudioClip to audiosource
-                _source.clip = clips[i % clips.Length];
+                Source.clip = clips[i % clips.Length];
 
                 //3.Play Audio
-                _source.Play();
+                Source.Play();
 
                 //4.Wait for it to finish playing
-                while (_source.isPlaying)
+                while (Source.isPlaying)
                 {
                     yield return null;
                 }

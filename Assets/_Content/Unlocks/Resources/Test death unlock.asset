@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ede5e8254e8cd4fb122deecf61e94f, type: 3}
+  m_Name: Test death unlock
+  m_EditorClassIdentifier: 
+  unlocked: 1
+  <Name>k__BackingField: Te moriste
+  <Description>k__BackingField: Sos re pete amigo
+  <Icon>k__BackingField: {fileID: 21300000, guid: c31e4197c16caec4c835666550a87e63, type: 3}
+  minLosses: 1

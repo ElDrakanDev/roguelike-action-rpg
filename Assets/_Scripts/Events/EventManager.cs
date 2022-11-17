@@ -35,6 +35,8 @@ namespace Game.Events
         public static void OnPlayerDespawn(GameObject player) => onPlayerDespawn?.Invoke(player);
         public static event Action onRoomChange;
         public static void OnRoomChange() => onRoomChange?.Invoke();
+        public static event Action<int> onRoomTypeChange;
+        public static void OnRoomTypeChange(int type) => onRoomTypeChange?.Invoke(type);
         public static event Action onUnlockLoad;
         public static void OnUnlockLoad() => onUnlockLoad?.Invoke();
         public static event Action<string> onUnlock;

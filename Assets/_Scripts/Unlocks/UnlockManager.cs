@@ -17,6 +17,8 @@ namespace Game.Unlocks
         public string SavePath { get => savePath; }
         public int SaveSlot { get => saveSlot; }
         public static UnlockManager Instance { get => instance; }
+        //Referenciar desbloqueos de auto desbloqueo
+        [field:SerializeField] public UnlockScriptableObject[] Unlocks { get; private set; }
 
         public UnlockManager(int saveSlot = 1)
         {
@@ -25,6 +27,7 @@ namespace Game.Unlocks
             savePath = GetSavePath();
             Debug.Log($"UnlockManager instanciado con savePath en {savePath}");
             Load();
+            Unlocks = Resources.LoadAll<UnlockScriptableObject>("");
         }
 
         public bool Load()
@@ -38,10 +41,10 @@ namespace Game.Unlocks
                 EventManager.OnUnlockLoad();
                 return true;
             }
-            catch(FileNotFoundException ex)
+            catch(FileNotFoundException)
             {
                 saveFileData = new UnlockData();
-                Debug.LogWarning($"Error al cargar los desbloqueos. Se crearon datos vacíos. {ex}");
+                Debug.LogWarning($"Error al cargar los desbloqueos. Se crearon datos vacíos.");
                 EventManager.OnUnlockLoad();
                 return false;
             }
@@ -58,12 +61,18 @@ namespace Game.Unlocks
             if(saveFileData.unlocks.TryGetValue(unlockName, out bool isUnlocked))
             {
                 saveFileData.unlocks[unlockName] = value;
-                if (value is true && isUnlocked is false) EventManager.OnUnlock(unlockName);
+                if (value is true && isUnlocked is false) {
+                    Debug.Log($"Se desbloqueó {unlockName}");
+                    EventManager.OnUnlock(unlockName);
+                }
             }
             else
             {
                 saveFileData.unlocks.Add(unlockName, value);
-                if (value) EventManager.OnUnlock(unlockName);
+                if (value) {
+                    Debug.Log($"Se desbloqueó {unlockName}");
+                    EventManager.OnUnlock(unlockName);
+                }
             }
         }
         public bool IsUnlocked(string name)

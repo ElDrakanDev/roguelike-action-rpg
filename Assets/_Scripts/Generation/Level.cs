@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Events;
 
 namespace Game.Generation
 {
@@ -18,6 +19,8 @@ namespace Game.Generation
             }
 
             this[toEnter].Enter();
+            EventManager.OnRoomChange();
+            EventManager.OnRoomTypeChange((int)this[toEnter].Type);
         }
         public void EnterRoom(Vector2Int previous, Vector2Int toEnter)
         {
@@ -34,6 +37,8 @@ namespace Game.Generation
             }
 
             this[toEnter].Enter();
+            EventManager.OnRoomChange();
+            EventManager.OnRoomTypeChange((int)this[toEnter].Type);
         }
     }
 

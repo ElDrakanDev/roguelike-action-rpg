@@ -6,6 +6,7 @@ using Game.Interfaces;
 using Game.Utils;
 using System.Collections.Generic;
 using System;
+using Game.Unlocks;
 
 namespace Game.Players
 {
@@ -25,7 +26,12 @@ namespace Game.Players
         {
             animator = GetComponent<SpriteAnimator>();
             stats = new CharacterStats(this, baseStats.baseStats, () => {
-                if(players.Count == 1) EventManager.OnPlayerLose();
+                if (players.Count == 1)
+                {
+                    UnlockManager.Instance.saveFileData.stats.deaths++;
+                    EventManager.OnPlayerLose();
+                    Debug.Log($"Run lost");
+                }
                 Destroy(gameObject); 
             });
         }

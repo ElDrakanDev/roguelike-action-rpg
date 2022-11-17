@@ -62,7 +62,6 @@
     <Compile Include="Assets\_Scripts\Interfaces\IUsable.cs" />
     <Compile Include="Assets\_Scripts\Interfaces\IInteractable.cs" />
     <Compile Include="Assets\_Scripts\Interfaces\IPickable.cs" />
-    <Compile Include="Assets\_Scripts\Interfaces\IItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Interfaces\Interfaces.asmdef" />

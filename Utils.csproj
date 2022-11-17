@@ -60,6 +60,7 @@
     <Compile Include="Assets\_Scripts\Utils\Lifetime.cs" />
     <Compile Include="Assets\_Scripts\Utils\SpriteAnimator.cs" />
     <Compile Include="Assets\_Scripts\Utils\Vector2Extension.cs" />
+    <Compile Include="Assets\_Scripts\Utils\BGMBySceneSO.cs" />
     <Compile Include="Assets\_Scripts\Utils\Comparers.cs" />
     <Compile Include="Assets\_Scripts\Utils\DictUtils.cs" />
     <Compile Include="Assets\_Scripts\Utils\BGMManager.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Assets\_Scripts\Utils\Layers.cs" />
     <Compile Include="Assets\_Scripts\Utils\GameObjectHelpers.cs" />
     <Compile Include="Assets\_Scripts\Utils\Teams.cs" />
+    <Compile Include="Assets\_Scripts\Utils\BGMHandler.cs" />
     <Compile Include="Assets\_Scripts\Utils\Encryption.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -749,6 +751,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Events.csproj">
+      <Project>{8C702F15-B206-AE0B-7CE7-18347DE94CB0}</Project>
+      <Name>Events</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>
       <Name>UnityEditor.UI</Name>

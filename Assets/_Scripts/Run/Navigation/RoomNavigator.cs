@@ -67,9 +67,9 @@ namespace Game.Run
             var newPos = Position + new Vector2Int(x, y);
             if(CurrentLevel.ContainsKey(newPos))
             {
-                CurrentLevel.EnterRoom(Position, newPos);
+                ActiveRoom.Exit();
                 Position = newPos;
-                EventManager.OnRoomChange();
+                CurrentLevel.EnterRoom(Position, newPos);
                 return true;
             }
             return false;
@@ -81,9 +81,9 @@ namespace Game.Run
             var newPos = Position + direction;
             if (CurrentLevel.ContainsKey(newPos))
             {
-                CurrentLevel.EnterRoom(Position, newPos);
+                ActiveRoom.Exit();
                 Position = newPos;
-                EventManager.OnRoomChange();
+                CurrentLevel.EnterRoom(Position, newPos);
                 return true;
             }
             return false;
@@ -93,18 +93,18 @@ namespace Game.Run
             var newPos = new Vector2Int(x, y);
             if(newPos != Position)
             {
-                CurrentLevel.EnterRoom(Position, newPos);
+                ActiveRoom.Exit();
                 Position = newPos;
-                EventManager.OnRoomChange();
+                CurrentLevel.EnterRoom(Position, newPos);
             }
         }
         public void MoveTo(Vector2Int pos)
         {
             if(pos != Position)
             {
-                CurrentLevel.EnterRoom(Position, pos);
+                ActiveRoom.Exit();
                 Position = pos;
-                EventManager.OnRoomChange();
+                CurrentLevel.EnterRoom(Position, pos);
             }
         }
 

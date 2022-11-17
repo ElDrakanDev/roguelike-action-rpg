@@ -31,6 +31,7 @@ namespace Game.UI
             else
                 Destroy(gameObject);
             _initialUiScale = _notificationUi.transform.localScale;
+
         }
         private void OnEnable()
         {
@@ -44,6 +45,7 @@ namespace Game.UI
         void QueueUnlock(string unlockName, string description, Sprite icon)
         {
             _notificationsQueue.Enqueue(Tuple.Create(unlockName, description, icon));
+            Debug.Log($"Enqueued unlock notification {unlockName}");
             TryShowUnlock();
         }
         async void TryShowUnlock()
