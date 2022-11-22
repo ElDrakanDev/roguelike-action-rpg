@@ -65,6 +65,8 @@
     <Compile Include="Assets\_Scripts\UI\PlayerSelectionMenu.cs" />
     <Compile Include="Assets\_Scripts\UI\UITextName.cs" />
     <Compile Include="Assets\_Scripts\UI\UnlockNotification.cs" />
+    <Compile Include="Assets\_Scripts\UI\PlayerLifeBarManager.cs" />
+    <Compile Include="Assets\_Scripts\UI\LayeredBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\UI\UI.asmdef" />
@@ -775,6 +777,10 @@
     <ProjectReference Include="DOTween.Modules.csproj">
       <Project>{A04B74DF-427E-49EC-DDB9-0BB79DE35404}</Project>
       <Name>DOTween.Modules</Name>
+    </ProjectReference>
+    <ProjectReference Include="Interfaces.csproj">
+      <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
+      <Name>Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

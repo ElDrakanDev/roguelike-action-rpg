@@ -19,7 +19,8 @@ namespace Game.Players
         [SerializeField] PlayerInput input;
         Team _;
         public Team Team { get => Team.Friendly; set => _ = value; }
-        [SerializeField] float _health;
+        public float MaxHealth { get => stats.MaxHealth; }
+        public float Health { get => stats.Health; set => stats.Health = value; }
         SpriteAnimator animator;
         [SerializeField] SpriteAnimationSO hurtAnimation;
         private void Awake()
@@ -38,19 +39,16 @@ namespace Game.Players
         private void OnEnable()
         {
             players.Add(this);
+            EventManager.OnPlayerSpawn(gameObject);
         }
         private void OnDisable()
         {
             players.Remove(this);
+            EventManager.OnPlayerDespawn(gameObject);
         }
 
-        private void Start()
-        {
-            EventManager.OnPlayerSpawn(gameObject);
-        }
         public void Update()
         {
-            _health = stats.Health;
             Keyboard keyboard = Keyboard.current;
             if (keyboard.numpadPlusKey.wasPressedThisFrame)
                 foreach(var attribute in Enum.GetValues(typeof(AttributeID)))
@@ -58,11 +56,6 @@ namespace Game.Players
             else if (keyboard.numpadMinusKey.wasPressedThisFrame)
                 foreach (var attribute in Enum.GetValues(typeof(AttributeID)))
                     stats.Add(new StatModifier(-0.1f, this, stats[(AttributeID)attribute], StatType.Flat), (AttributeID)attribute);
-        }
-
-        private void OnDestroy()
-        {
-            EventManager.OnPlayerDespawn(gameObject);
         }
         public float Hit(float damage)
         {

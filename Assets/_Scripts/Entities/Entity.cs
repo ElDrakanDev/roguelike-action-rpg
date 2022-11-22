@@ -38,6 +38,7 @@ namespace Game.Entities
             } 
         }
         public Team Team { get => _stats.team; set { _stats.team = value; UpdateEntitiesLeft(); } }
+        public float MaxHealth => Stats.maxHealth;
 
         #region Creation
         public static Entity Create(EntityDataSO data, Vector3 position)

@@ -1,10 +1,12 @@
+using Game.Interfaces;
+using Game.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Stats
 {
-    public class CharacterStats
+    public class CharacterStats : IHittable
     {
         public readonly Dictionary<AttributeID, Stat> statsDict = new Dictionary<AttributeID, Stat>();
         public Dictionary<AttributeID, Stat>.KeyCollection Attributes { get => statsDict.Keys; }
@@ -37,15 +39,18 @@ namespace Game.Stats
             get => _health; 
             set 
             {
-                if (value < 0)
+                if (value <= 0)
                 {
                     _health = 0;
                     onHealth0?.Invoke();
                 } 
-                else if (value > statsDict[AttributeID.MaxHealth].Value) _health = statsDict[AttributeID.MaxHealth].Value;
+                else if (value > MaxHealth) _health = MaxHealth;
                 else _health = value;
             } 
         }
+
+        public float MaxHealth { get => statsDict[AttributeID.MaxHealth].Value; }
+        public Team Team { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public CharacterStats(dynamic owner, BaseStatValue[] baseStats, Action onHealth0 = null)
         {
