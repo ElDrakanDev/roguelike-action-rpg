@@ -33,6 +33,10 @@ namespace Game.Events
         public static void OnPlayerSpawn(GameObject player) => onPlayerSpawn?.Invoke(player);
         public static event Action<GameObject> onPlayerDespawn;
         public static void OnPlayerDespawn(GameObject player) => onPlayerDespawn?.Invoke(player);
+        public static event Action<GameObject> onPlayerDeath;
+        public static void OnPlayerDeath(GameObject player) => onPlayerDeath?.Invoke(player);
+        public static event Action onPlayerLose;
+        public static void OnPlayerLose() => onPlayerLose?.Invoke();
         public static event Action onRoomChange;
         public static void OnRoomChange() => onRoomChange?.Invoke();
         public static event Action<int> onRoomTypeChange;
@@ -43,8 +47,6 @@ namespace Game.Events
         public static void OnUnlock(string unlockName) => onUnlock?.Invoke(unlockName);
         public static event Action<string, string, Sprite> onUnlockShow;
         public static void OnUnlockShow(string unlockName, string description, Sprite icon) => onUnlockShow?.Invoke(unlockName, description, icon);
-        public static event Action onPlayerLose;
-        public static void OnPlayerLose() => onPlayerLose?.Invoke();
         #endregion
     }
 }

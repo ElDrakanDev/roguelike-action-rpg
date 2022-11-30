@@ -10,12 +10,14 @@ namespace Game.General
     public class InteractableOutline : MonoBehaviour, IInteractable
     {
         [SerializeField] ToggleOutline outline;
+        Material normalMaterial;
         SpriteRenderer spriteRenderer;
         GameObject currentInspector = null;
 
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
+            normalMaterial = spriteRenderer.material;
         }
         private void OnEnable() => EventManager.onInteractableInspect += CheckInspect;
         private void OnDisable() => EventManager.onInteractableInspect -= CheckInspect;
@@ -33,7 +35,7 @@ namespace Game.General
             }
             else if(currentInspector == inspector || currentInspector is null)
             {
-                spriteRenderer.material = outline.normalMaterial;
+                spriteRenderer.material = normalMaterial != outline.hoverMaterial ? normalMaterial : outline.normalMaterial;
                 currentInspector = null;
             }
         }

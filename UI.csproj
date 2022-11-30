@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\_Scripts\UI\PlayerSelectionData.cs" />
     <Compile Include="Assets\_Scripts\UI\Minimap.cs" />
+    <Compile Include="Assets\_Scripts\UI\LayeredBar.cs" />
     <Compile Include="Assets\_Scripts\UI\PlayerSelectionPanel.cs" />
     <Compile Include="Assets\_Scripts\UI\UITextDescription.cs" />
     <Compile Include="Assets\_Scripts\UI\FpsCounter.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="Assets\_Scripts\UI\UITextName.cs" />
     <Compile Include="Assets\_Scripts\UI\UnlockNotification.cs" />
     <Compile Include="Assets\_Scripts\UI\PlayerLifeBarManager.cs" />
-    <Compile Include="Assets\_Scripts\UI\LayeredBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\UI\UI.asmdef" />
@@ -766,10 +766,6 @@
       <Project>{E1029596-0002-285C-9258-99EE3E672C6B}</Project>
       <Name>Unity.InputSystem</Name>
     </ProjectReference>
-    <ProjectReference Include="Player.csproj">
-      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
-      <Name>Player</Name>
-    </ProjectReference>
     <ProjectReference Include="NewAssembly.csproj">
       <Project>{84BADABC-5948-4A6B-63CB-360953822817}</Project>
       <Name>NewAssembly</Name>
@@ -781,6 +777,10 @@
     <ProjectReference Include="Interfaces.csproj">
       <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
       <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="Core.csproj">
+      <Project>{FB201A15-CFC1-1DE3-1061-200CCD23134C}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{11CDAF9F-B0E7-A45A-F507-64526D6DB6CA}</Project>

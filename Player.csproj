@@ -61,6 +61,7 @@
     <Compile Include="Assets\_Scripts\Players\Player.cs" />
     <Compile Include="Assets\_Scripts\Players\ControllerState.cs" />
     <Compile Include="Assets\_Scripts\Players\PlayerController.cs" />
+    <Compile Include="Assets\_Scripts\Players\PlayerGhost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\_Scripts\Players\Players.asmdef" />

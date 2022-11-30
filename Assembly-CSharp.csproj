@@ -56,7 +56,6 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Scripts\Core\ShowStat.cs" />
     <Compile Include="Assets\_Scripts\Effects\AddStats.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -746,14 +745,6 @@
       <Project>{3800AC0F-EA39-077B-17FA-33398D69D5F9}</Project>
       <Name>PsdPlugin</Name>
     </ProjectReference>
-    <ProjectReference Include="Items.csproj">
-      <Project>{7843235E-1411-4679-E23B-380C8E235774}</Project>
-      <Name>Items</Name>
-    </ProjectReference>
-    <ProjectReference Include="Player.csproj">
-      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
-      <Name>Player</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{185857C6-B34A-E4F8-2A17-61ED5B65F38E}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
@@ -814,10 +805,6 @@
       <Project>{F8FCD9C7-8FC4-083A-F651-F639C173003C}</Project>
       <Name>Unity.2D.IK.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="Weapons.csproj">
-      <Project>{54A735B0-A6C5-2793-46F0-6C403985CD3A}</Project>
-      <Name>Weapons</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.ShaderGraph.Editor.csproj">
       <Project>{3027750A-1C7C-68BF-F9D2-0E8DB1AC3EE1}</Project>
       <Name>Unity.ShaderGraph.Editor</Name>
@@ -830,9 +817,9 @@
       <Project>{0D6D916C-A73A-B2AB-F44C-3706796E53F4}</Project>
       <Name>Unity.VisualScripting.SettingsProvider.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Entities.csproj">
-      <Project>{4DBC774F-141F-0AFB-21CF-634FC6AF30E6}</Project>
-      <Name>Entities</Name>
+    <ProjectReference Include="com.unity.cinemachine.editor.csproj">
+      <Project>{D25B7E66-00C3-E327-8ED6-6453E0642E04}</Project>
+      <Name>com.unity.cinemachine.editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unlocks.csproj">
       <Project>{747E1FA9-8DFA-EDE7-9435-31B3724D9F85}</Project>
@@ -841,10 +828,6 @@
     <ProjectReference Include="Helpers.csproj">
       <Project>{941DF200-BDF5-A3A9-0E80-B5891AD8BCFC}</Project>
       <Name>Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="com.unity.cinemachine.editor.csproj">
-      <Project>{D25B7E66-00C3-E327-8ED6-6453E0642E04}</Project>
-      <Name>com.unity.cinemachine.editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.csproj">
       <Project>{4E217833-67CC-E5FC-A090-DFCDB7DB251D}</Project>
@@ -910,9 +893,9 @@
       <Project>{C61AB550-AC0A-5F96-F576-9DCAEFA958BD}</Project>
       <Name>Unity.Burst.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="States.csproj">
-      <Project>{FBE8BC23-24C1-922E-224D-5C31285B1F74}</Project>
-      <Name>States</Name>
+    <ProjectReference Include="Core.csproj">
+      <Project>{FB201A15-CFC1-1DE3-1061-200CCD23134C}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
       <Project>{9DAD1398-456E-A7B6-5705-0C63EDE445CF}</Project>
@@ -1013,10 +996,6 @@
     <ProjectReference Include="UI.csproj">
       <Project>{67A83228-6674-C76E-3359-C7C347FC35D0}</Project>
       <Name>UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Projectiles.csproj">
-      <Project>{E1331F8C-FA84-806E-1E8B-14DC9B7BCB71}</Project>
-      <Name>Projectiles</Name>
     </ProjectReference>
     <ProjectReference Include="RNG.csproj">
       <Project>{5458B5D0-5606-6034-9445-4721D2D57E7C}</Project>

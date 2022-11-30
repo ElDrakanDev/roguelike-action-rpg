@@ -9,7 +9,7 @@ using Game.Events;
 namespace Game.Projectiles
 {
     [RequireComponent(typeof(Collider2D))]
-    public class Projectile : MonoBehaviour
+    public class Projectile : BaseEntity
     {
         public static List<Projectile> projectiles = new List<Projectile>();
         [SerializeField] protected Rigidbody2D rb;
@@ -21,11 +21,12 @@ namespace Game.Projectiles
         public GameObject owner;
         [SerializeField] ProjectileStats _stats;
         public ProjectileStats Stats { get => _stats; protected set => _stats = value; }
-        public virtual Vector3 Velocity { get => rb.velocity; set => rb.velocity = value; }
-        public Team Team { get => _stats.team; set => _stats.team = value; }
+        protected virtual Vector3 _rbVelocity { get => rb.velocity; set => rb.velocity = value * TimeScale; }
+        public Vector3 Velocity;
         [SerializeField] List<Collider2D> hitColliders = new List<Collider2D>();
         public int Pierces { get => _stats.pierces; set { _stats.pierces = value; if (value == 0) Kill(); } }
         public int Bounces { get => _stats.bounces; set { _stats.bounces = value; if (value == 0) Kill(); } }
+        new public Team Team { get => _stats.team; set => _stats.team = value; }
 
         #region Creation
         public static Projectile Create(
@@ -68,7 +69,7 @@ namespace Game.Projectiles
         private void OnTriggerEnter2D(Collider2D collision)
         {
             int collisionLayer = collision.gameObject.layer;
-            if (collisionLayer == Layers.GROUND) { 
+            if (collisionLayer == Layers.GROUND) {
                 OnEnterGround(collision);
                 Bounces--;
             }
@@ -160,13 +161,22 @@ namespace Game.Projectiles
             if (_container) Destroy(_container);
             else Destroy(gameObject);
         }
+        private void Start()
+        {
+            _rbVelocity = Velocity;
+        }
         private void Update()
         {
-            Stats.lifeTime -= Time.deltaTime;
+            Stats.lifeTime -= Time.deltaTime * TimeScale;
             if (Stats.lifeTime <= 0) LifeTimeEnd();
             AIUpdate();
         }
-        private void FixedUpdate() => AIFixedUpdate();
+        private void FixedUpdate()
+        { 
+            _rbVelocity = Velocity;
+            AIFixedUpdate();
+        }
+        protected virtual void AIStart() { }
         protected virtual void AIUpdate() { }
         protected virtual void AIFixedUpdate() { }
         protected virtual Vector2 GetKnockbackDirection() => Velocity.normalized;

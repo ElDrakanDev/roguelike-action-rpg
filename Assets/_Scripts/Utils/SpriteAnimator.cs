@@ -38,7 +38,7 @@ namespace Game.Utils
                 NextFrame();
             }
         }
-
+        public void EndAllAnimations() => currentAnimation = null;
         public void SetAnimation(SpriteAnimationSO animation, bool force = false)
         {
             if(

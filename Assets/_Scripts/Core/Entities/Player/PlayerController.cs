@@ -2,16 +2,16 @@ using UnityEngine;
 using Game.Events;
 using UnityEngine.InputSystem;
 using Game.Interfaces;
-using Game.Input;
 using Game.Utils;
 using System.Collections.Generic;
 using System;
 
 namespace Game.Players
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IContext<ControllerState>
     {
-        Dictionary<string, Action<InputAction.CallbackContext>> inputHandlers;
+        Dictionary<string, Action<InputAction.CallbackContext>> _inputHandlers;
+        Dictionary<string, Action<InputAction.CallbackContext>> _moveSkills;
         Rigidbody2D rb;
         Player player;
         BoxCollider2D boxCollider;
@@ -21,12 +21,13 @@ namespace Game.Players
         bool usingWeapon = false;
         GameObject closestInteractable;
         ControllerState _current;
-        //PlayerActionsControls playerControls;
         SpriteAnimator animator;
         SpriteRenderer spriteRenderer;
         bool facingRightOnStart;
         bool FacingRight { get => facingRightOnStart && !spriteRenderer.flipX; }
         PlayerInput input;
+        [SerializeField] string _moveSkill = "Dash";
+        public float TimeScale { get => player.TimeScale; set => player.TimeScale = value; }
 
         [Header("Animation")]
         [SerializeField] SpriteAnimationSO idleAnimation;
@@ -42,10 +43,20 @@ namespace Game.Players
             get
             {
                 if (_current is null)
-                    _current = new GroundedMoveState(gameObject, player);
+                    _current = gameObject.AddComponent<GroundedMoveState>();
                 return _current;
             }
-            protected set => _current = value;
+            set
+            {
+                _current.Context = null;
+                Destroy(Current);
+                _current = value;
+                _current.Context = (IContext<IState>)this;
+                _moveSkills = new()
+                {
+                    {"Dash", Current.Dash }
+                };
+            }
         }
         #region Initialization
         void Awake()
@@ -53,20 +64,22 @@ namespace Game.Players
             rb = GetComponent<Rigidbody2D>();
             player = GetComponent<Player>();
             animator = GetComponent<SpriteAnimator>();
-            //playerControls = new PlayerActionsControls();
             interactableLayer = LayerMask.GetMask("Interactable");
             boxCollider = gameObject.GetComponent<BoxCollider2D>();
-            Current = new GroundedMoveState(gameObject, player);
             spriteRenderer = GetComponent<SpriteRenderer>();
             facingRightOnStart = spriteRenderer.flipX is false;
             input = GetComponent<PlayerInput>();
-            inputHandlers = new()
+            _inputHandlers = new()
             {
                 {"Movement", Move },
                 {"Jump", Jump },
-                {"MoveSkill", Dash },
+                {"MoveSkill", MoveSkill },
                 {"Interact", Interact },
                 {"MainAttack", MainAttack }
+            };
+            _moveSkills = new()
+            {
+                {"Dash", Current.Dash }
             };
         }
         private void OnEnable() => input.onActionTriggered += HandleInput;
@@ -74,15 +87,10 @@ namespace Game.Players
         #endregion
         void Update()
         {
-            Current.Update();
             if (usingWeapon) player.weapon?.Use();
             player.weapon?.Aim(direction);
 
             UpdateAnimation();
-        }
-        void FixedUpdate()
-        {
-            Current.FixedUpdate();
             CheckInteractables();
         }
         #region Animation
@@ -126,7 +134,7 @@ namespace Game.Players
         #region Controls
         void HandleInput(InputAction.CallbackContext context)
         {
-            if (inputHandlers.TryGetValue(context.action.name, out var handler))
+            if (_inputHandlers.TryGetValue(context.action.name, out var handler))
                 handler(context);
         }
         void Move(InputAction.CallbackContext context)
@@ -135,7 +143,7 @@ namespace Game.Players
             Current.ReadMovement(context);
         }
         void Jump(InputAction.CallbackContext context) => Current.Jump(context);
-        void Dash(InputAction.CallbackContext context) => Current.Dash(context);
+        void MoveSkill(InputAction.CallbackContext context) => _moveSkills[_moveSkill](context);
         void MainAttack(InputAction.CallbackContext context)
         {
             if (context.started)

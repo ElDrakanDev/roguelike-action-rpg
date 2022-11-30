@@ -5,7 +5,7 @@ namespace Game.Projectiles
 {
     public class SwingProjectile : Projectile
     {
-        public override Vector3 Velocity { get; set; }
+        protected override Vector3 _rbVelocity { get; set; }
 
         protected override void Initialize(GameObject owner, ProjectileDataSO data, float damage, Team state, Vector2 velocity, float knockback = 1)
         {

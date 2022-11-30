@@ -764,10 +764,6 @@
       <Project>{0E21FB57-1F01-2CB5-654C-9A2512E2C052}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="Player.csproj">
-      <Project>{B6812055-BE4C-E6A1-E59A-8BE480DA0D3D}</Project>
-      <Name>Player</Name>
-    </ProjectReference>
     <ProjectReference Include="Run.csproj">
       <Project>{7197A02B-66D4-67CB-18CA-471C0D961262}</Project>
       <Name>Run</Name>

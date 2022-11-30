@@ -22,6 +22,7 @@ namespace Game.Weapons
         WeaponAttack[] Attacks { get => weaponData.attacks; }
         public float FlatBonus { get => Owner.stats.StatTotal(stats.flatAttributes); }
         public float Multiplier { get => Owner.stats.StatTotal(stats.multAttributes); }
+        float _timeScale { get { if (_owner) return _owner.TimeScale; return 1; } }
         public float Damage {
             get
             {
@@ -35,7 +36,7 @@ namespace Game.Weapons
         {
             get
             {
-                float multiplier = Owner is not null ? Owner.stats[AttributeID.Agility].Value : 0;
+                float multiplier = Owner is not null ? Owner.stats[AttributeID.Agility].Value * _timeScale : 0;
                 if (multiplier < MIN_ATTACK_SPEED_MULTIPLIER) return MIN_ATTACK_SPEED_MULTIPLIER;
                 return multiplier;
             }

@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4596526033102975042, guid: bc6e2c79cd95447468c867cb4ed8d9e4, type: 3}
       propertyPath: m_Name
-      value: Gus Friendly
+      value: Skull Friendly
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc6e2c79cd95447468c867cb4ed8d9e4, type: 3}

@@ -6,35 +6,26 @@ using Game.Interfaces;
 using Game.Utils;
 using System.Collections.Generic;
 using System;
-using Game.Unlocks;
 
 namespace Game.Players
 {
-    public class Player : MonoBehaviour, IHittable
+    public class Player : BaseEntity, IHittable
     {
         public static List<Player> players = new();
         public CharacterStats stats;
         public IWeapon weapon;
-        [SerializeField] BaseStatObject baseStats;
-        [SerializeField] PlayerInput input;
         Team _;
-        public Team Team { get => Team.Friendly; set => _ = value; }
+        new public Team Team { get => Team.Friendly; set => _ = value; }
         public float MaxHealth { get => stats.MaxHealth; }
         public float Health { get => stats.Health; set => stats.Health = value; }
         SpriteAnimator animator;
+        [SerializeField] BaseStatObject _baseStats;
         [SerializeField] SpriteAnimationSO hurtAnimation;
+        [SerializeField] PlayerGhost ghost;
         private void Awake()
         {
             animator = GetComponent<SpriteAnimator>();
-            stats = new CharacterStats(this, baseStats.baseStats, () => {
-                if (players.Count == 1)
-                {
-                    UnlockManager.Instance.saveFileData.stats.deaths++;
-                    EventManager.OnPlayerLose();
-                    Debug.Log($"Run lost");
-                }
-                Destroy(gameObject); 
-            });
+            stats = new CharacterStats(this, _baseStats.baseStats, OnDeath);
         }
         private void OnEnable()
         {
@@ -56,6 +47,16 @@ namespace Game.Players
             else if (keyboard.numpadMinusKey.wasPressedThisFrame)
                 foreach (var attribute in Enum.GetValues(typeof(AttributeID)))
                     stats.Add(new StatModifier(-0.1f, this, stats[(AttributeID)attribute], StatType.Flat), (AttributeID)attribute);
+        }
+        void OnDeath()
+        {
+            foreach (var controller in GetComponents<PlayerController>()) controller.enabled = false;
+            animator.EndAllAnimations();
+            EventManager.OnPlayerDeath(gameObject);
+            //instantiate corpse
+            ghost.enabled = true;
+            this.enabled = false;
+            
         }
         public float Hit(float damage)
         {
